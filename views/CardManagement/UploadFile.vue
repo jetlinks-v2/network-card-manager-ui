@@ -57,8 +57,7 @@ import {
   downloadFileByUrl
 } from '@jetlinks-web/utils'
 import { exportCard, _import } from '../../api/cardManagement'
-import { TOKEN_KEY } from '@jetlinks-web/constants'
-const BASE_API_PATH = import.meta.env.VITE_APP_BASE_API
+import { TOKEN_KEY, TOKEN_KEY_URL, BASE_API } from '@jetlinks-web/constants'
 
 type Emits = {
   (e: 'update:modelValue', data: string[]): void
@@ -141,9 +140,9 @@ const handleImport = async (file: any) => {
   importStatus.value = 'importing'
   let event: EventSource
   event = new EventSource(
-    `${BASE_API_PATH}/network/card/${
+    `${BASE_API}/network/card/${
       props.product
-    }/_import?:X_Access_Token=${getToken()}&fileUrl=${file.result}`,
+    }/_import?${TOKEN_KEY_URL}=${getToken()}&fileUrl=${file.result}`,
     { withCredentials: true }
   )
   event.onopen = (e) => {

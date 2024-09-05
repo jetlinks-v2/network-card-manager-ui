@@ -1,25 +1,23 @@
-import onelinkUrl from '../assets/iot-card/onelink.png'
-import ctwingUrl from '../assets/iot-card/ctwingcmp.png'
-import unicomUrl from '../assets/iot-card/unicom.png'
+import { iotCard } from '../assets/index'
 
 // 平台类型
 export const platformTypeList = [
   {
     label: '移动OneLink',
     value: 'onelink',
-    imgUrl: onelinkUrl,
+    imgUrl: iotCard.onelink,
     imgSize: ['78px', '20px']
   },
   {
     label: '电信Ctwing',
     value: 'ctwing',
-    imgUrl: ctwingUrl,
+    imgUrl: iotCard.ctwingCmp,
     imgSize: ['52px', '25px']
   },
   {
     label: '联通Unicom',
     value: 'unicom',
-    imgUrl: unicomUrl,
+    imgUrl: iotCard.unicom,
     imgSize: ['56px', '41px']
   }
 ]

@@ -28,7 +28,7 @@ import { paramsEncodeQuery } from '@/utils/encodeQuery'
 import { getToken, LocalStore, setToken } from '@jetlinks-web/utils'
 import { EventSourcePolyfill } from 'event-source-polyfill'
 import { queryCount } from '../../api/cardManagement'
-const BASE_API_PATH = import.meta.env.VITE_APP_BASE_API
+import { BASE_API, TOKEN_KEY_URL } from '@jetlinks-web/constants'
 
 const emit = defineEmits(['close'])
 
@@ -65,7 +65,7 @@ const getData = () => {
       urlParams.append(key, _params[key])
     }
   })
-  const api = `${BASE_API_PATH}/network/card/state/_sync?:X_Access_Token=${getToken()}&${urlParams}`
+  const api = `${BASE_API}/network/card/state/_sync?${TOKEN_KEY_URL}=${getToken()}&${urlParams}`
   const esp = new EventSourcePolyfill(api)
 
   esp.onmessage = (e) => {

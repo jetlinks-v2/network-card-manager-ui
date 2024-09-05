@@ -45,7 +45,7 @@
           >
             <template #img>
               <slot name="img">
-                <img src="../../assets/iot-card/iot-card-bg.png" />
+                <img :src="iotCard.iotCardBg" />
               </slot>
             </template>
             <template #content>
@@ -125,7 +125,8 @@
 <script setup lang="ts">
 import { onlyMessage } from '@jetlinks-web/utils'
 import { queryList, update, del } from '../../api/platform'
-import { useMenuStore } from '@/store/menu'
+import { useMenuStore } from '@/store'
+import { iotCard, home } from '../../assets'
 const menuStory = useMenuStore()
 const router = useRouter()
 const platformRef = ref<Record<string, any>>({})

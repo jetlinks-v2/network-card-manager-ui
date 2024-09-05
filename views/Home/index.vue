@@ -74,7 +74,7 @@
         <div class="home-body">
           <Guide title="平台架构图" english="PLATFORM ARCHITECTURE DIAGRAM" />
           <div class="home-body-img">
-            <img :src="iotCardHomeImg" />
+            <img :src="iotCard.iotcardHome" />
           </div>
         </div>
       </a-col>
@@ -83,13 +83,13 @@
 </template>
 
 <script setup lang="ts" name="IotCardHome">
-import { onlyMessage } from '@/utils/comm'
+import { onlyMessage } from '@jetlinks-web/utils'
 import Guide from '../components/Guide.vue'
 import moment from 'dayjs'
 import { queryFlow, list } from '../../api/home'
 import * as echarts from 'echarts'
-import { useMenuStore } from '@/store/menu'
-import { useAuthStore } from '@/store'
+import { useAuthStore, useMenuStore } from '@/store'
+import { iotCard, home } from '../../assets'
 
 const { proxy } = <any>getCurrentInstance()
 
@@ -103,10 +103,6 @@ interface GuideItemProps {
   auth: boolean
 }
 
-import iotCardHomeImg from '../../assets/iot-card/iotcard-home.png'
-import home1 from '../../assets/home/1.png'
-import home2 from '../../assets/home/2.png'
-import home3 from '../../assets/home/3.png'
 const menuStory = useMenuStore()
 const menuHasPermission = useMenuStore().hasMenu
 const btnHasPermission = useAuthStore().hasPermission
@@ -122,9 +118,9 @@ const paltformPermission = btnHasPermission(`iot-card/Platform:add`)
 const cardPermission = btnHasPermission(`iot-card/CardManagement:add`)
 
 const Image = {
-  1: home1,
-  2: home2,
-  3: home3
+  1: home.home1,
+  2: home.home2,
+  3: home.home3
 }
 const guideList = [
   {

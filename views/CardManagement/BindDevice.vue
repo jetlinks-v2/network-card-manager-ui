@@ -55,7 +55,7 @@
 <script setup lang="ts">
 import { queryUnbounded, bind } from '../../api/cardManagement'
 import dayjs from 'dayjs'
-import { onlyMessage } from '@/utils/comm'
+import { onlyMessage } from '@jetlinks-web/utils'
 
 const emit = defineEmits(['change'])
 

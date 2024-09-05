@@ -24,7 +24,7 @@
       获取路径：“中移物联卡能力开放平台”--“个人中心”--“客户信息”--“接入信息”
     </p>
     <div class="image">
-      <a-image width="100%" :src="onelinkAppid" />
+      <a-image width="100%" :src="iotCard.onelinkAppid" />
     </div>
     <h2>2、Password</h2>
     <p>
@@ -33,7 +33,7 @@
       获取路径：“中移物联卡能力开放平台”--“个人中心”--“客户信息”--“接入信息”
     </p>
     <div class="image">
-      <a-image width="100%" :src="onelinkPass" />
+      <a-image width="100%" :src="iotCard.onelinkPass" />
     </div>
     <h2>3、接口地址</h2>
     <p>
@@ -70,7 +70,7 @@
         获取路径：“5G连接管理平台”--“能力开放”--“API网关账号管理”
       </p>
       <div class="image">
-        <a-image width="100%" :src="ctwingId" />
+        <a-image width="100%" :src="iotCard.ctwingId" />
       </div>
 
       <h2>2、密码</h2>
@@ -80,7 +80,7 @@
         获取路径：“5G连接管理平台”--“能力开放”--“API网关账号管理”
       </p>
       <div class="image">
-        <a-image width="100%" :src="ctwingPass" />
+        <a-image width="100%" :src="iotCard.ctwingPass" />
       </div>
 
       <h2>3、secretKey</h2>
@@ -90,7 +90,7 @@
         获取路径：“5G连接管理平台”--“能力开放”--“API网关账号管理”
       </p>
       <div class="image">
-        <a-image width="100%" :src="ctwingSecret" />
+        <a-image width="100%" :src="iotCard.ctwingSecret" />
       </div>
     </div>
   </div>
@@ -121,7 +121,7 @@
         获取路径：“雁飞智连CMP平台”--“我的应用”--“应用列表”
       </p>
       <div class="image">
-        <a-image width="100%" :src="unicomId" />
+        <a-image width="100%" :src="iotCard.unicomId" />
       </div>
 
       <h2>2、App Secret</h2>
@@ -131,7 +131,7 @@
         获取路径：“雁飞智连CMP平台”--“我的应用”--“应用列表”
       </p>
       <div class="image">
-        <a-image width="100%" :src="unicomSecret" />
+        <a-image width="100%" :src="iotCard.unicomSecret" />
       </div>
 
       <h2>3、创建者ID</h2>
@@ -142,22 +142,14 @@
         <br />
       </p>
       <div class="image">
-        <img width="100%" src="../../../assets/iot-card/unicom-openid.png" />
-        <a-image width="100%" :src="unicomOpenid" />
+        <a-image width="100%" :src="iotCard.unicomOpenid" />
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import onelinkAppid from '../../../assets/iot-card/onelink-appid.png'
-import onelinkPass from '../../../assets/iot-card/onelink-pass.png'
-import ctwingId from '../../../assets/iot-card/ctwing-id.png'
-import ctwingPass from '../../../assets/iot-card/ctwing-pass.png'
-import ctwingSecret from '../../../assets/iot-card/ctwing-secret.png'
-import unicomId from '../../../assets/iot-card/unicom-id.png'
-import unicomSecret from '../../../assets/iot-card/unicom-secret.png'
-import unicomOpenid from '../../../assets/iot-card/unicom-openid.png'
+import { iotCard } from '../../../assets'
 const props = defineProps({
   type: { type: String, default: 'onelink' }
 })

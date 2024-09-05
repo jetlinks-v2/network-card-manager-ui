@@ -59,7 +59,7 @@
           >
             <template #img>
               <slot name="img">
-                <img src="../../assets/iot-card/iot-card-bg.png" />
+                <img :src="iotCard.iotCardBg" />
               </slot>
             </template>
             <template #content>
@@ -294,11 +294,11 @@ import BindDevice from './BindDevice.vue'
 import Import from './Import.vue'
 import Export from './Export.vue'
 import Save from './Save.vue'
-import { useMenuStore } from '@/store/menu'
-import { BatchActionsType } from '../../components/BatchDropdown/types'
-import { usePermissionStore } from '../../store/permission'
+import { BatchActionsType } from '@/components/BatchDropdown/types'
+import { useMenuStore, useAuthStore } from '@/store'
 import SyncModal from './Sync.vue'
 import { OperatorList, OperatorMap } from '../data'
+import { iotCard } from '../../assets'
 
 const router = useRouter()
 const menuStory = useMenuStore()
@@ -507,7 +507,7 @@ const columns = [
     scopedSlots: true
   }
 ]
-const btnHasPermission = usePermissionStore().hasPermission
+const btnHasPermission = useAuthStore().hasPermission
 const paltformPermission = btnHasPermission(`iot-card/Platform:add`)
 const importSave = () => {
   cardManageRef.value?.reload()

@@ -4,7 +4,6 @@ const MODULE_CODE = 'iot-card'
 const getAsyncRoutesMap = () => {
   const modules = {}
   Object.keys(routerModules).forEach((item) => {
-    console.log('routerModules', routerModules)
     const code = item.replace('./views/', '').replace('/index.vue', '')
     const key = `${MODULE_CODE}/${code}`
     modules[key] = routerModules[item]
