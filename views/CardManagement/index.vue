@@ -24,6 +24,7 @@
             : false
         "
         :params="params"
+        modeValue="CARD"
         :gridColumns="[3, 3, 3]"
       >
         <template #headerLeftRender>
