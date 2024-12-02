@@ -133,7 +133,7 @@
 import Guide from '../components/Guide.vue'
 import LineChart from '../components/LineChart.vue'
 import dayjs from 'dayjs'
-import { queryFlow } from '../../api/home'
+import { getIsTimer, queryFlow } from '../../api/home'
 import TimeSelect from '../components/TimeSelect.vue'
 import { Empty } from 'ant-design-vue'
 
@@ -147,6 +147,7 @@ const yearOptions = ref<any[]>([])
 const flowData = ref<any[]>([])
 const topList = ref<any[]>([])
 const topTotal = ref(0)
+const isTimer = ref(false)
 
 const quickBtnList = [
   { label: '昨日', value: 'yesterday' },
@@ -155,22 +156,26 @@ const quickBtnList = [
   { label: '近一年', value: 'year' }
 ]
 
-const getData = (start: number, end: number): Promise<{ sortArray: any[] }> => {
+const getData = (start: number, end: number, params: any): Promise<{ sortArray: any[] }> => {
   return new Promise((resolve) => {
-    queryFlow(start, end, {
-      orderBy: 'date'
-    }).then((resp: any) => {
+    queryFlow(start, end, params).then((resp: any) => {
       if (resp.status === 200) {
-        const sortArray = resp.result.sort(
-          (a: any, b: any) =>
-            new Date(a.date).getTime() - new Date(b.date).getTime()
-        )
+        let sortArray = [];
+        if(isTimer.value){
+          sortArray = resp.result.reverse()
+        } else {
+          sortArray = resp.result.sort(
+            (a: any, b: any) =>
+              new Date(a.date).getTime() - new Date(b.date).getTime(),
+          );
+        }
+        const arr = sortArray.map(i => ({...i, value: Number(i.value / 1024)}))
         resolve({
-          sortArray
-        })
+          sortArray: arr
+        });
       }
-    })
-  })
+    });
+  });
 }
 
 /**
@@ -179,52 +184,119 @@ const getData = (start: number, end: number): Promise<{ sortArray: any[] }> => {
 const getDataTotal = () => {
   const dTime = [
     dayjs().subtract(1, 'day').startOf('day').valueOf(),
-    dayjs().subtract(1, 'day').endOf('day').valueOf()
-  ]
+    dayjs().subtract(1, 'day').endOf('day').valueOf(),
+  ];
+  const dParams = isTimer.value ? {
+    context: {
+      format: "M月dd日 HH:mm:ss",
+      time: "1h",
+      from: dTime?.[0],
+      to: dTime?.[1],
+      limit: 24
+    }
+  } : {
+    orderBy: 'date',
+  }
   const mTime = [
     dayjs().startOf('month').valueOf(),
-    dayjs().endOf('month').valueOf()
-  ]
+    dayjs().endOf('month').valueOf(),
+  ];
+  const mParams = isTimer.value ? {
+    "context": {
+      format: "Y年M月d日",
+      time: "1d",
+      from: mTime?.[0],
+      to: mTime?.[1],
+      limit: 30
+    }
+  } : {
+    orderBy: 'date',
+  }
   const yTime = [
     dayjs().startOf('year').valueOf(),
-    dayjs().endOf('year').valueOf()
-  ]
-  getData(dTime[0], dTime[1]).then((resp) => {
+    dayjs().endOf('year').valueOf(),
+  ];
+  const yParams = isTimer.value ? {
+    "context": {
+      "format": "Y年M月",
+      "time": "1M",
+      from: yTime?.[0],
+      to: yTime?.[1],
+      "limit": 12
+    }
+  } : {
+    orderBy: 'date',
+  }
+  getData(dTime[0], dTime[1], dParams).then((resp) => {
     dayTotal.value = resp.sortArray
       .reduce((r, n) => r + Number(n.value), 0)
       .toFixed(2)
-    dayOptions.value = resp.sortArray
-  })
-  getData(mTime[0], mTime[1]).then((resp) => {
+    dayOptions.value = resp.sortArray;
+  });
+  getData(mTime[0], mTime[1], mParams).then((resp) => {
     monthTotal.value = resp.sortArray
       .reduce((r, n) => r + Number(n.value), 0)
-      .toFixed(2)
-    monthOptions.value = resp.sortArray
-  })
-  getData(yTime[0], yTime[1]).then((resp) => {
+      .toFixed(2);
+    monthOptions.value = resp.sortArray;
+  });
+  getData(yTime[0], yTime[1], yParams).then((resp) => {
     yearTotal.value = resp.sortArray
       .reduce((r, n) => r + Number(n.value), 0)
-      .toFixed(2)
-    yearOptions.value = resp.sortArray
-  })
-}
+      .toFixed(2);
+    yearOptions.value = resp.sortArray;
+  });
+};
 
 /**
  * 流量统计
  * @param data
  */
 const getEcharts = (data: any) => {
-  let startTime = data.start
-  let endTime = data.end
+  let startTime = data.start;
+  let endTime = data.end;
 
   if (data.type !== 'day') {
-    startTime = dayjs(data.start).startOf('days').valueOf()
-    endTime = dayjs(data.end).startOf('days').valueOf()
+    startTime = dayjs(data.start).startOf('days').valueOf();
+    endTime = dayjs(data.end).startOf('days').valueOf();
   }
-  getData(startTime, endTime).then((resp) => {
-    flowData.value = resp.sortArray
-  })
-}
+  let _time = '1m';
+  let format = 'M月dd日 HH:mm';
+  let limit = 12;
+  const dt = endTime - startTime;
+  const hour = 60 * 60 * 1000;
+  const days = hour * 24;
+  const months = days * 30;
+  const year = 365 * days;
+  if (dt <= (hour + 10)) {
+    _time = '1h'
+    limit = 24
+    format = 'HH:mm';
+  } else if (dt > hour && dt <= days) {
+    _time = '1h'
+    limit = 24;
+
+  } else if (dt > days && dt < year) {
+    limit = Math.abs(Math.ceil(dt / days)) + 1;
+    _time = '1d';
+    format = 'M月dd日';
+  } else if (dt >= year) {
+    limit = Math.abs(Math.floor(dt / months));
+    _time = '1M';
+    format = 'yyyy年-M月';
+  }
+  const params = {
+    context: {
+      time: _time,
+      format: format,
+      limit: limit,
+      from: data.start,
+      to: data.end,
+    }
+  }
+  getData(startTime, endTime, params).then((resp) => {
+    flowData.value = resp.sortArray;
+  });
+};
 
 /**
  * 流量使用TOP10
@@ -232,20 +304,38 @@ const getEcharts = (data: any) => {
  * @param end 结束时间
  */
 const getTopRang = (data: any) => {
-  let startTime = data.start
-  let endTime = data.end
-  queryFlow(startTime, endTime, { orderBy: 'usage' }).then((resp: any) => {
+  let startTime = data.start;
+  let endTime = data.end;
+  const params = isTimer.value ? {
+    orderBy: 'usage',
+    context: {
+      "from": startTime,
+      "to": endTime,
+      "limit": 10
+    }
+  } : {
+    orderBy: 'usage'
+  }
+  queryFlow(startTime, endTime, params).then((resp: any) => {
     if (resp.status === 200) {
       const arr = resp.result
         .slice(0, 10)
-        .sort((a: any, b: any) => b.value - a.value)
-      topTotal.value = arr.length ? arr[0].value : 0
-      topList.value = arr
+        .map(i => ({...i, value: i.value / 1024}))
+        .sort((a: any, b: any) => b.value - a.value);
+      topTotal.value = arr.length ? arr[0].value : 0;
+      topList.value = arr;
+    }
+  });
+};
+
+onMounted(() => {
+  getIsTimer().then(resp => {
+    if (resp.success) {
+      isTimer.value = resp.result
+      getDataTotal();
     }
   })
-}
-
-getDataTotal()
+})
 </script>
 <style scoped lang="less">
 .card-dashboard-container {

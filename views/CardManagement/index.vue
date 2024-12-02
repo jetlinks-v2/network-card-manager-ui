@@ -454,7 +454,7 @@ const columns = [
         { label: '未同步', value: 'notReady' },
         { label: '同步失败', value: 'error' },
         { label: '激活', value: 'using' },
-        { label: '未激活', value: 'toBeActivated' },
+        { label: '待激活', value: 'toBeActivated' },
         { label: '停机', value: 'deactivate' },
         { label: '其它', value: 'other' }
       ]
@@ -499,6 +499,21 @@ const columns = [
         { label: '开始', value: 'start' }
       ]
     }
+  },
+  {
+    title: '同步状态',
+    dataIndex: 'syncCardStatus',
+    key: 'syncCardStatus',
+    search: {
+      type: 'select',
+      options: [
+        {label: '未同步', value: 'notSync'},
+        {label: '等待中', value: 'waiting'},
+        {label: '进行中', value: 'running'},
+        {label: '同步失败', value: 'failed'},
+        {label: '同步成功', value: 'success'},
+      ],
+    },
   },
   {
     title: '操作',

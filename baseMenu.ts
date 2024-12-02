@@ -116,6 +116,10 @@ export default [
                                 permission: 'IotCard-management',
                                 actions: ['export'],
                             },
+                            {
+                                permission: 'network-card',
+                                actions: ['export'],
+                            },
                         ],
                     },
                     {

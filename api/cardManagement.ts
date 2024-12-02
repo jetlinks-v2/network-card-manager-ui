@@ -59,13 +59,13 @@ export const unDeployBatch = (data: any) =>
  * @param data
  */
 export const resumptionBatch = (data: any) =>
-  request.get(`/network/card/_resumption/_bitch`, data)
+  request.post(`/network/card/_resumption/_bitch`, data)
 
 /**
  * 同步物联卡状态
  */
 export const sync = (data: any) =>
-  request.get(`/network/card/state/_sync`, data)
+  request.post(`/network/card/state/_sync`, data)
 
 /**
  * 批量删除物联卡

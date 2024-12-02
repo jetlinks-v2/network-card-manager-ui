@@ -45,8 +45,10 @@
               }}</a-descriptions-item>
               <a-descriptions-item label="平台类型">{{
                 platformTypeList.find(
-                  (item) => item.value === detail.operatorPlatformType?.text
-                )?.label || detail.operatorPlatformType?.text
+                  (item) =>
+                    item.value ===
+                    detail.operatorName,
+                )?.label || detail.operatorName
               }}</a-descriptions-item>
               <a-descriptions-item label="平台名称">{{
                 detail.platformConfigName
@@ -222,8 +224,10 @@
               }}</a-descriptions-item>
               <a-descriptions-item label="平台类型">{{
                 platformTypeList.find(
-                  (item) => item.value === detail.operatorPlatformType?.text
-                )?.label || detail.operatorPlatformType?.text
+                  (item) =>
+                    item.value ===
+                    detail.operatorName,
+                )?.label || detail.operatorName
               }}</a-descriptions-item>
               <a-descriptions-item label="平台名称">{{
                 detail.platformConfigName

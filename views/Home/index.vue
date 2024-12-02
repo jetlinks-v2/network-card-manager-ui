@@ -86,7 +86,7 @@
 import { onlyMessage } from '@jetlinks-web/utils'
 import Guide from '../components/Guide.vue'
 import moment from 'dayjs'
-import { queryFlow, list } from '../../api/home'
+import { queryFlow, list, getIsTimer } from '../../api/home'
 import * as echarts from 'echarts'
 import { useAuthStore, useMenuStore } from '@/store'
 import { iotCard, home } from '../../assets'
@@ -209,16 +209,28 @@ const getTodayFlow = async () => {
  * 获取最近15天流量消耗统计图数据
  */
 const get15DaysTrafficConsumption = async () => {
-  const beginTime = moment().subtract(15, 'days').startOf('day').valueOf()
-  const endTime = moment().subtract(1, 'days').endOf('day').valueOf()
-  const resp: any = await queryFlow(beginTime, endTime, { orderBy: 'date' })
+  const beginTime = dayjs().subtract(15, 'days').startOf('day').valueOf();
+  const endTime = dayjs().subtract(1, 'days').endOf('day').valueOf();
+  const dParams = isTimer.value ? {
+    context: {
+      format: "M月dd日",
+      time: "1d",
+      from: beginTime,
+      to: endTime,
+      limit: 15
+    }
+  } : {
+    orderBy: 'date',
+  }
+  const resp: any = await queryFlow(beginTime, endTime, dParams);
   barChartData.value = resp.result
     .map((item: any) => ({
-      ...item
+      ...item,
+      value: item.value / 1024
     }))
-    .reverse()
-  createBarChart()
-}
+    .reverse();
+  createBarChart();
+};
 
 /**
  * 获取物联卡状态数据
@@ -334,9 +346,17 @@ watch(
   { deep: true }
 )
 
-getTodayFlow()
-get15DaysTrafficConsumption()
 getStateCard()
+
+onMounted(() => {
+  getIsTimer().then(resp => {
+    if (resp.success) {
+      isTimer.value = resp.result
+      get15DaysTrafficConsumption();
+      getTodayFlow();
+    }
+  })
+})
 </script>
 
 <style scoped lang="less">
