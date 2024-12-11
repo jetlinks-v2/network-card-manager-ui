@@ -1,0 +1,16 @@
+{
+	"zh": {
+		"CardManagement.Export.427956-0": "导出",
+		"CardManagement.Export.427956-1": "确定",
+		"CardManagement.Export.427956-2": "取消",
+		"CardManagement.Export.427956-3": "文件格式：",
+		"CardManagement.Export.427956-4": "请选择文件格式"
+	},
+	"en": {
+		"CardManagement.Export.427956-0": "export",
+		"CardManagement.Export.427956-1": "determine",
+		"CardManagement.Export.427956-2": "cancel",
+		"CardManagement.Export.427956-3": "File format:",
+		"CardManagement.Export.427956-4": "Please choose a file format"
+	}
+}

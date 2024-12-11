@@ -32,12 +32,14 @@
 <script setup lang="ts">
 import { queryList } from '../../api/record'
 import dayjs from 'dayjs'
+import { useI18n } from 'vue-i18n';
 
+const { t: $t } = useI18n();
 const params = ref<Record<string, any>>({})
 
 const columns = [
   {
-    title: '卡号',
+    title: $t('Record.index.705509-0'),
     dataIndex: 'cardId',
     key: 'cardId',
     ellipsis: true,
@@ -46,7 +48,7 @@ const columns = [
     }
   },
   {
-    title: '操作类型',
+    title: $t('Record.index.705509-1'),
     dataIndex: 'type',
     key: 'type',
     search: {
@@ -54,7 +56,7 @@ const columns = [
     }
   },
   {
-    title: '操作时间',
+    title: $t('Record.index.705509-2'),
     dataIndex: 'time',
     key: 'time',
     scopedSlots: true,
@@ -63,7 +65,7 @@ const columns = [
     }
   },
   {
-    title: '操作人',
+    title: $t('Record.index.705509-3'),
     dataIndex: 'operator',
     key: 'operator',
     ellipsis: true,

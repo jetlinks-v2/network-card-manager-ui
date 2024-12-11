@@ -4,11 +4,11 @@
     <div class="card-dashboard-container">
       <a-card style="margin-bottom: 24px">
         <a-row :gutter="24">
-          <a-col :span="24"><Guide title="数据统计" /></a-col>
+          <a-col :span="24"><Guide :title="$t('Dashboard.index.537937-0')" /></a-col>
           <a-col :span="8">
             <div class="data-statistics-item">
               <div class="flow-info" style="width: 100%">
-                <div class="label">昨日流量消耗</div>
+                <div class="label">{{ $t('Dashboard.index.537937-1') }}</div>
                 <a-tooltip placement="bottomLeft">
                   <template #title>
                     <span>{{ dayTotal }} M</span>
@@ -25,7 +25,7 @@
           <a-col :span="8">
             <div class="data-statistics-item">
               <div class="flow-info" style="width: 100%">
-                <div class="label">当月流量消耗</div>
+                <div class="label">{{ $t('Dashboard.index.537937-2') }}</div>
                 <a-tooltip placement="bottomLeft">
                   <template #title>
                     <span>{{ monthTotal }} M</span>
@@ -42,7 +42,7 @@
           <a-col :span="8">
             <div class="data-statistics-item">
               <div class="flow-info" style="width: 100%">
-                <div class="label">本年流量消耗</div>
+                <div class="label">{{ $t('Dashboard.index.537937-3') }}</div>
                 <a-tooltip placement="bottomLeft">
                   <template #title>
                     <span>{{ yearTotal }} M</span>
@@ -61,7 +61,7 @@
       <a-row :gutter="24">
         <a-col :span="16">
           <div class="static-card">
-            <Guide title="流量统计">
+            <Guide :title="$t('Dashboard.index.537937-4')">
               <template #extra>
                 <TimeSelect
                   key="flow-static"
@@ -86,7 +86,7 @@
         </a-col>
         <a-col :span="8">
           <div class="static-card">
-            <Guide title="流量使用TOP10">
+            <Guide :title="$t('Dashboard.index.537937-5')">
               <template #extra>
                 <TimeSelect
                   key="flow-top10"
@@ -136,7 +136,9 @@ import dayjs from 'dayjs'
 import { getIsTimer, queryFlow } from '../../api/home'
 import TimeSelect from '../components/TimeSelect.vue'
 import { Empty } from 'ant-design-vue'
+import { useI18n } from 'vue-i18n';
 
+const { t: $t } = useI18n();
 const dayTotal = ref(0)
 const monthTotal = ref(0)
 const yearTotal = ref(0)
@@ -150,10 +152,10 @@ const topTotal = ref(0)
 const isTimer = ref(false)
 
 const quickBtnList = [
-  { label: '昨日', value: 'yesterday' },
-  { label: '近一周', value: 'week' },
-  { label: '近一月', value: 'month' },
-  { label: '近一年', value: 'year' }
+  { label: $t('Dashboard.index.537937-6'), value: 'yesterday' },
+  { label: $t('Dashboard.index.537937-7'), value: 'week' },
+  { label: $t('Dashboard.index.537937-8'), value: 'month' },
+  { label: $t('Dashboard.index.537937-9'), value: 'year' }
 ]
 
 const getData = (start: number, end: number, params: any): Promise<{ sortArray: any[] }> => {
@@ -188,7 +190,7 @@ const getDataTotal = () => {
   ];
   const dParams = isTimer.value ? {
     context: {
-      format: "M月dd日 HH:mm:ss",
+      format: $t('Dashboard.index.537937-10'),
       time: "1h",
       from: dTime?.[0],
       to: dTime?.[1],
@@ -203,7 +205,7 @@ const getDataTotal = () => {
   ];
   const mParams = isTimer.value ? {
     "context": {
-      format: "Y年M月d日",
+      format: $t('Dashboard.index.537937-11'),
       time: "1d",
       from: mTime?.[0],
       to: mTime?.[1],
@@ -218,7 +220,7 @@ const getDataTotal = () => {
   ];
   const yParams = isTimer.value ? {
     "context": {
-      "format": "Y年M月",
+      "format": $t('Dashboard.index.537937-12'),
       "time": "1M",
       from: yTime?.[0],
       to: yTime?.[1],
@@ -260,7 +262,7 @@ const getEcharts = (data: any) => {
     endTime = dayjs(data.end).startOf('days').valueOf();
   }
   let _time = '1m';
-  let format = 'M月dd日 HH:mm';
+  let format = $t('Dashboard.index.537937-13');
   let limit = 12;
   const dt = endTime - startTime;
   const hour = 60 * 60 * 1000;
@@ -278,11 +280,11 @@ const getEcharts = (data: any) => {
   } else if (dt > days && dt < year) {
     limit = Math.abs(Math.ceil(dt / days)) + 1;
     _time = '1d';
-    format = 'M月dd日';
+    format = $t('Dashboard.index.537937-14');
   } else if (dt >= year) {
     limit = Math.abs(Math.floor(dt / months));
     _time = '1M';
-    format = 'yyyy年-M月';
+    format = $t('Dashboard.index.537937-15');
   }
   const params = {
     context: {

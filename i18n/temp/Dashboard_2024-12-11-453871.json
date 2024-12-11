@@ -1,0 +1,38 @@
+{
+	"zh": {
+		"Dashboard.index.537937-0": "数据统计",
+		"Dashboard.index.537937-1": "昨日流量消耗",
+		"Dashboard.index.537937-2": "当月流量消耗",
+		"Dashboard.index.537937-3": "本年流量消耗",
+		"Dashboard.index.537937-4": "流量统计",
+		"Dashboard.index.537937-5": "流量使用TOP10",
+		"Dashboard.index.537937-6": "昨日",
+		"Dashboard.index.537937-7": "近一周",
+		"Dashboard.index.537937-8": "近一月",
+		"Dashboard.index.537937-9": "近一年",
+		"Dashboard.index.537937-10": "M月dd日 HH:mm:ss",
+		"Dashboard.index.537937-11": "Y年M月d日",
+		"Dashboard.index.537937-12": "Y年M月",
+		"Dashboard.index.537937-13": "M月dd日 HH:mm",
+		"Dashboard.index.537937-14": "M月dd日",
+		"Dashboard.index.537937-15": "yyyy年-M月"
+	},
+	"en": {
+		"Dashboard.index.537937-0": "data statistics",
+		"Dashboard.index.537937-1": "Yesterday's traffic consumption",
+		"Dashboard.index.537937-2": "Monthly traffic consumption",
+		"Dashboard.index.537937-3": "This year's traffic consumption",
+		"Dashboard.index.537937-4": "Traffic statistics",
+		"Dashboard.index.537937-5": "Top 10 traffic users",
+		"Dashboard.index.537937-6": "yesterday",
+		"Dashboard.index.537937-7": "In the past week",
+		"Dashboard.index.537937-8": "In the past month",
+		"Dashboard.index.537937-9": "In the past year",
+		"Dashboard.index.537937-10": "MM month dd day HH: mm:ss",
+		"Dashboard.index.537937-11": "Y year M month d day",
+		"Dashboard.index.537937-12": "Y year M month",
+		"Dashboard.index.537937-13": "MM month dd day HH: mm",
+		"Dashboard.index.537937-14": "M month dd day",
+		"Dashboard.index.537937-15": "YYYY-M month"
+	}
+}

@@ -1,21 +1,23 @@
 import { iotCard } from '../assets/index'
+import i18n from '@/locales/index'
+const $t = i18n.global.t
 
 // 平台类型
 export const platformTypeList = [
   {
-    label: '移动OneLink',
+    label: $t('views.data.812529-0'),
     value: 'onelink',
     imgUrl: iotCard.onelink,
     imgSize: ['78px', '20px']
   },
   {
-    label: '电信Ctwing',
+    label: $t('views.data.812529-1'),
     value: 'ctwing',
     imgUrl: iotCard.ctwingCmp,
     imgSize: ['52px', '25px']
   },
   {
-    label: '联通Unicom',
+    label: $t('views.data.812529-2'),
     value: 'unicom',
     imgUrl: iotCard.unicom,
     imgSize: ['56px', '41px']
@@ -23,23 +25,23 @@ export const platformTypeList = [
 ]
 
 export const OperatorMap = {
-  onelink: '移动',
-  ctwing: '电信',
-  unicom: '联通'
+  onelink: $t('views.data.812529-3'),
+  ctwing: $t('views.data.812529-4'),
+  unicom: $t('views.data.812529-5')
 }
 
 //运营商
 export const OperatorList = [
   {
-    label: '移动',
+    label: $t('views.data.812529-3'),
     value: 'onelink'
   },
   {
-    label: '电信',
+    label: $t('views.data.812529-4'),
     value: 'ctwing'
   },
   {
-    label: '联通',
+    label: $t('views.data.812529-5'),
     value: 'unicom'
   }
 ]
@@ -47,19 +49,19 @@ export const OperatorList = [
 // 类型
 export const TypeList = [
   {
-    label: '年卡',
+    label: $t('views.data.812529-6'),
     value: 'year'
   },
   {
-    label: '季卡',
+    label: $t('views.data.812529-7'),
     value: 'season'
   },
   {
-    label: '月卡',
+    label: $t('views.data.812529-8'),
     value: 'month'
   },
   {
-    label: '其他',
+    label: $t('views.data.812529-9'),
     value: 'other'
   }
 ]
@@ -67,19 +69,19 @@ export const TypeList = [
 // 支付方式
 export const PaymentMethod = [
   {
-    label: '支付宝手机网站支付',
+    label: $t('views.data.812529-10'),
     value: 'ALIPAY_WAP'
   },
   {
-    label: '支付宝网页及时到账支付',
+    label: $t('views.data.812529-11'),
     value: 'ALIPAY_WEB'
   },
   {
-    label: '微信公众号支付',
+    label: $t('views.data.812529-12'),
     value: 'WEIXIN_JSAPI'
   },
   {
-    label: '微信扫码支付',
+    label: $t('views.data.812529-13'),
     value: 'WEIXIN_NATIVE'
   }
 ]

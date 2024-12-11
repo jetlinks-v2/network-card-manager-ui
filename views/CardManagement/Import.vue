@@ -1,11 +1,11 @@
 <template>
-  <!-- 导入 -->
+  <!-- {{ $t('CardManagement.Import.427945-0') }} -->
   <a-modal
     :maskClosable="false"
     :visible="true"
-    title="导入"
-    okText="确定"
-    cancelText="取消"
+    :title="$t('CardManagement.Import.427945-0')"
+    :okText="$t('CardManagement.Import.427945-1')"
+    :cancelText="$t('CardManagement.Import.427945-2')"
     @cancel="handleCancel"
   >
     <div style="margin-top: 10px">
@@ -15,28 +15,28 @@
         ref="formRef"
         :rules="rules"
       >
-        <a-form-item label="平台对接" required name="configId">
+        <a-form-item :label="$t('CardManagement.Import.427945-3')" required name="configId">
           <a-select
             showSearch
             v-model:value="modelRef.configId"
             :options="configList"
-            placeholder="请选择平台对接"
+            :placeholder="$t('CardManagement.Import.427945-4')"
           >
           </a-select>
         </a-form-item>
 
-        <a-form-item v-if="modelRef.configId" label="文件格式">
+        <a-form-item v-if="modelRef.configId" :label="$t('CardManagement.Import.427945-5')">
           <a-radio-group
             button-style="solid"
             v-model:value="modelRef.fileType"
-            placeholder="请选择文件格式"
+            :placeholder="$t('CardManagement.Import.427945-6')"
           >
             <a-radio-button value="xlsx">xlsx</a-radio-button>
             <a-radio-button value="csv">csv</a-radio-button>
           </a-radio-group>
         </a-form-item>
 
-        <a-form-item label="文件上传" v-if="modelRef.configId">
+        <a-form-item :label="$t('CardManagement.Import.427945-7')" v-if="modelRef.configId">
           <UploadFile
             :product="modelRef.configId"
             v-model="modelRef.upload"
@@ -44,7 +44,7 @@
           />
         </a-form-item>
       </a-form>
-      <!-- <j-form-item label="文件上传" v-if="modelRef.configId">
+      <!-- <j-form-item :label="$t('CardManagement.Import.427945-7')" v-if="modelRef.configId">
                     <j-upload
                         v-model:fileList="modelRef.upload"
                         name="file"
@@ -60,7 +60,7 @@
                             <template #icon>
                                 <AIcon type="UploadOutlined" />
                             </template>
-                            文件上传
+                            {{ $t('CardManagement.Import.427945-7') }}
                         </j-button>
                     </j-upload>
                 </j-form-item>
@@ -85,7 +85,7 @@
                 </div> -->
     </div>
     <template #footer>
-      <a-button type="primary" @click="handleOk">关闭</a-button>
+      <a-button type="primary" @click="handleOk">{{ $t('CardManagement.Import.427945-8') }}</a-button>
     </template>
   </a-modal>
 </template>
@@ -94,7 +94,9 @@
 // import { downloadFile, downloadFileByUrl } from '@/utils/utils';
 import { queryPlatformNoPage, _import } from '../../api/cardManagement'
 import UploadFile from './UploadFile.vue'
+import { useI18n } from 'vue-i18n';
 
+const { t: $t } = useI18n();
 const emit = defineEmits(['close', 'save'])
 
 const configList = ref<Record<string, any>[]>([])
@@ -110,7 +112,7 @@ const modelRef = reactive({
 })
 
 const rules = {
-  configId: [{ required: true, message: '请选择平台对接' }]
+  configId: [{ required: true, message: $t('CardManagement.Import.427945-4') }]
 }
 
 const getConfig = async () => {

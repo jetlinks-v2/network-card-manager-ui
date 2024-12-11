@@ -15,12 +15,12 @@
     >
       <a-button>
         <template #icon><AIcon type="UploadOutlined" /></template>
-        文件上传
+        {{ $t('CardManagement.UploadFile.427940-0') }}
       </a-button>
     </ProUpload>
     <div style="margin-left: 20px">
       <a-space>
-        下载模板
+        {{ $t('CardManagement.UploadFile.427940-1') }}
         <a @click="downFile('xlsx')">.xlsx</a>
         <a @click="downFile('csv')">.csv</a>
       </a-space>
@@ -34,15 +34,15 @@
     </div> -->
   <div class="importing-status" v-if="importStatus == 'importing'">
     <AIcon type="LoadingOutlined" />
-    正在导入
+    {{ $t('CardManagement.UploadFile.427940-2') }}
   </div>
   <div class="column" v-if="importStatus != 'wait'">
     <p>
-      <AIcon style="color: #00a4ff" type="CheckOutlined" />导入成功 总数量
+      <AIcon style="color: #00a4ff" type="CheckOutlined" />{{ $t('CardManagement.UploadFile.427940-3') }}
       {{ successNumber }}
     </p>
     <span v-if="failNumber">
-      <AIcon style="color: #e50012" type="CloseOutlined" />导入失败 总数量
+      <AIcon style="color: #e50012" type="CloseOutlined" />{{ $t('CardManagement.UploadFile.427940-4') }}
       {{ failNumber }}
     </span>
   </div>
@@ -58,7 +58,9 @@ import {
 } from '@jetlinks-web/utils'
 import { exportCard, _import } from '../../api/cardManagement'
 import { TOKEN_KEY, TOKEN_KEY_URL, BASE_API } from '@jetlinks-web/constants'
+import { useI18n } from 'vue-i18n';
 
+const { t: $t } = useI18n();
 type Emits = {
   (e: 'update:modelValue', data: string[]): void
 }
@@ -94,7 +96,7 @@ const downFile = async (type: string) => {
   if (res) {
     const blob = new Blob([res], { type: type })
     const url = URL.createObjectURL(blob)
-    downloadFileByUrl(url, `物联卡导入模板`, type)
+    downloadFileByUrl(url, $t('CardManagement.UploadFile.427940-5'), type)
   }
 }
 
@@ -105,10 +107,10 @@ const beforeUpload = (_file: any) => {
     _file.type ===
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
   if (!isCsv && fileType !== 'xlsx') {
-    onlyMessage('请上传.csv格式文件', 'warning')
+    onlyMessage($t('CardManagement.UploadFile.427940-6'), 'warning')
   }
   if (!isXlsx && fileType !== 'csv') {
-    onlyMessage('请上传.xlsx格式文件', 'warning')
+    onlyMessage($t('CardManagement.UploadFile.427940-7'), 'warning')
   }
   return (isCsv && fileType !== 'xlsx') || (isXlsx && fileType !== 'csv')
 }
@@ -157,7 +159,7 @@ const handleImport = async (file: any) => {
       if (result.rowNumber !== -1) {
         failNumber.value += result.result?.total || 1
         message.push({
-          rowNumber: `第${result.rowNumber}行`,
+          rowNumber: $t('CardManagement.UploadFile.427940-8', [result.rowNumber]),
           message: result.message,
           name: result.name
         })

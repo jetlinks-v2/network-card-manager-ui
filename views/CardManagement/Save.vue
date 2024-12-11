@@ -3,9 +3,9 @@
     :maskClosable="false"
     width="600px"
     :visible="true"
-    :title="type === 'add' ? '新增' : '编辑'"
-    okText="确定"
-    cancelText="取消"
+    :title="type === 'add' ? $t('CardManagement.Save.427943-0') : $t('CardManagement.Save.427943-1')"
+    :okText="$t('CardManagement.Save.427943-2')"
+    :cancelText="$t('CardManagement.Save.427943-3')"
     @ok="handleOk"
     @cancel="handleCancel"
     :confirmLoading="btnLoading"
@@ -17,10 +17,10 @@
         :rules="rules"
         :model="modelRef"
       >
-        <a-form-item label="卡号" name="id">
+        <a-form-item :label="$t('CardManagement.Save.427943-4')" name="id">
           <a-input
             v-model:value="modelRef.id"
-            placeholder="请输入卡号"
+            :placeholder="$t('CardManagement.Save.427943-5')"
             :disabled="type === 'edit'"
           ></a-input>
         </a-form-item>
@@ -28,18 +28,18 @@
           <template #label>
             <span>
               ICCID
-              <a-tooltip title="IC卡的唯一识别号码">
+              <a-tooltip :title="$t('CardManagement.Save.427943-6')">
                 <AIcon type="QuestionCircleOutlined" style="margin-left: 2px" />
               </a-tooltip>
             </span>
           </template>
           <a-input
             v-model:value="modelRef.iccId"
-            placeholder="请输入ICCID"
+            :placeholder="$t('CardManagement.Save.427943-7')"
             :disabled="type === 'edit'"
           />
         </a-form-item>
-        <a-form-item label="运营商" name="operatorName">
+        <a-form-item :label="$t('CardManagement.Save.427943-8')" name="operatorName">
           <a-select
             allowClear
             showSearch
@@ -47,7 +47,7 @@
             :disabled="type === 'edit'"
             :options="OperatorList"
             v-model:value="modelRef.operatorName"
-            placeholder="请选择运营商"
+            :placeholder="$t('CardManagement.Save.427943-9')"
             @select="
               () => {
                 modelRef.platformConfigId = undefined
@@ -56,7 +56,7 @@
           >
           </a-select>
         </a-form-item>
-        <a-form-item label="平台对接" name="platformConfigId">
+        <a-form-item :label="$t('CardManagement.Save.427943-10')" name="platformConfigId">
           <a-select
             showSearch
             :filter-option="filterOption"
@@ -64,12 +64,12 @@
             allowClear
             :options="platformConfigList"
             v-model:value="modelRef.platformConfigId"
-            placeholder="请选择平台对接"
+            :placeholder="$t('CardManagement.Save.427943-11')"
           >
           </a-select>
         </a-form-item>
 
-        <a-form-item label="类型" name="cardType">
+        <a-form-item :label="$t('CardManagement.Save.427943-12')" name="cardType">
           <a-select
             allowClear
             showSearch
@@ -77,14 +77,14 @@
             :filter-option="filterOption"
             :options="TypeList"
             v-model:value="modelRef.cardType"
-            placeholder="请选择类型"
+            :placeholder="$t('CardManagement.Save.427943-13')"
           >
           </a-select>
         </a-form-item>
-        <a-form-item label="说明" name="describe">
+        <a-form-item :label="$t('CardManagement.Save.427943-14')" name="describe">
           <a-textarea
             v-model:value="modelRef.describe"
-            placeholder="请输入说明"
+            :placeholder="$t('CardManagement.Save.427943-15')"
             showCount
             :maxlength="200"
           />
@@ -103,7 +103,9 @@ import {
 } from '../../api/cardManagement'
 import { onlyMessage } from '@jetlinks-web/utils'
 import { OperatorList, TypeList } from '../data'
+import { useI18n } from 'vue-i18n';
 
+const { t: $t } = useI18n();
 const emit = defineEmits(['change'])
 const props = defineProps({
   type: {
@@ -138,7 +140,7 @@ const isValidateId = async (id: string) => {
       return res.result.reason
     }
   } else {
-    return '请输入输入正确的ICCID'
+    return $t('CardManagement.Save.427943-16')
   }
 }
 
@@ -151,7 +153,7 @@ const vailIccId = async (_: Record<string, any>, value: string) => {
       return Promise.reject(new Error(`${validateId}`))
     }
     // } else {
-    //     return Promise.reject(new Error('请输入卡号'));
+    //     return Promise.reject(new Error($t('CardManagement.Save.427943-5')));
   }
 }
 
@@ -159,11 +161,11 @@ const rules = {
   id: [
     {
       required: true,
-      message: '请输入卡号'
+      message: $t('CardManagement.Save.427943-5')
     },
     {
       max: 64,
-      message: '最多输入64个字符'
+      message: $t('CardManagement.Save.427943-17')
     },
     {
       validator: vailIccId,
@@ -173,29 +175,29 @@ const rules = {
   iccId: [
     {
       required: true,
-      message: '请输入ICCID'
+      message: $t('CardManagement.Save.427943-7')
     },
     {
       max: 64,
-      message: '最多输入64个字符'
+      message: $t('CardManagement.Save.427943-17')
     }
   ],
   platformConfigId: [
     {
       required: true,
-      message: '请选择平台对接'
+      message: $t('CardManagement.Save.427943-11')
     }
   ],
   operatorName: [
     {
       required: true,
-      message: '请选择运营商'
+      message: $t('CardManagement.Save.427943-9')
     }
   ],
   cardType: [
     {
       required: true,
-      message: '请选择类型'
+      message: $t('CardManagement.Save.427943-13')
     }
   ]
 }
@@ -243,7 +245,7 @@ const handleOk = () => {
           : await edit(toRaw(modelRef)).catch((err) => err)
       btnLoading.value = false
       if (resp.status === 200) {
-        onlyMessage('操作成功')
+        onlyMessage($t('CardManagement.Save.427943-18'))
         emit('change', true)
         formRef.value.resetFields()
       }

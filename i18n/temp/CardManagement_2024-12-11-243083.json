@@ -1,0 +1,24 @@
+{
+	"zh": {
+		"CardManagement.UploadFile.427940-0": "文件上传",
+		"CardManagement.UploadFile.427940-1": "下载模板",
+		"CardManagement.UploadFile.427940-2": "正在导入",
+		"CardManagement.UploadFile.427940-3": "导入成功 总数量",
+		"CardManagement.UploadFile.427940-4": "导入失败 总数量",
+		"CardManagement.UploadFile.427940-5": "物联卡导入模板",
+		"CardManagement.UploadFile.427940-6": "请上传.csv格式文件",
+		"CardManagement.UploadFile.427940-7": "请上传.xlsx格式文件",
+		"CardManagement.UploadFile.427940-8": "第{0}行"
+	},
+	"en": {
+		"CardManagement.UploadFile.427940-0": "File upload",
+		"CardManagement.UploadFile.427940-1": "Download Template",
+		"CardManagement.UploadFile.427940-2": "Importing in progress",
+		"CardManagement.UploadFile.427940-3": "Total number of successful imports",
+		"CardManagement.UploadFile.427940-4": "Total number of failed imports",
+		"CardManagement.UploadFile.427940-5": "IoT card import template",
+		"CardManagement.UploadFile.427940-6": "Please upload a. csv format file",
+		"CardManagement.UploadFile.427940-7": "Please upload. xlsx format file",
+		"CardManagement.UploadFile.427940-8": "Line {0}"
+	}
+}

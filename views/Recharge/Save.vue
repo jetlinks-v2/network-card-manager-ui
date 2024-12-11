@@ -3,9 +3,9 @@
     :maskClosable="false"
     width="600px"
     :visible="true"
-    title="充值"
-    okText="确定"
-    cancelText="取消"
+    :title="$t('Recharge.Save.444802-0')"
+    :okText="$t('Recharge.Save.444802-1')"
+    :cancelText="$t('Recharge.Save.444802-2')"
     @ok="handleOk"
     @cancel="handleCancel"
     :confirmLoading="btnLoading"
@@ -15,27 +15,27 @@
         <AIcon
           type="ExclamationCircleOutlined"
           style="margin-right: 6px"
-        />暂只支持移动OneLink平台
+        />{{ $t('Recharge.Save.444802-3') }}
       </div>
       <a-form layout="vertical" ref="formRef" :rules="rules" :model="modelRef">
-        <a-form-item label="平台对接" name="configId">
+        <a-form-item :label="$t('Recharge.Save.444802-4')" name="configId">
           <a-select
             v-model:value="modelRef.configId"
             :options="configList"
             allowClear
             show-search
             style="width: 100%"
-            placeholder="请选择平台对接"
+            :placeholder="$t('Recharge.Save.444802-5')"
           >
           </a-select>
         </a-form-item>
-        <a-form-item label="账户id" name="rechargeId">
+        <a-form-item :label="$t('Recharge.Save.444802-6')" name="rechargeId">
           <a-input
             v-model:value="modelRef.rechargeId"
-            placeholder="请输入账户id"
+            :placeholder="$t('Recharge.Save.444802-7')"
           />
         </a-form-item>
-        <a-form-item label="充值金额" name="chargeMoney">
+        <a-form-item :label="$t('Recharge.Save.444802-8')" name="chargeMoney">
           <a-input-number
             allowClear
             :precision="2"
@@ -43,16 +43,16 @@
             v-model:value="modelRef.chargeMoney"
             :min="1"
             :max="500"
-            placeholder="请输入1~500之间的金额"
+            :placeholder="$t('Recharge.Save.444802-9')"
           />
         </a-form-item>
 
-        <a-form-item label="支付方式" name="paymentType">
+        <a-form-item :label="$t('Recharge.Save.444802-10')" name="paymentType">
           <a-select
             allowClear
             :options="PaymentMethod"
             v-model:value="modelRef.paymentType"
-            placeholder="请选择支付方式"
+            :placeholder="$t('Recharge.Save.444802-11')"
           >
           </a-select>
         </a-form-item>
@@ -65,7 +65,9 @@
 import { queryPlatformNoPage, recharge } from '../../api/cardManagement'
 import { PaymentMethod } from '../data'
 import { onlyMessage } from '@jetlinks-web/utils'
+import { useI18n } from 'vue-i18n';
 
+const { t: $t } = useI18n();
 const emit = defineEmits(['change', 'save'])
 
 const btnLoading = ref<boolean>(false)
@@ -84,27 +86,27 @@ const rules = {
   configId: [
     {
       required: true,
-      message: '请选择平台对接'
+      message: $t('Recharge.Save.444802-5')
     },
     {
       max: 64,
-      message: '最多输入64个字符'
+      message: $t('Recharge.Save.444802-12')
     }
   ],
   rechargeId: [
     {
       required: true,
-      message: '请输入账户id'
+      message: $t('Recharge.Save.444802-7')
     },
     {
       max: 64,
-      message: '最多输入64个字符'
+      message: $t('Recharge.Save.444802-12')
     }
   ],
   chargeMoney: [
     {
       required: true,
-      message: '请输入充值金额'
+      message: $t('Recharge.Save.444802-13')
     }
     // {
     //     min: 1,
@@ -115,7 +117,7 @@ const rules = {
   paymentType: [
     {
       required: true,
-      message: '请选择支付方式'
+      message: $t('Recharge.Save.444802-11')
     }
   ]
 }
@@ -161,10 +163,10 @@ const handleOk = () => {
       const resp: any = await recharge(toRaw(modelRef))
       btnLoading.value = false
       if (resp.status === 200) {
-        if (resp.result === '失败') {
-          onlyMessage('缴费失败', 'error')
+        if (resp.result === $t('Recharge.Save.444802-14')) {
+          onlyMessage($t('Recharge.Save.444802-15'), 'error')
         } else if (!resp.result) {
-          onlyMessage('操作过于频繁，请稍后再试！', 'warning')
+          onlyMessage($t('Recharge.Save.444802-16'), 'warning')
         } else {
           window.open(resp.result)
         }

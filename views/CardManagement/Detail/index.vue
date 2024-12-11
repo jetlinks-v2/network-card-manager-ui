@@ -1,7 +1,7 @@
 <!-- 物联卡查看 -->
 <template>
   <j-page-container v-if="type === 'card'">
-    <!-- 新增、编辑 -->
+    <!-- 新增、{{ $t('Detail.index.427958-1') }} -->
     <div>
       <Save
         v-if="visible"
@@ -16,7 +16,7 @@
               <template #title>
                 <Guide>
                   <template #title>
-                    <span>基本信息</span>
+                    <span>{{ $t('Detail.index.427958-0') }}</span>
                     <a-button
                       type="link"
                       @click="
@@ -28,60 +28,60 @@
                       "
                     >
                       <AIcon type="EditOutlined"></AIcon>
-                      编辑
+                      {{ $t('Detail.index.427958-1') }}
                     </a-button>
                   </template>
                 </Guide>
               </template>
 
-              <a-descriptions-item label="卡号">{{
+              <a-descriptions-item :label="$t('Detail.index.427958-2')">{{
                 detail.id
               }}</a-descriptions-item>
               <a-descriptions-item label="ICCID">{{
                 detail.iccId
               }}</a-descriptions-item>
-              <a-descriptions-item label="绑定设备">{{
+              <a-descriptions-item :label="$t('Detail.index.427958-3')">{{
                 detail.deviceName
               }}</a-descriptions-item>
-              <a-descriptions-item label="平台类型">{{
+              <a-descriptions-item :label="$t('Detail.index.427958-4')">{{
                 platformTypeList.find(
                   (item) =>
                     item.value ===
                     detail.operatorName,
                 )?.label || detail.operatorName
               }}</a-descriptions-item>
-              <a-descriptions-item label="平台名称">{{
+              <a-descriptions-item :label="$t('Detail.index.427958-5')">{{
                 detail.platformConfigName
               }}</a-descriptions-item>
-              <a-descriptions-item label="运营商">{{
+              <a-descriptions-item :label="$t('Detail.index.427958-6')">{{
                 OperatorList.find((item) => item.value === detail.operatorName)
                   ?.label || detail.operatorName
               }}</a-descriptions-item>
-              <a-descriptions-item label="类型">{{
+              <a-descriptions-item :label="$t('Detail.index.427958-7')">{{
                 detail.cardType?.text
               }}</a-descriptions-item>
-              <a-descriptions-item label="激活日期">{{
+              <a-descriptions-item :label="$t('Detail.index.427958-8')">{{
                 detail.activationDate
                   ? dayjs(detail.activationDate).format('YYYY-MM-DD HH:mm:ss')
                   : ''
               }}</a-descriptions-item>
-              <a-descriptions-item label="更新时间">{{
+              <a-descriptions-item :label="$t('Detail.index.427958-9')">{{
                 detail.updateTime
                   ? dayjs(detail.updateTime).format('YYYY-MM-DD HH:mm:ss')
                   : ''
               }}</a-descriptions-item>
-              <a-descriptions-item label="总流量">{{
+              <a-descriptions-item :label="$t('Detail.index.427958-10')">{{
                 detail.totalFlow ? detail.totalFlow.toFixed(2) + ' M' : '0 M'
               }}</a-descriptions-item>
-              <a-descriptions-item label="使用流量">{{
+              <a-descriptions-item :label="$t('Detail.index.427958-11')">{{
                 detail.usedFlow ? detail.usedFlow.toFixed(2) + ' M' : '0 M'
               }}</a-descriptions-item>
-              <a-descriptions-item label="剩余流量">{{
+              <a-descriptions-item :label="$t('Detail.index.427958-12')">{{
                 detail.residualFlow
                   ? detail.residualFlow.toFixed(2) + ' M'
                   : '0 M'
               }}</a-descriptions-item>
-              <a-descriptions-item label="运营商状态">
+              <a-descriptions-item :label="$t('Detail.index.427958-13')">
                 {{ detail?.cardState?.text }}
                 <span v-if="deactivateData.show" style="padding-left: 8px">
                   <a-tooltip :title="deactivateData.tip">
@@ -92,21 +92,21 @@
                   </a-tooltip>
                 </span>
               </a-descriptions-item>
-              <a-descriptions-item label="平台状态">
+              <a-descriptions-item :label="$t('Detail.index.427958-14')">
                 {{ detail?.cardStateType?.text }}
               </a-descriptions-item>
-              <a-descriptions-item label="说明">{{
+              <a-descriptions-item :label="$t('Detail.index.427958-15')">{{
                 detail?.describe
               }}</a-descriptions-item>
             </a-descriptions>
           </a-card>
         </a-col>
         <a-col :span="24">
-          <!-- 流量统计 -->
+          <!-- {{ $t('Detail.index.427958-16') }} -->
           <a-row :gutter="24">
             <a-col :span="16">
               <div class="card">
-                <Guide title="流量统计">
+                <Guide :title="$t('Detail.index.427958-16')">
                   <template #extra>
                     <TimeSelect
                       :type="'week'"
@@ -125,11 +125,11 @@
             </a-col>
             <a-col :span="8">
               <div class="card">
-                <Guide title="数据统计" />
+                <Guide :title="$t('Detail.index.427958-17')" />
                 <div class="static-info" style="min-height: 490px">
                   <div class="data-statistics-item">
                     <div class="flow-info" style="width: 100%">
-                      <div class="label">昨日流量消耗</div>
+                      <div class="label">{{ $t('Detail.index.427958-18') }}</div>
                       <a-tooltip placement="bottomLeft">
                         <template #title>
                           <span>{{ dayTotal }} M</span>
@@ -144,7 +144,7 @@
                   </div>
                   <div class="data-statistics-item">
                     <div class="flow-info" style="width: 100%">
-                      <div class="label">当月流量消耗</div>
+                      <div class="label">{{ $t('Detail.index.427958-19') }}</div>
                       <a-tooltip placement="bottomLeft">
                         <template #title>
                           <span>{{ monthTotal }} M</span>
@@ -159,7 +159,7 @@
                   </div>
                   <div class="data-statistics-item">
                     <div class="flow-info" style="width: 100%">
-                      <div class="label">本年流量消耗</div>
+                      <div class="label">{{ $t('Detail.index.427958-20') }}</div>
                       <a-tooltip placement="bottomLeft">
                         <template #title>
                           <span>{{ yearTotal }} M</span>
@@ -195,7 +195,7 @@
               <template #title>
                 <Guide>
                   <template #title>
-                    <span>基本信息</span>
+                    <span>{{ $t('Detail.index.427958-0') }}</span>
                     <a-button
                       type="link"
                       @click="
@@ -207,60 +207,60 @@
                       "
                     >
                       <AIcon type="EditOutlined"></AIcon>
-                      编辑
+                      {{ $t('Detail.index.427958-1') }}
                     </a-button>
                   </template>
                 </Guide>
               </template>
 
-              <a-descriptions-item label="卡号">{{
+              <a-descriptions-item :label="$t('Detail.index.427958-2')">{{
                 detail.id
               }}</a-descriptions-item>
               <a-descriptions-item label="ICCID">{{
                 detail.iccId
               }}</a-descriptions-item>
-              <a-descriptions-item label="绑定设备">{{
+              <a-descriptions-item :label="$t('Detail.index.427958-3')">{{
                 detail.deviceName
               }}</a-descriptions-item>
-              <a-descriptions-item label="平台类型">{{
+              <a-descriptions-item :label="$t('Detail.index.427958-4')">{{
                 platformTypeList.find(
                   (item) =>
                     item.value ===
                     detail.operatorName,
                 )?.label || detail.operatorName
               }}</a-descriptions-item>
-              <a-descriptions-item label="平台名称">{{
+              <a-descriptions-item :label="$t('Detail.index.427958-5')">{{
                 detail.platformConfigName
               }}</a-descriptions-item>
-              <a-descriptions-item label="运营商">{{
+              <a-descriptions-item :label="$t('Detail.index.427958-6')">{{
                 OperatorList.find((item) => item.value === detail.operatorName)
                   ?.label || detail.operatorName
               }}</a-descriptions-item>
-              <a-descriptions-item label="类型">{{
+              <a-descriptions-item :label="$t('Detail.index.427958-7')">{{
                 detail.cardType?.text
               }}</a-descriptions-item>
-              <a-descriptions-item label="激活日期">{{
+              <a-descriptions-item :label="$t('Detail.index.427958-8')">{{
                 detail.activationDate
                   ? dayjs(detail.activationDate).format('YYYY-MM-DD HH:mm:ss')
                   : ''
               }}</a-descriptions-item>
-              <a-descriptions-item label="更新时间">{{
+              <a-descriptions-item :label="$t('Detail.index.427958-9')">{{
                 detail.updateTime
                   ? dayjs(detail.updateTime).format('YYYY-MM-DD HH:mm:ss')
                   : ''
               }}</a-descriptions-item>
-              <a-descriptions-item label="总流量">{{
+              <a-descriptions-item :label="$t('Detail.index.427958-10')">{{
                 detail.totalFlow ? detail.totalFlow.toFixed(2) + ' M' : '0 M'
               }}</a-descriptions-item>
-              <a-descriptions-item label="使用流量">{{
+              <a-descriptions-item :label="$t('Detail.index.427958-11')">{{
                 detail.usedFlow ? detail.usedFlow.toFixed(2) + ' M' : '0 M'
               }}</a-descriptions-item>
-              <a-descriptions-item label="剩余流量">{{
+              <a-descriptions-item :label="$t('Detail.index.427958-12')">{{
                 detail.residualFlow
                   ? detail.residualFlow.toFixed(2) + ' M'
                   : '0 M'
               }}</a-descriptions-item>
-              <a-descriptions-item label="运营商状态">
+              <a-descriptions-item :label="$t('Detail.index.427958-13')">
                 {{ detail?.cardState?.text }}
                 <span v-if="deactivateData.show" style="padding-left: 8px">
                   <a-tooltip :title="deactivateData.tip">
@@ -271,21 +271,21 @@
                   </a-tooltip>
                 </span>
               </a-descriptions-item>
-              <a-descriptions-item label="平台状态">
+              <a-descriptions-item :label="$t('Detail.index.427958-14')">
                 {{ detail?.cardStateType?.text }}
               </a-descriptions-item>
-              <a-descriptions-item label="说明">{{
+              <a-descriptions-item :label="$t('Detail.index.427958-15')">{{
                 detail?.describe
               }}</a-descriptions-item>
             </a-descriptions>
           </a-card>
         </a-col>
         <a-col :span="24">
-          <!-- 流量统计 -->
+          <!-- {{ $t('Detail.index.427958-16') }} -->
           <a-row :gutter="24">
             <a-col :span="16">
               <div class="card">
-                <Guide title="流量统计">
+                <Guide :title="$t('Detail.index.427958-16')">
                   <template #extra>
                     <TimeSelect
                       :type="'week'"
@@ -304,11 +304,11 @@
             </a-col>
             <a-col :span="8">
               <div class="card">
-                <Guide title="数据统计" />
+                <Guide :title="$t('Detail.index.427958-17')" />
                 <div class="static-info" style="min-height: 490px">
                   <div class="data-statistics-item">
                     <div class="flow-info" style="width: 100%">
-                      <div class="label">昨日流量消耗</div>
+                      <div class="label">{{ $t('Detail.index.427958-18') }}</div>
                       <a-tooltip placement="bottomLeft">
                         <template #title>
                           <span>{{ dayTotal }} M</span>
@@ -323,7 +323,7 @@
                   </div>
                   <div class="data-statistics-item">
                     <div class="flow-info" style="width: 100%">
-                      <div class="label">当月流量消耗</div>
+                      <div class="label">{{ $t('Detail.index.427958-19') }}</div>
                       <a-tooltip placement="bottomLeft">
                         <template #title>
                           <span>{{ monthTotal }} M</span>
@@ -338,7 +338,7 @@
                   </div>
                   <div class="data-statistics-item">
                     <div class="flow-info" style="width: 100%">
-                      <div class="label">本年流量消耗</div>
+                      <div class="label">{{ $t('Detail.index.427958-20') }}</div>
                       <a-tooltip placement="bottomLeft">
                         <template #title>
                           <span>{{ yearTotal }} M</span>
@@ -376,7 +376,9 @@ import LineChart from '../../components/LineChart.vue'
 import { queryFlow } from '../../../api/home'
 import TimeSelect from '../../components/TimeSelect.vue'
 import { OperatorList, platformTypeList } from '../../data'
+import { useI18n } from 'vue-i18n';
 
+const { t: $t } = useI18n();
 const props = defineProps({
   type: {
     type: String,
@@ -406,10 +408,10 @@ const deactivateData = reactive({
 })
 
 const quickBtnList = [
-  { label: '昨日', value: 'yesterday' },
-  { label: '近一周', value: 'week' },
-  { label: '近一月', value: 'month' },
-  { label: '近一年', value: 'year' }
+  { label: $t('Detail.index.427958-21'), value: 'yesterday' },
+  { label: $t('Detail.index.427958-22'), value: 'week' },
+  { label: $t('Detail.index.427958-23'), value: 'month' },
+  { label: $t('Detail.index.427958-24'), value: 'year' }
 ]
 
 const getDetail = () => {

@@ -1,7 +1,7 @@
 <template>
   <div v-if="type === 'onelink'" class="doc">
     <div class="url">
-      中国移动物联卡能力开放平台：
+      {{ $t('doc.index.838701-0') }}
       <a
         style="word-break: break-all"
         href="https://api.iot.10086.cn/api/index.html#/login"
@@ -11,43 +11,43 @@
         https://api.iot.10086.cn/api/index.html#/login
       </a>
     </div>
-    <h1>1.概述</h1>
+    <h1>{{ $t('doc.index.838701-1') }}</h1>
     <p>
-      平台对接通过API的方式与三方系统进行数据对接，为物联卡的管理提供数据交互支持。
+      {{ $t('doc.index.838701-2') }}
     </p>
-    <h1>2.配置说明</h1>
+    <h1>{{ $t('doc.index.838701-3') }}</h1>
     <h2>1、APP ID</h2>
     <p>
-      第三方应用唯一标识，中国移动物联网全网管理员在 OneLink
-      能力开放平台上分配并展示给集团客户。
+      {{ $t('doc.index.838701-4') }}
+      {{ $t('doc.index.838701-5') }}
       <br />
-      获取路径：“中移物联卡能力开放平台”--“个人中心”--“客户信息”--“接入信息”
+      {{ $t('doc.index.838701-6') }}
     </p>
     <div class="image">
       <a-image width="100%" :src="iotCard.onelinkAppid" />
     </div>
     <h2>2、Password</h2>
     <p>
-      API 接入秘钥,由中国移动物联网提供，集团客户从“OneLink 能力开放平台”获取。
+      {{ $t('doc.index.838701-7') }}
       <br />
-      获取路径：“中移物联卡能力开放平台”--“个人中心”--“客户信息”--“接入信息”
+      {{ $t('doc.index.838701-6') }}
     </p>
     <div class="image">
       <a-image width="100%" :src="iotCard.onelinkPass" />
     </div>
-    <h2>3、接口地址</h2>
+    <h2>{{ $t('doc.index.838701-8') }}</h2>
     <p>
       https://api.iot.10086.cn/v5/ec/get/token
       <br />
-      token后缀请根据实际情况填写
+      {{ $t('doc.index.838701-9') }}
       <br />
-      示例：https://api.iot.10086.cn/v5/authService?appid=xxx&password=xxx&transid=xxx
+      {{ $t('doc.index.838701-10') }}
     </p>
   </div>
 
   <div v-if="type === 'ctwing'" class="doc">
     <div class="url">
-      5G连接管理平台：
+      {{ $t('doc.index.838701-11') }}
       <a
         style="word-break: break-all"
         href="https://cmp.ctwing.cn:4821/login"
@@ -58,26 +58,26 @@
       </a>
     </div>
     <div>
-      <h1>1.概述</h1>
+      <h1>{{ $t('doc.index.838701-1') }}</h1>
       <p>
-        平台对接通过API的方式与三方系统进行数据对接，为物联卡的管理提供数据交互支持。
+        {{ $t('doc.index.838701-2') }}
       </p>
-      <h1>2.配置说明</h1>
-      <h2>1、用户 id</h2>
+      <h1>{{ $t('doc.index.838701-3') }}</h1>
+      <h2>{{ $t('doc.index.838701-12') }}</h2>
       <p>
-        5G连接管理平台用户的唯一标识，用于身份识别。
+        {{ $t('doc.index.838701-13') }}
         <br />
-        获取路径：“5G连接管理平台”--“能力开放”--“API网关账号管理”
+        {{ $t('doc.index.838701-14') }}
       </p>
       <div class="image">
         <a-image width="100%" :src="iotCard.ctwingId" />
       </div>
 
-      <h2>2、密码</h2>
+      <h2>{{ $t('doc.index.838701-15') }}</h2>
       <p>
-        用户id经加密之后的密码。
+        {{ $t('doc.index.838701-16') }}
         <br />
-        获取路径：“5G连接管理平台”--“能力开放”--“API网关账号管理”
+        {{ $t('doc.index.838701-14') }}
       </p>
       <div class="image">
         <a-image width="100%" :src="iotCard.ctwingPass" />
@@ -85,9 +85,9 @@
 
       <h2>3、secretKey</h2>
       <p>
-        APP secret唯一秘钥。
+        {{ $t('doc.index.838701-17') }}
         <br />
-        获取路径：“5G连接管理平台”--“能力开放”--“API网关账号管理”
+        {{ $t('doc.index.838701-14') }}
       </p>
       <div class="image">
         <a-image width="100%" :src="iotCard.ctwingSecret" />
@@ -97,7 +97,7 @@
 
   <div v-if="type === 'unicom'" class="doc">
     <div class="url">
-      雁飞智连CMP平台：
+      {{ $t('doc.index.838701-18') }}
       <a
         style="word-break: break-all"
         href="  https://cmp.10646.cn/webframe/login"
@@ -109,16 +109,16 @@
     </div>
 
     <div>
-      <h1>1.概述</h1>
+      <h1>{{ $t('doc.index.838701-1') }}</h1>
       <p>
-        平台对接通过API的方式与三方系统进行数据对接，为物联卡的管理提供数据交互支持。
+        {{ $t('doc.index.838701-2') }}
       </p>
-      <h1>2.配置说明</h1>
+      <h1>{{ $t('doc.index.838701-3') }}</h1>
       <h2>1、APP ID</h2>
       <p>
-        第三方应用唯一标识。
+        {{ $t('doc.index.838701-19') }}
         <br />
-        获取路径：“雁飞智连CMP平台”--“我的应用”--“应用列表”
+        {{ $t('doc.index.838701-20') }}
       </p>
       <div class="image">
         <a-image width="100%" :src="iotCard.unicomId" />
@@ -126,19 +126,19 @@
 
       <h2>2、App Secret</h2>
       <p>
-        API 接入秘钥。
+        {{ $t('doc.index.838701-21') }}
         <br />
-        获取路径：“雁飞智连CMP平台”--“我的应用”--“应用列表”
+        {{ $t('doc.index.838701-20') }}
       </p>
       <div class="image">
         <a-image width="100%" :src="iotCard.unicomSecret" />
       </div>
 
-      <h2>3、创建者ID</h2>
+      <h2>{{ $t('doc.index.838701-22') }}</h2>
       <p>
-        接口参数中的 OpenId。
+        {{ $t('doc.index.838701-23') }}
         <br />
-        获取路径：“雁飞智连CMP平台”--“我的应用”--“应用列表”
+        {{ $t('doc.index.838701-20') }}
         <br />
       </p>
       <div class="image">
@@ -150,6 +150,9 @@
 
 <script setup lang="ts">
 import { iotCard } from '../../../assets'
+import { useI18n } from 'vue-i18n';
+
+const { t: $t } = useI18n();
 const props = defineProps({
   type: { type: String, default: 'onelink' }
 })

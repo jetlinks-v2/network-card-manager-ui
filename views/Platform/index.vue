@@ -21,14 +21,14 @@
         <template #headerLeftRender>
           <a-space>
             <!-- <j-button type="primary" @click="handleAdd">
-                          <AIcon type="PlusOutlined" />新增
+                          <AIcon type="PlusOutlined" />{{ $t('Platform.index.838700-0') }}
                           </j-button> -->
             <j-permission-button
               @click="handleAdd"
               :hasPermission="'iot-card/Platform:add'"
               type="primary"
             >
-              <AIcon type="PlusOutlined" />新增
+              <AIcon type="PlusOutlined" />{{ $t('Platform.index.838700-0') }}
             </j-permission-button>
           </a-space>
         </template>
@@ -63,11 +63,11 @@
               </h3>
               <a-row>
                 <a-col :span="12">
-                  <div class="card-item-content-text">平台类型</div>
+                  <div class="card-item-content-text">{{ $t('Platform.index.838700-1') }}</div>
                   <div>{{ slotProps.operatorName }}</div>
                 </a-col>
                 <a-col :span="12">
-                  <div class="card-item-content-text">说明</div>
+                  <div class="card-item-content-text">{{ $t('Platform.index.838700-2') }}</div>
                   <j-ellipsis>{{ slotProps.explain }}</j-ellipsis>
                 </a-col>
               </a-row>
@@ -128,6 +128,9 @@ import { onlyMessage } from '@jetlinks-web/utils'
 import { queryList, update, del } from '../../api/platform'
 import { useMenuStore } from '@/store'
 import { iotCard, home } from '../../assets'
+import { useI18n } from 'vue-i18n';
+
+const { t: $t } = useI18n();
 const menuStory = useMenuStore()
 const router = useRouter()
 const platformRef = ref<Record<string, any>>({})
@@ -135,7 +138,7 @@ const params = ref<Record<string, any>>({})
 
 const columns = [
   {
-    title: '名称',
+    title: $t('Platform.index.838700-3'),
     dataIndex: 'name',
     key: 'name',
     ellipsis: true,
@@ -144,20 +147,20 @@ const columns = [
     }
   },
   {
-    title: '平台类型',
+    title: $t('Platform.index.838700-1'),
     dataIndex: 'operatorName',
     key: 'operatorName',
     search: {
       type: 'select',
       options: [
-        { label: '移动OneLink', value: 'onelink' },
-        { label: '电信Ctwing', value: 'ctwing' },
-        { label: '联通Unicom', value: 'unicom' }
+        { label: $t('Platform.index.838700-4'), value: 'onelink' },
+        { label: $t('Platform.index.838700-5'), value: 'ctwing' },
+        { label: $t('Platform.index.838700-6'), value: 'unicom' }
       ]
     }
   },
   {
-    title: '状态',
+    title: $t('Platform.index.838700-7'),
     dataIndex: 'state',
     key: 'state',
     scopedSlots: true,
@@ -165,19 +168,19 @@ const columns = [
     search: {
       type: 'select',
       options: [
-        { label: '启用', value: 'enabled' },
-        { label: '禁用', value: 'disabled' }
+        { label: $t('Platform.index.838700-8'), value: 'enabled' },
+        { label: $t('Platform.index.838700-9'), value: 'disabled' }
       ]
     }
   },
   {
-    title: '说明',
+    title: $t('Platform.index.838700-2'),
     dataIndex: 'explain',
     key: 'explain',
     ellipsis: true
   },
   {
-    title: '操作',
+    title: $t('Platform.index.838700-10'),
     key: 'action',
     fixed: 'right',
     width: 120,
@@ -189,7 +192,7 @@ const statusUpdate = (data: any) => {
   const response = update(data)
   response.then((res) => {
     if (res.status === 200) {
-      onlyMessage('操作成功')
+      onlyMessage($t('Platform.index.838700-11'))
       platformRef.value?.reload()
     }
   })
@@ -204,9 +207,9 @@ const getActions = (
   return [
     {
       key: 'update',
-      text: '编辑',
+      text: $t('Platform.index.838700-12'),
       tooltip: {
-        title: '编辑'
+        title: $t('Platform.index.838700-12')
       },
       icon: 'EditOutlined',
       onClick: () => {
@@ -218,16 +221,16 @@ const getActions = (
     },
     {
       key: 'action',
-      text: data.state.value === 'enabled' ? '禁用' : '启用',
+      text: data.state.value === 'enabled' ? $t('Platform.index.838700-9') : $t('Platform.index.838700-8'),
       tooltip: {
-        title: data.state.value === 'enabled' ? '禁用' : '启用'
+        title: data.state.value === 'enabled' ? $t('Platform.index.838700-9') : $t('Platform.index.838700-8')
       },
       icon:
         data.state.value === 'enabled' ? 'StopOutlined' : 'PlayCircleOutlined',
       popConfirm: {
-        title: `确认${data.state.value === 'enabled' ? '禁用' : '启用'}？`,
+        title: `确认${data.state.value === 'enabled' ? $t('Platform.index.838700-9') : $t('Platform.index.838700-8')}？`,
         okText: ' 确定',
-        cancelText: '取消',
+        cancelText: $t('Platform.index.838700-15'),
         onConfirm: () => {
           if (data.state.value === 'enabled') {
             return statusUpdate({
@@ -249,23 +252,23 @@ const getActions = (
     },
     {
       key: 'delete',
-      text: '删除',
+      text: $t('Platform.index.838700-16'),
       tooltip: {
-        title: data.state.value !== 'enabled' ? '删除' : '请先禁用再删除'
+        title: data.state.value !== 'enabled' ? $t('Platform.index.838700-16') : $t('Platform.index.838700-17')
       },
       disabled: data.state.value === 'enabled',
       popConfirm: {
-        title: '确认删除?',
+        title: $t('Platform.index.838700-18'),
         okText: ' 确定',
-        cancelText: '取消',
+        cancelText: $t('Platform.index.838700-15'),
         onConfirm: () => {
           const response: any = del(data.id)
           response.then((resp: any) => {
             if (resp.status === 200) {
-              onlyMessage('操作成功！')
+              onlyMessage($t('Platform.index.838700-19'))
               platformRef.value?.reload()
             } else {
-              onlyMessage('操作失败！', 'error')
+              onlyMessage($t('Platform.index.838700-20'), 'error')
             }
           })
           return response

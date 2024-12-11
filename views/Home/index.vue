@@ -4,7 +4,7 @@
     <a-row :gutter="[24, 24]">
       <a-col :xxl="14" :xl="24">
         <div class="home-guide">
-          <Guide title="物联卡引导"></Guide>
+          <Guide :title="$t('Home.index.662663-0')"></Guide>
           <div
             class="home-guide-items"
             :style="`grid-template-columns: repeat(${
@@ -28,14 +28,14 @@
       </a-col>
       <a-col :xxl="10" :xl="24">
         <div class="home-statistics">
-          <Guide title="基础统计">
+          <Guide :title="$t('Home.index.662663-1')">
             <template #extra>
-              <span class="extra-text" @click="jumpDashboard">详情</span>
+              <span class="extra-text" @click="jumpDashboard">{{ $t('Home.index.662663-2') }}</span>
             </template>
           </Guide>
           <div class="home-statistics-body">
             <div class="home-guide-item">
-              <div class="item-english">昨日流量统计</div>
+              <div class="item-english">{{ $t('Home.index.662663-3') }}</div>
               <div class="item-title">{{ currentSource }} M</div>
               <div
                 class="item-index-echarts"
@@ -45,7 +45,7 @@
               </div>
             </div>
             <div class="home-guide-item">
-              <div class="item-english">物联卡</div>
+              <div class="item-english">{{ $t('Home.index.662663-4') }}</div>
               <div class="item-content">
                 <div
                   v-for="item in pieChartData"
@@ -72,7 +72,7 @@
       </a-col>
       <a-col :span="24">
         <div class="home-body">
-          <Guide title="平台架构图" english="PLATFORM ARCHITECTURE DIAGRAM" />
+          <Guide :title="$t('Home.index.662663-5')" english="PLATFORM ARCHITECTURE DIAGRAM" />
           <div class="home-body-img">
             <img :src="iotCard.iotcardHome" />
           </div>
@@ -90,7 +90,9 @@ import { queryFlow, list, getIsTimer } from '../../api/home'
 import * as echarts from 'echarts'
 import { useAuthStore, useMenuStore } from '@/store'
 import { iotCard, home } from '../../assets'
+import { useI18n } from 'vue-i18n';
 
+const { t: $t } = useI18n();
 const { proxy } = <any>getCurrentInstance()
 
 interface GuideItemProps {
@@ -125,7 +127,7 @@ const Image = {
 const guideList = [
   {
     key: 'EQUIPMENT',
-    name: '平台对接',
+    name: $t('Home.index.662663-6'),
     english: 'STEP1',
     auth: paltformPermission,
     // url: platformUrl,
@@ -133,7 +135,7 @@ const guideList = [
   },
   {
     key: 'SCREEN',
-    name: '物联卡管理',
+    name: $t('Home.index.662663-7'),
     english: 'STEP2',
     auth: !!cardPermission,
     // url: cardUrl,
@@ -142,7 +144,7 @@ const guideList = [
   },
   {
     key: 'CASCADE',
-    name: '操作记录',
+    name: $t('Home.index.662663-8'),
     english: 'STEP3',
     auth: !!recordUrl,
     // url: recordUrl,
@@ -155,19 +157,19 @@ const barChartData = ref<any[]>([])
 const pieChartData = ref<any[]>([
   {
     key: 'using',
-    name: '激活',
+    name: $t('Home.index.662663-9'),
     value: 0,
     className: 'normal'
   },
   {
     key: 'toBeActivated',
-    name: '未激活',
+    name: $t('Home.index.662663-10'),
     value: 0,
     className: 'notActive'
   },
   {
     key: 'deactivate',
-    name: '停用',
+    name: $t('Home.index.662663-11'),
     value: 0,
     className: 'stopped'
   }
@@ -175,7 +177,7 @@ const pieChartData = ref<any[]>([
 
 const jumpPage = (data: GuideItemProps) => {
   if (!data.auth) {
-    onlyMessage('暂无权限，请联系管理员', 'warning')
+    onlyMessage($t('Home.index.662663-12'), 'warning')
     return
   }
   if (data.key === 'EQUIPMENT') {
@@ -213,7 +215,7 @@ const get15DaysTrafficConsumption = async () => {
   const endTime = dayjs().subtract(1, 'days').endOf('day').valueOf();
   const dParams = isTimer.value ? {
     context: {
-      format: "M月dd日",
+      format: $t('Home.index.662663-13'),
       time: "1d",
       from: beginTime,
       to: endTime,
@@ -284,7 +286,7 @@ const createBarChart = () => {
     },
     series: [
       {
-        name: '流量消耗',
+        name: $t('Home.index.662663-14'),
         type: 'bar',
         color: '#FACD89',
         // barWidth: '5%', // 设单柱状置宽度

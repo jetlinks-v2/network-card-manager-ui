@@ -1,0 +1,34 @@
+{
+	"zh": {
+		"views.data.812529-0": "移动OneLink",
+		"views.data.812529-1": "电信Ctwing",
+		"views.data.812529-2": "联通Unicom",
+		"views.data.812529-3": "移动",
+		"views.data.812529-4": "电信",
+		"views.data.812529-5": "联通",
+		"views.data.812529-6": "年卡",
+		"views.data.812529-7": "季卡",
+		"views.data.812529-8": "月卡",
+		"views.data.812529-9": "其他",
+		"views.data.812529-10": "支付宝手机网站支付",
+		"views.data.812529-11": "支付宝网页及时到账支付",
+		"views.data.812529-12": "微信公众号支付",
+		"views.data.812529-13": "微信扫码支付"
+	},
+	"en": {
+		"views.data.812529-0": "Mobile OneLink",
+		"views.data.812529-1": "Telecom Ctwing",
+		"views.data.812529-2": "China Unicom",
+		"views.data.812529-3": "move",
+		"views.data.812529-4": "telecom",
+		"views.data.812529-5": "Unicom",
+		"views.data.812529-6": "Annual card",
+		"views.data.812529-7": "Seasonal card",
+		"views.data.812529-8": "Monthly card",
+		"views.data.812529-9": "other",
+		"views.data.812529-10": "Alipay mobile website payment",
+		"views.data.812529-11": "Alipay web page paid in time",
+		"views.data.812529-12": "WeChat official account payment",
+		"views.data.812529-13": "WeChat QR code payment"
+	}
+}

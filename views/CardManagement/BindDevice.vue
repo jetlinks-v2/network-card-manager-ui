@@ -4,9 +4,9 @@
     :maskClosable="false"
     width="1100px"
     :visible="true"
-    title="选择设备"
-    okText="确定"
-    cancelText="取消"
+    :title="$t('CardManagement.BindDevice.427957-0')"
+    :okText="$t('CardManagement.BindDevice.427957-1')"
+    :cancelText="$t('CardManagement.BindDevice.427957-2')"
     @ok="handleOk"
     @cancel="handleCancel"
     :confirmLoading="btnLoading"
@@ -56,7 +56,9 @@
 import { queryUnbounded, bind } from '../../api/cardManagement'
 import dayjs from 'dayjs'
 import { onlyMessage } from '@jetlinks-web/utils'
+import { useI18n } from 'vue-i18n';
 
+const { t: $t } = useI18n();
 const emit = defineEmits(['change'])
 
 const props = defineProps({
@@ -87,7 +89,7 @@ const columns = [
     }
   },
   {
-    title: '设备名称',
+    title: $t('CardManagement.BindDevice.427957-3'),
     dataIndex: 'name',
     key: 'name',
     ellipsis: true,
@@ -96,7 +98,7 @@ const columns = [
     }
   },
   {
-    title: '注册时间',
+    title: $t('CardManagement.BindDevice.427957-4'),
     dataIndex: 'registryTime',
     key: 'registryTime',
     scopedSlots: true,
@@ -106,16 +108,16 @@ const columns = [
     // sorter: true,
   },
   {
-    title: '状态',
+    title: $t('CardManagement.BindDevice.427957-5'),
     dataIndex: 'state',
     key: 'state',
     scopedSlots: true,
     search: {
       type: 'select',
       options: [
-        { label: '禁用', value: 'notActive' },
-        { label: '离线', value: 'offline' },
-        { label: '在线', value: 'online' }
+        { label: $t('CardManagement.BindDevice.427957-6'), value: 'notActive' },
+        { label: $t('CardManagement.BindDevice.427957-7'), value: 'offline' },
+        { label: $t('CardManagement.BindDevice.427957-8'), value: 'online' }
       ]
     }
     // filterMultiple: false,
@@ -139,7 +141,7 @@ const handleOk = () => {
   bind(props.cardId, _selectedRowKeys.value[0])
     .then((resp: any) => {
       if (resp.status === 200) {
-        onlyMessage('操作成功')
+        onlyMessage($t('CardManagement.BindDevice.427957-9'))
         emit('change', true)
       }
     })

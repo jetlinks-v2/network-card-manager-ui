@@ -3,19 +3,19 @@
   <a-modal
     :maskClosable="false"
     :visible="true"
-    title="导出"
-    okText="确定"
-    cancelText="取消"
+    :title="$t('CardManagement.Export.427956-0')"
+    :okText="$t('CardManagement.Export.427956-1')"
+    :cancelText="$t('CardManagement.Export.427956-2')"
     :confirmLoading="loading"
     @ok="handleOk"
     @cancel="handleCancel"
   >
     <div style="margin-top: 10px">
       <a-space>
-        <span>文件格式：</span>
+        <span>{{ $t('CardManagement.Export.427956-3') }}</span>
         <a-radio-group
           v-model:value="type"
-          placeholder="请选择文件格式"
+          :placeholder="$t('CardManagement.Export.427956-4')"
           button-style="solid"
         >
           <a-radio-button value="xlsx">xlsx</a-radio-button>
@@ -33,7 +33,9 @@ import {downloadFileByUrl} from '@jetlinks-web/utils';
 import {paramsEncodeQuery} from "@/utils/encodeQuery";
 import {LocalStore} from "@jetlinks-web/utils";
 import {TOKEN_KEY} from "@jetlinks-web/constants";
+import { useI18n } from 'vue-i18n';
 
+const { t: $t } = useI18n();
 const emit = defineEmits(['close'])
 
 const props = defineProps({

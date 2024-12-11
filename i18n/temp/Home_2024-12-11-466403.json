@@ -1,0 +1,36 @@
+{
+	"zh": {
+		"Home.index.662663-0": "物联卡引导",
+		"Home.index.662663-1": "基础统计",
+		"Home.index.662663-2": "详情",
+		"Home.index.662663-3": "昨日流量统计",
+		"Home.index.662663-4": "物联卡",
+		"Home.index.662663-5": "平台架构图",
+		"Home.index.662663-6": "平台对接",
+		"Home.index.662663-7": "物联卡管理",
+		"Home.index.662663-8": "操作记录",
+		"Home.index.662663-9": "激活",
+		"Home.index.662663-10": "未激活",
+		"Home.index.662663-11": "停用",
+		"Home.index.662663-12": "暂无权限，请联系管理员",
+		"Home.index.662663-13": "M月dd日",
+		"Home.index.662663-14": "流量消耗"
+	},
+	"en": {
+		"Home.index.662663-0": "IoT card guidance",
+		"Home.index.662663-1": "Basic Statistics",
+		"Home.index.662663-2": "details",
+		"Home.index.662663-3": "Yesterday's traffic statistics",
+		"Home.index.662663-4": "IoT card",
+		"Home.index.662663-5": "Platform architecture diagram",
+		"Home.index.662663-6": "Platform docking",
+		"Home.index.662663-7": "IoT card management",
+		"Home.index.662663-8": "Operation record",
+		"Home.index.662663-9": "activation",
+		"Home.index.662663-10": "not active",
+		"Home.index.662663-11": "Stop using",
+		"Home.index.662663-12": "No permission at the moment, please contact the administrator",
+		"Home.index.662663-13": "M month dd day",
+		"Home.index.662663-14": "Traffic consumption"
+	}
+}

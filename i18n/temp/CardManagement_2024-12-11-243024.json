@@ -1,0 +1,24 @@
+{
+	"zh": {
+		"CardManagement.Import.427945-0": "导入",
+		"CardManagement.Import.427945-1": "确定",
+		"CardManagement.Import.427945-2": "取消",
+		"CardManagement.Import.427945-3": "平台对接",
+		"CardManagement.Import.427945-4": "请选择平台对接",
+		"CardManagement.Import.427945-5": "文件格式",
+		"CardManagement.Import.427945-6": "请选择文件格式",
+		"CardManagement.Import.427945-7": "文件上传",
+		"CardManagement.Import.427945-8": "关闭"
+	},
+	"en": {
+		"CardManagement.Import.427945-0": "Import",
+		"CardManagement.Import.427945-1": "determine",
+		"CardManagement.Import.427945-2": "cancel",
+		"CardManagement.Import.427945-3": "Platform docking",
+		"CardManagement.Import.427945-4": "Please select platform docking",
+		"CardManagement.Import.427945-5": "file format",
+		"CardManagement.Import.427945-6": "Please choose a file format",
+		"CardManagement.Import.427945-7": "File upload",
+		"CardManagement.Import.427945-8": "close"
+	}
+}

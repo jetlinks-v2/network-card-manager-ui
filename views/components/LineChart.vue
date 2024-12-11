@@ -4,7 +4,9 @@
 
 <script setup lang="ts">
 import * as echarts from 'echarts';
+import { useI18n } from 'vue-i18n';
 
+const { t: $t } = useI18n();
 const { proxy } = <any>getCurrentInstance();
 
 const props = defineProps({
@@ -75,7 +77,7 @@ const createChart = () => {
             ],
             series: [
                 {
-                    name: '流量消耗',
+                    name: $t('components.LineChart.383786-0'),
                     type: 'line',
                     symbol: 'circle',
                     showSymbol: false,

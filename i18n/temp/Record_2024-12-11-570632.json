@@ -1,0 +1,14 @@
+{
+	"zh": {
+		"Record.index.705509-0": "卡号",
+		"Record.index.705509-1": "操作类型",
+		"Record.index.705509-2": "操作时间",
+		"Record.index.705509-3": "操作人"
+	},
+	"en": {
+		"Record.index.705509-0": "Card number",
+		"Record.index.705509-1": "Operation type",
+		"Record.index.705509-2": "Operation time",
+		"Record.index.705509-3": "Operator"
+	}
+}

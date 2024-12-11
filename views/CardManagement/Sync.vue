@@ -3,7 +3,7 @@
     visible
     width="800px"
     :maskClosable="false"
-    title="同步"
+    :title="$t('CardManagement.Sync.427942-0')"
     :closable="false"
   >
     <div style="margin: 10px 0px 20px 0px; padding-right: 10px">
@@ -14,10 +14,10 @@
 <!--      <div v-else>-->
 <!--        <p>{{ syncData.count }}张物联卡已同步至最新状态</p>-->
 <!--      </div>-->
-      <p>{{ syncData.total }}张物联卡等待更新状态</p>
+      <p>{{ syncData.total }}{{ $t('CardManagement.Sync.427942-1') }}</p>
     </div>
     <template #footer>
-      <a-button :loading="flag" type="primary" @click="handleCancel">完成</a-button>
+      <a-button :loading="flag" type="primary" @click="handleCancel">{{ $t('CardManagement.Sync.427942-2') }}</a-button>
     </template>
   </a-modal>
 </template>
@@ -28,7 +28,9 @@ import { getToken, LocalStore, setToken } from '@jetlinks-web/utils'
 import { EventSourcePolyfill } from 'event-source-polyfill'
 import { queryCount } from '../../api/cardManagement'
 import { BASE_API, TOKEN_KEY_URL } from '@jetlinks-web/constants'
+import { useI18n } from 'vue-i18n';
 
+const { t: $t } = useI18n();
 const emit = defineEmits(['close'])
 
 const props = defineProps({

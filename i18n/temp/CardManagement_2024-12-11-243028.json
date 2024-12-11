@@ -1,0 +1,12 @@
+{
+	"zh": {
+		"CardManagement.Sync.427942-0": "同步",
+		"CardManagement.Sync.427942-1": "张物联卡等待更新状态",
+		"CardManagement.Sync.427942-2": "完成"
+	},
+	"en": {
+		"CardManagement.Sync.427942-0": "synchronization",
+		"CardManagement.Sync.427942-1": "Zhang IoT card waiting for update status",
+		"CardManagement.Sync.427942-2": "complete"
+	}
+}
