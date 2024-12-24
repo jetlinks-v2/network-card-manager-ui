@@ -25,7 +25,7 @@
         "
         :params="params"
         modeValue="CARD"
-        :gridColumns="[3, 3, 3]"
+        :gridColumns="[2]"
       >
         <template #headerLeftRender>
           <a-space>
