@@ -8,7 +8,7 @@
     />
     <FullPage>
       <j-pro-table
-        :scroll="{ x: 1366 }"
+        :scroll="{ x: 'max-content' }"
         ref="cardManageRef"
         :columns="columns"
         :request="query"
@@ -190,6 +190,9 @@
             }"
           />
         </template>
+        <template #syncCardStatus="slotProps">
+          <span>{{slotProps.syncCardStatus?.text}}</span>
+        </template>
         <template #cardState="slotProps">
           <j-badge-status
             v-if="slotProps.cardState?.state"
@@ -217,7 +220,7 @@
           }}
         </template>
         <template #action="slotProps">
-          <a-space :size="16">
+          <a-space>
             <template v-for="i in getActions(slotProps, 'table')" :key="i.key">
               <j-permission-button
                 :disabled="i.disabled"
@@ -506,6 +509,7 @@ const columns = [
     title: $t('CardManagement.index.427944-47'),
     dataIndex: 'syncCardStatus',
     key: 'syncCardStatus',
+    width: 100,
     search: {
       type: 'select',
       options: [
@@ -516,12 +520,13 @@ const columns = [
         {label: $t('CardManagement.index.427944-50'), value: 'success'},
       ],
     },
+    scopedSlots: true
   },
   {
     title: $t('CardManagement.index.427944-51'),
     key: 'action',
     fixed: 'right',
-    width: 200,
+    width: 220,
     scopedSlots: true
   }
 ]
