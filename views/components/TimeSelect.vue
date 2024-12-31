@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="display: flex;flex-wrap: wrap;justify-content: flex-end;gap: 8px">
     <a-radio-group
       v-if="quickBtn"
       default-value="today"

@@ -1,6 +1,6 @@
 <template>
     <div class="home-title">
-        <div v-if="title">{{ title }}</div>
+        <div v-if="title"> {{ title }} </div>
         <div v-else>
             <slot name="title"></slot>
         </div>
@@ -30,7 +30,7 @@ const props = defineProps<guideProps>();
     padding-left: 18px;
     font-weight: 700;
     font-size: 18px;
-
+    white-space: nowrap;
     &::after {
         position: absolute;
         top: 50%;
