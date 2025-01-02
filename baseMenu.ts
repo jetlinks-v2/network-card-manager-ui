@@ -6,6 +6,7 @@ export default [
             name: {
                 zh_CN: '物联卡',
                 en_US: 'IoT Card',
+                en: 'IoT Card'
             }
         },
         path: '5Hpl',
@@ -28,6 +29,7 @@ export default [
                     name: {
                         zh_CN: '首页',
                         en_US: 'Home',
+                        en: 'Home'
                     }
                 },
                 code: 'iot-card/Home',
@@ -60,6 +62,7 @@ export default [
                     name: {
                         zh_CN: '仪表盘',
                         en_US: 'Dashboard',
+                        en: 'Dashboard',
                     }
                 },
                 code: 'iot-card/Dashboard',
@@ -82,6 +85,7 @@ export default [
                     name: {
                         zh_CN: '物联卡管理',
                         en_US: 'IoT Card Management',
+                        en: 'IoT Card Management'
                     }
                 },
                 code: 'iot-card/CardManagement',
@@ -110,6 +114,7 @@ export default [
                         i18nMessages: {
                             zh_CN: '同步',
                             en_US: 'Sync',
+                            en: 'Sync'
                         },
                         permissions: [
                             {
@@ -128,6 +133,7 @@ export default [
                         i18nMessages: {
                             zh_CN: '导入',
                             en_US: 'Import',
+                            en: 'Import'
                         },
                         permissions: [
                             {
@@ -146,6 +152,7 @@ export default [
                         i18nMessages: {
                             zh_CN: '导出',
                             en_US: 'Export',
+                            en: 'Export',
                         },
                         permissions: [
                             {
@@ -164,6 +171,7 @@ export default [
                         i18nMessages: {
                             zh_CN: '删除',
                             en_US: 'Delete',
+                            en: 'Delete',
                         },
                         permissions: [
                             {
@@ -182,6 +190,7 @@ export default [
                         i18nMessages: {
                             zh_CN: '激活',
                             en_US: 'Active',
+                            en: 'Active',
                         },
                         permissions: [
                             {
@@ -200,6 +209,7 @@ export default [
                         i18nMessages: {
                             zh_CN: '绑定',
                             en_US: 'Bind',
+                            en: 'Bind',
                         },
                         permissions: [
                             {
@@ -222,6 +232,7 @@ export default [
                         i18nMessages: {
                             zh_CN: '新增',
                             en_US: 'Add',
+                            en: 'Add',
                         },
                         permissions: [
                             {
@@ -240,6 +251,7 @@ export default [
                         i18nMessages: {
                             zh_CN: '启/禁用',
                             en_US: 'Enable/Disable',
+                            en: 'Enable/Disable',
                         },
                         permissions: [
                             {
@@ -258,6 +270,7 @@ export default [
                         i18nMessages: {
                             zh_CN: '编辑',
                             en_US: 'Edit',
+                            en: 'Edit',
                         },
                         permissions: [
                             {
@@ -276,6 +289,7 @@ export default [
                         i18nMessages: {
                             zh_CN: '查看',
                             en_US: 'View',
+                            en: 'View',
                         },
                         permissions: [
                             {
@@ -300,6 +314,7 @@ export default [
                     name: {
                         zh_CN: '充值管理',
                         en_US: 'Recharge management',
+                        en: 'Recharge management'
                     }
                 },
                 showPage: ['network-card'],
@@ -320,6 +335,7 @@ export default [
                         i18nMessages: {
                             zh_CN: '查看',
                             en_US: 'View',
+                            en: 'View',
                         },
                         permissions: [
                             {
@@ -334,6 +350,7 @@ export default [
                         i18nMessages: {
                             zh_CN: '充值',
                             en_US: 'Recharge',
+                            en: 'Recharge',
                         },
                         permissions: [
                             {
@@ -362,6 +379,7 @@ export default [
                     name: {
                         zh_CN: '平台接入',
                         en_US: 'Platform access',
+                        en: 'Platform access'
                     }
                 },
                 code: 'iot-card/Platform',
@@ -382,6 +400,7 @@ export default [
                         i18nMessages: {
                             zh_CN: '启/禁用',
                             en_US: 'Enable/Disable',
+                            en: 'Enable/Disable',
                         },
                         permissions: [
                             {
@@ -396,6 +415,7 @@ export default [
                         i18nMessages: {
                             zh_CN: '删除',
                             en_US: 'Delete',
+                            en: 'Delete',
                         },
                         permissions: [
                             {
@@ -410,6 +430,7 @@ export default [
                         i18nMessages: {
                             zh_CN: '编辑',
                             en_US: 'Edit',
+                            en: 'Edit',
                         },
                         permissions: [
                             {
@@ -424,6 +445,7 @@ export default [
                         i18nMessages: {
                             zh_CN: '新增',
                             en_US: 'Add',
+                            en: 'Add',
                         },
                         permissions: [
                             {
@@ -438,6 +460,7 @@ export default [
                         i18nMessages: {
                             zh_CN: '查看',
                             en_US: 'View',
+                            en: 'View',
                         },
                         permissions: [
                             {
@@ -462,6 +485,7 @@ export default [
                     name: {
                         zh_CN: '操作记录',
                         en_US: 'Operation record',
+                        en: 'Operation record'
                     }
                 },
                 code: 'iot-card/Record',

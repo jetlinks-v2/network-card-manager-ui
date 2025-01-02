@@ -1,4 +1,5 @@
 const routerModules = import.meta.glob('./views/**/index.vue')
+import i18n from "@/locales";
 
 const MODULE_CODE = 'iot-card'
 const getAsyncRoutesMap = () => {
@@ -19,7 +20,7 @@ const getExtraRoutesMap = () => {
         {
           code: 'Detail',
           url: '/detail/:id',
-          name: '详情信息',
+          name: i18n.global.t('network-card-manager-ui.index.390590-0'),
           component: () => import('./views/CardManagement/Detail/index.vue')
         }
       ]
@@ -29,7 +30,7 @@ const getExtraRoutesMap = () => {
         {
           code: 'Detail',
           url: '/detail/:id',
-          name: '详情信息',
+          name: i18n.global.t('network-card-manager-ui.index.390590-0'),
           component: () => import('./views/Platform/Detail/index.vue')
         }
       ]
