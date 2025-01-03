@@ -71,7 +71,7 @@
                 />
               </template>
             </Guide>
-            <FullPage v-if="flowData.length !== 0">
+            <FullPage :fixed="false" v-if="flowData.length !== 0">
               <LineChart
                 :showX="true"
                 :showY="true"
@@ -95,7 +95,7 @@
                   @change="getTopRang"
               /></template>
             </Guide>
-            <FullPage v-if="topList.length !== 0">
+            <FullPage :fixed="false" v-if="topList.length !== 0">
               <div v-if="topList.length !== 0" class="rankingList">
                 <div
                   v-for="(item, index) in topList"
