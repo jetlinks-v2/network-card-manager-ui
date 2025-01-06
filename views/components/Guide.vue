@@ -1,7 +1,7 @@
 <template>
     <div class="home-title">
-        <div v-if="title"> {{ title }} </div>
-        <div v-else>
+        <div class="home-title-text" v-if="title"> {{ title }} </div>
+        <div class="home-title-text" v-else>
             <slot name="title"></slot>
         </div>
         <div class="extra-text">
@@ -30,17 +30,21 @@ const props = defineProps<guideProps>();
     padding-left: 18px;
     font-weight: 700;
     font-size: 18px;
-    white-space: nowrap;
-    &::after {
-        position: absolute;
-        top: 50%;
-        left: 0;
-        width: 8px;
-        height: 8px;
-        background-color: @primary-color;
-        border: 1px solid #b4c0da;
-        transform: translateY(-50%);
-        content: ' ';
+    .home-title-text {
+        position: relative;
+        white-space: nowrap;
+        height: 20px;
+        &::after {
+            position: absolute;
+            top: 70%;
+            left: -18px;
+            width: 8px;
+            height: 8px;
+            background-color: @primary-color;
+            border: 1px solid #b4c0da;
+            transform: translateY(-50%);
+            content: ' ';
+        }
     }
 
     .extra-text {
