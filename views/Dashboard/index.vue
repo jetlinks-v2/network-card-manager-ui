@@ -171,7 +171,7 @@ const getData = (start: number, end: number, params: any): Promise<{ sortArray: 
               new Date(a.date).getTime() - new Date(b.date).getTime(),
           );
         }
-        const arr = sortArray.map(i => ({...i, value: Number(i.value / 1024)}))
+        const arr = sortArray.map(i => ({...i, value: Number(i.value)}))
         resolve({
           sortArray: arr
         });
@@ -286,7 +286,7 @@ const getEcharts = (data: any) => {
     _time = '1M';
     format = $t('Dashboard.index.537937-15');
   }
-  const params = {
+  const params = isTimer.value ? {
     context: {
       time: _time,
       format: format,
@@ -294,6 +294,8 @@ const getEcharts = (data: any) => {
       from: data.start,
       to: data.end,
     }
+  } : {
+    orderBy: 'date',
   }
   getData(startTime, endTime, params).then((resp) => {
     flowData.value = resp.sortArray;
@@ -322,7 +324,7 @@ const getTopRang = (data: any) => {
     if (resp.status === 200) {
       const arr = resp.result
         .slice(0, 10)
-        .map(i => ({...i, value: i.value / 1024}))
+        .map(i => ({...i, value: i.value}))
         .sort((a: any, b: any) => b.value - a.value);
       topTotal.value = arr.length ? arr[0].value : 0;
       topList.value = arr;

@@ -16,19 +16,19 @@
               <template #title>
                 <Guide>
                   <template #title>
-                    <span>{{ $t('Detail.index.427958-0') }}</span>
+                    <span>{{ $t("Detail.index.427958-0") }}</span>
                     <a-button
                       type="link"
                       @click="
                         () => {
-                          visible = true
-                          current = detail
-                          saveType = 'edit'
+                          visible = true;
+                          current = detail;
+                          saveType = 'edit';
                         }
                       "
                     >
                       <AIcon type="EditOutlined"></AIcon>
-                      {{ $t('Detail.index.427958-1') }}
+                      {{ $t("Detail.index.427958-1") }}
                     </a-button>
                   </template>
                 </Guide>
@@ -45,9 +45,7 @@
               }}</a-descriptions-item>
               <a-descriptions-item :label="$t('Detail.index.427958-4')">{{
                 platformTypeList.find(
-                  (item) =>
-                    item.value ===
-                    detail.operatorName,
+                  (item) => item.value === detail.operatorName
                 )?.label || detail.operatorName
               }}</a-descriptions-item>
               <a-descriptions-item :label="$t('Detail.index.427958-5')">{{
@@ -62,24 +60,24 @@
               }}</a-descriptions-item>
               <a-descriptions-item :label="$t('Detail.index.427958-8')">{{
                 detail.activationDate
-                  ? dayjs(detail.activationDate).format('YYYY-MM-DD HH:mm:ss')
-                  : ''
+                  ? dayjs(detail.activationDate).format("YYYY-MM-DD HH:mm:ss")
+                  : ""
               }}</a-descriptions-item>
               <a-descriptions-item :label="$t('Detail.index.427958-9')">{{
                 detail.updateTime
-                  ? dayjs(detail.updateTime).format('YYYY-MM-DD HH:mm:ss')
-                  : ''
+                  ? dayjs(detail.updateTime).format("YYYY-MM-DD HH:mm:ss")
+                  : ""
               }}</a-descriptions-item>
               <a-descriptions-item :label="$t('Detail.index.427958-10')">{{
-                detail.totalFlow ? detail.totalFlow.toFixed(2) + ' M' : '0 M'
+                detail.totalFlow ? detail.totalFlow.toFixed(2) + " M" : "0 M"
               }}</a-descriptions-item>
               <a-descriptions-item :label="$t('Detail.index.427958-11')">{{
-                detail.usedFlow ? detail.usedFlow.toFixed(2) + ' M' : '0 M'
+                detail.usedFlow ? detail.usedFlow.toFixed(2) + " M" : "0 M"
               }}</a-descriptions-item>
               <a-descriptions-item :label="$t('Detail.index.427958-12')">{{
                 detail.residualFlow
-                  ? detail.residualFlow.toFixed(2) + ' M'
-                  : '0 M'
+                  ? detail.residualFlow.toFixed(2) + " M"
+                  : "0 M"
               }}</a-descriptions-item>
               <a-descriptions-item :label="$t('Detail.index.427958-13')">
                 {{ detail?.cardState?.text }}
@@ -90,26 +88,36 @@
                       style="color: var(--ant-error-color)"
                     />
                   </a-tooltip>
-                </span> 
+                </span>
               </a-descriptions-item>
               <a-descriptions-item :label="$t('Detail.index.427958-14')">
                 {{ detail?.cardStateType?.text }}
               </a-descriptions-item>
-              <a-descriptions-item >
+              <a-descriptions-item>
                 <template #label>
                   <div>
-                    {{ $t('Detail.index.427958-25') }}
+                    {{ $t("Detail.index.427958-25") }}
                     <a-tooltip>
-                      <template #title>{{ $t('Detail.index.427958-26') }}</template>
+                      <template #title>{{
+                        $t("Detail.index.427958-26")
+                      }}</template>
                       <AIcon type="QuestionCircleOutlined"></AIcon>
                     </a-tooltip>
                   </div>
                 </template>
-                <div style="display: flex; gap: 10px; align-items: center;">
+                <div style="display: flex; gap: 10px; align-items: center">
                   <div style="min-width: 60px">
                     {{ detail?.syncCardStatus?.text }}
                   </div>
-                  <div style="display: flex; color: red; align-items: center; gap: 5px" v-if="detail?.syncCardStatus?.value === 'failed'">
+                  <div
+                    style="
+                      display: flex;
+                      color: red;
+                      align-items: center;
+                      gap: 5px;
+                    "
+                    v-if="detail?.syncCardStatus?.value === 'failed'"
+                  >
                     <AIcon type="ExclamationCircleFilled" />
                     <j-ellipsis>{{ detail?.errorMessage }}</j-ellipsis>
                   </div>
@@ -149,7 +157,9 @@
                 <div class="static-info" style="min-height: 490px">
                   <div class="data-statistics-item">
                     <div class="flow-info" style="width: 100%">
-                      <div class="label">{{ $t('Detail.index.427958-18') }}</div>
+                      <div class="label">
+                        {{ $t("Detail.index.427958-18") }}
+                      </div>
                       <a-tooltip placement="bottomLeft">
                         <template #title>
                           <span>{{ dayTotal }} M</span>
@@ -164,7 +174,9 @@
                   </div>
                   <div class="data-statistics-item">
                     <div class="flow-info" style="width: 100%">
-                      <div class="label">{{ $t('Detail.index.427958-19') }}</div>
+                      <div class="label">
+                        {{ $t("Detail.index.427958-19") }}
+                      </div>
                       <a-tooltip placement="bottomLeft">
                         <template #title>
                           <span>{{ monthTotal }} M</span>
@@ -179,7 +191,9 @@
                   </div>
                   <div class="data-statistics-item">
                     <div class="flow-info" style="width: 100%">
-                      <div class="label">{{ $t('Detail.index.427958-20') }}</div>
+                      <div class="label">
+                        {{ $t("Detail.index.427958-20") }}
+                      </div>
                       <a-tooltip placement="bottomLeft">
                         <template #title>
                           <span>{{ yearTotal }} M</span>
@@ -215,19 +229,19 @@
               <template #title>
                 <Guide>
                   <template #title>
-                    <span>{{ $t('Detail.index.427958-0') }}</span>
+                    <span>{{ $t("Detail.index.427958-0") }}</span>
                     <a-button
                       type="link"
                       @click="
                         () => {
-                          visible = true
-                          current = detail
-                          saveType = 'edit'
+                          visible = true;
+                          current = detail;
+                          saveType = 'edit';
                         }
                       "
                     >
                       <AIcon type="EditOutlined"></AIcon>
-                      {{ $t('Detail.index.427958-1') }}
+                      {{ $t("Detail.index.427958-1") }}
                     </a-button>
                   </template>
                 </Guide>
@@ -244,9 +258,7 @@
               }}</a-descriptions-item>
               <a-descriptions-item :label="$t('Detail.index.427958-4')">{{
                 platformTypeList.find(
-                  (item) =>
-                    item.value ===
-                    detail.operatorName,
+                  (item) => item.value === detail.operatorName
                 )?.label || detail.operatorName
               }}</a-descriptions-item>
               <a-descriptions-item :label="$t('Detail.index.427958-5')">{{
@@ -261,24 +273,24 @@
               }}</a-descriptions-item>
               <a-descriptions-item :label="$t('Detail.index.427958-8')">{{
                 detail.activationDate
-                  ? dayjs(detail.activationDate).format('YYYY-MM-DD HH:mm:ss')
-                  : ''
+                  ? dayjs(detail.activationDate).format("YYYY-MM-DD HH:mm:ss")
+                  : ""
               }}</a-descriptions-item>
               <a-descriptions-item :label="$t('Detail.index.427958-9')">{{
                 detail.updateTime
-                  ? dayjs(detail.updateTime).format('YYYY-MM-DD HH:mm:ss')
-                  : ''
+                  ? dayjs(detail.updateTime).format("YYYY-MM-DD HH:mm:ss")
+                  : ""
               }}</a-descriptions-item>
               <a-descriptions-item :label="$t('Detail.index.427958-10')">{{
-                detail.totalFlow ? detail.totalFlow.toFixed(2) + ' M' : '0 M'
+                detail.totalFlow ? detail.totalFlow.toFixed(2) + " M" : "0 M"
               }}</a-descriptions-item>
               <a-descriptions-item :label="$t('Detail.index.427958-11')">{{
-                detail.usedFlow ? detail.usedFlow.toFixed(2) + ' M' : '0 M'
+                detail.usedFlow ? detail.usedFlow.toFixed(2) + " M" : "0 M"
               }}</a-descriptions-item>
               <a-descriptions-item :label="$t('Detail.index.427958-12')">{{
                 detail.residualFlow
-                  ? detail.residualFlow.toFixed(2) + ' M'
-                  : '0 M'
+                  ? detail.residualFlow.toFixed(2) + " M"
+                  : "0 M"
               }}</a-descriptions-item>
               <a-descriptions-item :label="$t('Detail.index.427958-13')">
                 {{ detail?.cardState?.text }}
@@ -328,7 +340,9 @@
                 <div class="static-info" style="min-height: 490px">
                   <div class="data-statistics-item">
                     <div class="flow-info" style="width: 100%">
-                      <div class="label">{{ $t('Detail.index.427958-18') }}</div>
+                      <div class="label">
+                        {{ $t("Detail.index.427958-18") }}
+                      </div>
                       <a-tooltip placement="bottomLeft">
                         <template #title>
                           <span>{{ dayTotal }} M</span>
@@ -343,7 +357,9 @@
                   </div>
                   <div class="data-statistics-item">
                     <div class="flow-info" style="width: 100%">
-                      <div class="label">{{ $t('Detail.index.427958-19') }}</div>
+                      <div class="label">
+                        {{ $t("Detail.index.427958-19") }}
+                      </div>
                       <a-tooltip placement="bottomLeft">
                         <template #title>
                           <span>{{ monthTotal }} M</span>
@@ -358,7 +374,9 @@
                   </div>
                   <div class="data-statistics-item">
                     <div class="flow-info" style="width: 100%">
-                      <div class="label">{{ $t('Detail.index.427958-20') }}</div>
+                      <div class="label">
+                        {{ $t("Detail.index.427958-20") }}
+                      </div>
                       <a-tooltip placement="bottomLeft">
                         <template #title>
                           <span>{{ yearTotal }} M</span>
@@ -383,166 +401,275 @@
 </template>
 
 <script setup lang="ts" name="CardDetail">
-import dayjs from 'dayjs'
-import type { CardManagement } from '../typing'
+import dayjs from "dayjs";
+import type { CardManagement } from "../typing";
 import {
   queryDeactivate,
   queryDetail,
-  query
-} from '../../../api/cardManagement'
-import Save from '../Save.vue'
-import Guide from '../../components/Guide.vue'
-import LineChart from '../../components/LineChart.vue'
-import { queryFlow } from '../../../api/home'
-import TimeSelect from '../../components/TimeSelect.vue'
-import { OperatorList, platformTypeList } from '../../data'
-import { useI18n } from 'vue-i18n';
+  query,
+} from "../../../api/cardManagement";
+import Save from "../Save.vue";
+import Guide from "../../components/Guide.vue";
+import LineChart from "../../components/LineChart.vue";
+import { queryFlow } from "../../../api/home";
+import TimeSelect from "../../components/TimeSelect.vue";
+import { OperatorList, platformTypeList } from "../../data";
+import { getIsTimer } from "@/api/iot-card/home";
+import { useI18n } from "vue-i18n";
 
 const { t: $t } = useI18n();
 const props = defineProps({
   type: {
     type: String,
-    default: 'card'
-  }
-})
+    default: "card",
+  },
+});
 
-const route = useRoute()
-const cardId = ref()
+const route = useRoute();
+const cardId = ref();
+const isTimer = ref(false);
+const visible = ref<boolean>(false);
+const current = ref<Partial<CardManagement>>({});
+const saveType = ref<string>("");
+const detail = ref<any>({});
 
-const visible = ref<boolean>(false)
-const current = ref<Partial<CardManagement>>({})
-const saveType = ref<string>('')
-const detail = ref<any>({})
-
-const flowData = ref<any[]>([])
-const dayTotal = ref(0)
-const monthTotal = ref(0)
-const yearTotal = ref(0)
-const dayOptions = ref<any[]>([])
-const monthOptions = ref<any[]>([])
-const yearOptions = ref<any[]>([])
+const flowData = ref<any[]>([]);
+const dayTotal = ref(0);
+const monthTotal = ref(0);
+const yearTotal = ref(0);
+const dayOptions = ref<any[]>([]);
+const monthOptions = ref<any[]>([]);
+const yearOptions = ref<any[]>([]);
 
 const deactivateData = reactive({
   show: false,
-  tip: ''
-})
+  tip: "",
+});
 
 const quickBtnList = [
-  { label: $t('Detail.index.427958-21'), value: 'yesterday' },
-  { label: $t('Detail.index.427958-22'), value: 'week' },
-  { label: $t('Detail.index.427958-23'), value: 'month' },
-  { label: $t('Detail.index.427958-24'), value: 'year' }
-]
+  { label: $t("Detail.index.427958-21"), value: "yesterday" },
+  { label: $t("Detail.index.427958-22"), value: "week" },
+  { label: $t("Detail.index.427958-23"), value: "month" },
+  { label: $t("Detail.index.427958-24"), value: "year" },
+];
 
 const getDetail = () => {
   queryDetail(cardId.value).then((resp: any) => {
     if (resp.success) {
-      detail.value = resp.result
+      detail.value = resp.result;
 
       if (
-        resp.result.cardStateType?.value === 'deactivate' &&
-        detail.value.operatorName === 'onelink'
+        resp.result.cardStateType?.value === "deactivate" &&
+        detail.value.operatorName === "onelink"
       ) {
-        deactivateData.show = true
+        deactivateData.show = true;
         //   获取停机原因
         queryDeactivate(cardId.value).then((deacResp: any) => {
           if (deacResp.success && deacResp.result?.message) {
-            deactivateData.tip = deacResp.result.message.toString()
+            deactivateData.tip = deacResp.result.message.toString();
           }
-        })
+        });
       }
     }
-  })
-}
+  });
+};
 
 /**
  * 新增、编辑关闭弹窗
  * @param val 加载表格
  */
 const saveChange = (val: any) => {
-  visible.value = false
-  current.value = {}
+  visible.value = false;
+  current.value = {};
   if (val) {
-    getDetail()
+    getDetail();
   }
-}
+};
 
-const getData = (start: number, end: number): Promise<{ sortArray: any[] }> => {
+const getData = (
+  start: number,
+  end: number,
+  params: any
+): Promise<{ sortArray: any[] }> => {
   return new Promise((resolve) => {
-    queryFlow(start, end, {
-      orderBy: 'date',
-      terms: [
-        {
-          column: 'cardId',
-          termType: 'eq',
-          value: cardId.value
-        }
-      ]
-    }).then((resp: any) => {
+    queryFlow(start, end, params).then((resp: any) => {
       if (resp.status === 200) {
-        const sortArray = resp.result.sort(
-          (a: any, b: any) =>
-            new Date(a.date).getTime() - new Date(b.date).getTime()
-        )
+        let sortArray = [];
+        if (isTimer.value) {
+          sortArray = resp.result.reverse();
+        } else {
+          const sortArray = resp.result.sort(
+            (a: any, b: any) =>
+              new Date(a.date).getTime() - new Date(b.date).getTime()
+          );
+        }
         resolve({
-          sortArray
-        })
+          sortArray,
+        });
       }
-    })
-  })
-}
+    });
+  });
+};
 
 /**
  * 查询左日、当月、本年数据
  */
 const getDataTotal = () => {
   const dTime = [
-    dayjs(new Date()).subtract(1, 'day').startOf('day').valueOf(),
-    dayjs(new Date()).subtract(1, 'day').endOf('day').valueOf()
-  ]
+    dayjs(new Date()).subtract(1, "day").startOf("day").valueOf(),
+    dayjs(new Date()).subtract(1, "day").endOf("day").valueOf(),
+  ];
+  const dParams = isTimer.value
+    ? {
+        context: {
+          format: "M月dd日 HH:mm:ss",
+          time: "1h",
+          from: dTime?.[0],
+          to: dTime?.[1],
+          cardId: cardId.value,
+          limit: 24,
+        },
+      }
+    : {
+        orderBy: "date",
+        terms: [
+          {
+            column: "cardId",
+            termType: "eq",
+            value: cardId.value,
+          },
+        ],
+      };
   const mTime = [
-    dayjs().startOf('month').valueOf(),
-    dayjs().endOf('month').valueOf()
-  ]
+    dayjs().startOf("month").valueOf(),
+    dayjs().endOf("month").valueOf(),
+  ];
+  const mParams = isTimer.value
+    ? {
+        context: {
+          format: "Y年M月d日",
+          time: "1d",
+          from: mTime?.[0],
+          to: mTime?.[1],
+          cardId: cardId.value,
+          limit: 30,
+        },
+      }
+    : {
+        orderBy: "date",
+        terms: [
+          {
+            column: "cardId",
+            termType: "eq",
+            value: cardId.value,
+          },
+        ],
+      };
   const yTime = [
-    dayjs().startOf('year').valueOf(),
-    dayjs().endOf('year').valueOf()
-  ]
-  getData(dTime[0], dTime[1]).then((resp) => {
+    dayjs().startOf("year").valueOf(),
+    dayjs().endOf("year").valueOf(),
+  ];
+  const yParams = isTimer.value
+    ? {
+        context: {
+          format: "Y年M月",
+          time: "1M",
+          from: yTime?.[0],
+          to: yTime?.[1],
+          cardId: cardId.value,
+          limit: 12,
+        },
+      }
+    : {
+        orderBy: "date",
+        terms: [
+          {
+            column: "cardId",
+            termType: "eq",
+            value: cardId.value,
+          },
+        ],
+      };
+  getData(dTime[0], dTime[1], dParams).then((resp) => {
     dayTotal.value = resp.sortArray
       .reduce((r, n) => r + Number(n.value), 0)
-      .toFixed(2)
-    dayOptions.value = resp.sortArray
-  })
-  getData(mTime[0], mTime[1]).then((resp) => {
+      .toFixed(2);
+    dayOptions.value = resp.sortArray;
+  });
+  getData(mTime[0], mTime[1], mParams).then((resp) => {
     monthTotal.value = resp.sortArray
       .reduce((r, n) => r + Number(n.value), 0)
-      .toFixed(2)
-    monthOptions.value = resp.sortArray
-  })
-  getData(yTime[0], yTime[1]).then((resp) => {
+      .toFixed(2);
+    monthOptions.value = resp.sortArray;
+  });
+  getData(yTime[0], yTime[1], yParams).then((resp) => {
     yearTotal.value = resp.sortArray
       .reduce((r, n) => r + Number(n.value), 0)
-      .toFixed(2)
-    yearOptions.value = resp.sortArray
-  })
-}
+      .toFixed(2);
+    yearOptions.value = resp.sortArray;
+  });
+};
 
 /**
  * 流量统计
  * @param data
  */
 const getEcharts = (data: any) => {
-  let startTime = data.start
-  let endTime = data.end
-  if (data.type === 'week' || data.type === 'month') {
-    startTime = dayjs(data.start).startOf('days').valueOf()
-    endTime = dayjs(data.end).startOf('days').valueOf()
+  let startTime = data.start;
+  let endTime = data.end;
+  if (data.type !== "day") {
+    startTime = dayjs(data.start).startOf("days").valueOf();
+    endTime = dayjs(data.end).startOf("days").valueOf();
   }
-  getData(startTime, endTime).then((resp) => {
-    flowData.value = resp.sortArray
-  })
-}
+  let _time = "1m";
+  let format = "M月dd日 HH:mm";
+  let limit = 12;
+  const dt = endTime - startTime;
+  const hour = 60 * 60 * 1000;
+  const days = hour * 24;
+  const months = days * 30;
+  const year = 365 * days;
+  if (dt <= hour + 10) {
+    _time = "1h";
+    limit = 24;
+    format = "HH:mm";
+  } else if (dt > hour && dt <= days) {
+    _time = "1h";
+    limit = 24;
+  } else if (dt > days && dt < year) {
+    limit = Math.abs(Math.ceil(dt / days)) + 1;
+    _time = "1d";
+    format = "M月dd日";
+  } else if (dt >= year) {
+    limit = Math.abs(Math.floor(dt / months));
+    _time = "1M";
+    format = "yyyy年-M月";
+  }
+  const params = isTimer.value
+    ? {
+        context: {
+          time: _time,
+          format: format,
+          limit: limit,
+          cardId: cardId.value,
+          from: data.start,
+          to: data.end,
+        },
+      }
+    : {
+        orderBy: "date",
+        terms: [
+          {
+            column: "cardId",
+            termType: "eq",
+            value: cardId.value,
+          },
+        ],
+      };
+  getData(startTime, endTime, params).then((resp) => {
+    flowData.value = resp.sortArray;
+  });
+};
 
 /**
  * 获取绑定设备的物联卡的信息
@@ -551,28 +678,33 @@ const queryCard = async () => {
   const res: any = await query({
     terms: [
       {
-        column: 'deviceId',
-        termType: 'eq',
-        value: route.params.id
-      }
-    ]
-  })
+        column: "deviceId",
+        termType: "eq",
+        value: route.params.id,
+      },
+    ],
+  });
   if (res.success && res.result?.data) {
-    cardId.value = res.result?.data?.[0]?.id
+    cardId.value = res.result?.data?.[0]?.id;
   }
-}
+};
 
 onMounted(async () => {
-  if (props.type === 'device') {
-    await queryCard()
+  if (props.type === "device") {
+    await queryCard();
   } else {
-    cardId.value = route.params.id
+    cardId.value = route.params.id;
   }
   if (cardId.value) {
-    getDetail()
-    getDataTotal()
+    getDetail();
+    getIsTimer().then((resp) => {
+      if (resp.success) {
+        isTimer.value = resp.result;
+        getDataTotal();
+      }
+    });
   }
-})
+});
 </script>
 <style scoped lang="less">
 .card {
