@@ -1,133 +1,135 @@
 <template>
   <j-page-container>
-    <a-card>
-      <a-row :gutter="24">
-        <a-col :span="14">
-          <TitleComponent :data="$t('Detail.index.838702-0')" />
-          <a-form
-            :layout="'vertical'"
-            ref="formRef"
-            :rules="rules"
-            :model="form"
-          >
-            <a-form-item :label="$t('Detail.index.838702-1')" name="operatorName" required>
-              <PlatformType
-                :disabled="showDisabled"
-                :model="'singular'"
-                :itemStyle="{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-around',
-                  minWidth: '130px'
-                }"
-                :options="platformTypeList"
-                v-model:value="form.operatorName"
-                @change="typeChange"
-              ></PlatformType
-            ></a-form-item>
-            <a-form-item :label="$t('Detail.index.838702-2')" name="name">
-              <a-input v-model:value="form.name" :placeholder="$t('Detail.index.838702-3')" />
-            </a-form-item>
+    <FullPage :fixed="false">
+      <a-card>
+        <a-row :gutter="24">
+          <a-col :span="14">
+            <TitleComponent :data="$t('Detail.index.838702-0')" />
+            <a-form
+              :layout="'vertical'"
+              ref="formRef"
+              :rules="rules"
+              :model="form"
+            >
+              <a-form-item :label="$t('Detail.index.838702-1')" name="operatorName" required>
+                <PlatformType
+                  :disabled="showDisabled"
+                  :model="'singular'"
+                  :itemStyle="{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-around',
+                    minWidth: '130px'
+                  }"
+                  :options="platformTypeList"
+                  v-model:value="form.operatorName"
+                  @change="typeChange"
+                ></PlatformType
+              ></a-form-item>
+              <a-form-item :label="$t('Detail.index.838702-2')" name="name">
+                <a-input v-model:value="form.name" :placeholder="$t('Detail.index.838702-3')" />
+              </a-form-item>
 
-            <!-- onelink -->
-            <div v-if="form.operatorName === 'onelink'">
-              <a-form-item label="App ID" name="appId">
-                <a-input
-                  v-model:value="form.appId"
-                  :disabled="showDisabled"
-                  :placeholder="$t('Detail.index.838702-4')"
-                />
-              </a-form-item>
-              <a-form-item label="Password" name="passWord">
-                <a-input-password
-                  v-model:value="form.passWord"
-                  :disabled="showDisabled"
-                  :placeholder="$t('Detail.index.838702-5')"
-                />
-              </a-form-item>
-              <a-form-item :label="$t('Detail.index.838702-6')" name="apiAddr">
-                <a-input
-                  v-model:value="form.apiAddr"
-                  :disabled="showDisabled"
-                  :placeholder="$t('Detail.index.838702-7')"
-                />
-              </a-form-item>
-            </div>
-            <!-- ctwing -->
-            <div v-if="form.operatorName === 'ctwing'">
-              <a-form-item :label="$t('Detail.index.838702-8')" name="userId">
-                <a-input
-                  v-model:value="form.userId"
-                  :disabled="showDisabled"
-                  :placeholder="$t('Detail.index.838702-9')"
-                />
-              </a-form-item>
-              <a-form-item :label="$t('Detail.index.838702-10')" name="passWord">
-                <a-input-password
-                  v-model:value="form.passWord"
-                  :disabled="showDisabled"
-                  :placeholder="$t('Detail.index.838702-5')"
-                />
-              </a-form-item>
-              <a-form-item label="secretKey" name="secretKey">
-                <a-input
-                  v-model:value="form.secretKey"
-                  :disabled="showDisabled"
-                  :placeholder="$t('Detail.index.838702-11')"
-                />
-              </a-form-item>
-            </div>
-            <!-- unicom -->
-            <div v-if="form.operatorName === 'unicom'">
-              <a-form-item label="App ID" name="appId">
-                <a-input
-                  v-model:value="form.appId"
-                  :disabled="showDisabled"
-                  :placeholder="$t('Detail.index.838702-4')"
-                />
-              </a-form-item>
-              <a-form-item label="App Secret" name="appSecret">
-                <a-input
-                  v-model:value="form.appSecret"
-                  :disabled="showDisabled"
-                  :placeholder="$t('Detail.index.838702-12')"
-                />
-              </a-form-item>
-              <a-form-item :label="$t('Detail.index.838702-13')" name="openId">
-                <a-input
-                  v-model:value="form.openId"
-                  :disabled="showDisabled"
-                  :placeholder="$t('Detail.index.838702-14')"
-                />
-              </a-form-item>
-            </div>
+              <!-- onelink -->
+              <div v-if="form.operatorName === 'onelink'">
+                <a-form-item label="App ID" name="appId">
+                  <a-input
+                    v-model:value="form.appId"
+                    :disabled="showDisabled"
+                    :placeholder="$t('Detail.index.838702-4')"
+                  />
+                </a-form-item>
+                <a-form-item label="Password" name="passWord">
+                  <a-input-password
+                    v-model:value="form.passWord"
+                    :disabled="showDisabled"
+                    :placeholder="$t('Detail.index.838702-5')"
+                  />
+                </a-form-item>
+                <a-form-item :label="$t('Detail.index.838702-6')" name="apiAddr">
+                  <a-input
+                    v-model:value="form.apiAddr"
+                    :disabled="showDisabled"
+                    :placeholder="$t('Detail.index.838702-7')"
+                  />
+                </a-form-item>
+              </div>
+              <!-- ctwing -->
+              <div v-if="form.operatorName === 'ctwing'">
+                <a-form-item :label="$t('Detail.index.838702-8')" name="userId">
+                  <a-input
+                    v-model:value="form.userId"
+                    :disabled="showDisabled"
+                    :placeholder="$t('Detail.index.838702-9')"
+                  />
+                </a-form-item>
+                <a-form-item :label="$t('Detail.index.838702-10')" name="passWord">
+                  <a-input-password
+                    v-model:value="form.passWord"
+                    :disabled="showDisabled"
+                    :placeholder="$t('Detail.index.838702-5')"
+                  />
+                </a-form-item>
+                <a-form-item label="secretKey" name="secretKey">
+                  <a-input
+                    v-model:value="form.secretKey"
+                    :disabled="showDisabled"
+                    :placeholder="$t('Detail.index.838702-11')"
+                  />
+                </a-form-item>
+              </div>
+              <!-- unicom -->
+              <div v-if="form.operatorName === 'unicom'">
+                <a-form-item label="App ID" name="appId">
+                  <a-input
+                    v-model:value="form.appId"
+                    :disabled="showDisabled"
+                    :placeholder="$t('Detail.index.838702-4')"
+                  />
+                </a-form-item>
+                <a-form-item label="App Secret" name="appSecret">
+                  <a-input
+                    v-model:value="form.appSecret"
+                    :disabled="showDisabled"
+                    :placeholder="$t('Detail.index.838702-12')"
+                  />
+                </a-form-item>
+                <a-form-item :label="$t('Detail.index.838702-13')" name="openId">
+                  <a-input
+                    v-model:value="form.openId"
+                    :disabled="showDisabled"
+                    :placeholder="$t('Detail.index.838702-14')"
+                  />
+                </a-form-item>
+              </div>
 
-            <a-form-item :label="$t('Detail.index.838702-15')" name="explain">
-              <a-textarea
-                v-model:value="form.explain"
-                :placeholder="$t('Detail.index.838702-16')"
-                showCount
-                :rows="3"
-                :maxlength="200"
-              />
-            </a-form-item>
-            <a-form-item>
-              <a-divider />
-              <a-button
-                :loading="saveBtnLoading"
-                type="primary"
-                @click="handleSave"
-              >
-                {{ $t('Detail.index.838702-17') }}
-              </a-button>
-            </a-form-item>
-          </a-form>
-        </a-col>
-        <a-col :span="10">
-          <Doc :type="form.operatorName" />
-        </a-col>
-      </a-row>
-    </a-card>
+              <a-form-item :label="$t('Detail.index.838702-15')" name="explain">
+                <a-textarea
+                  v-model:value="form.explain"
+                  :placeholder="$t('Detail.index.838702-16')"
+                  showCount
+                  :rows="3"
+                  :maxlength="200"
+                />
+              </a-form-item>
+              <a-form-item>
+                <a-divider />
+                <a-button
+                  :loading="saveBtnLoading"
+                  type="primary"
+                  @click="handleSave"
+                >
+                  {{ $t('Detail.index.838702-17') }}
+                </a-button>
+              </a-form-item>
+            </a-form>
+          </a-col>
+          <a-col :span="10">
+            <Doc :type="form.operatorName" />
+          </a-col>
+        </a-row>
+      </a-card>
+    </FullPage>
   </j-page-container>
 </template>
 

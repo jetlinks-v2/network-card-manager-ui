@@ -1,8 +1,8 @@
 <!-- 物联卡查看 -->
 <template>
   <j-page-container v-if="type === 'card'">
-    <!-- 新增、{{ $t('Detail.index.427958-1') }} -->
-    <div>
+    <!-- 新增 -->
+    <FullPage :fixed="false" style="background: transparent">
       <Save
         v-if="visible"
         :type="saveType"
@@ -124,7 +124,7 @@
               </div>
             </a-col>
             <a-col :span="8">
-              <div class="card">
+              <div class="card h-100">
                 <Guide :title="$t('Detail.index.427958-17')" />
                 <div class="static-info" style="min-height: 490px">
                   <div class="data-statistics-item">
@@ -178,7 +178,7 @@
           </a-row>
         </a-col>
       </a-row>
-    </div>
+    </FullPage>
   </j-page-container>
   <div v-else>
     <div v-if="cardId">
@@ -303,7 +303,7 @@
               </div>
             </a-col>
             <a-col :span="8">
-              <div class="card">
+              <div class="card" >
                 <Guide :title="$t('Detail.index.427958-17')" />
                 <div class="static-info" style="min-height: 490px">
                   <div class="data-statistics-item">
@@ -558,6 +558,10 @@ onMounted(async () => {
 .card {
   padding: 24px;
   background-color: #fff;
+}
+
+.h-100 {
+  height: 100%;
 }
 
 .static-info {
