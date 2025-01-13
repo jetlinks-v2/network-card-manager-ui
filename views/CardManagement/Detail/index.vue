@@ -90,10 +90,30 @@
                       style="color: var(--ant-error-color)"
                     />
                   </a-tooltip>
-                </span>
+                </span> 
               </a-descriptions-item>
               <a-descriptions-item :label="$t('Detail.index.427958-14')">
                 {{ detail?.cardStateType?.text }}
+              </a-descriptions-item>
+              <a-descriptions-item >
+                <template #label>
+                  <div>
+                    {{ $t('Detail.index.427958-25') }}
+                    <a-tooltip>
+                      <template #title>{{ $t('Detail.index.427958-26') }}</template>
+                      <AIcon type="QuestionCircleOutlined"></AIcon>
+                    </a-tooltip>
+                  </div>
+                </template>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                  <div style="min-width: 60px">
+                    {{ detail?.syncCardStatus?.text }}
+                  </div>
+                  <div style="display: flex; color: red; align-items: center; gap: 5px" v-if="detail?.syncCardStatus?.value === 'failed'">
+                    <AIcon type="ExclamationCircleFilled" />
+                    <j-ellipsis>{{ detail?.errorMessage }}</j-ellipsis>
+                  </div>
+                </div>
               </a-descriptions-item>
               <a-descriptions-item :label="$t('Detail.index.427958-15')">{{
                 detail?.describe

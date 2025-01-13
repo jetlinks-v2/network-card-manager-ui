@@ -24,7 +24,9 @@
 		"Detail.index.427958-21": "昨日",
 		"Detail.index.427958-22": "近一周",
 		"Detail.index.427958-23": "近一月",
-		"Detail.index.427958-24": "近一年"
+		"Detail.index.427958-24": "近一年",
+		"Detail.index.427958-25": "同步状态",
+		"Detail.index.427958-26": "批量操作中物联网卡的同步状态"
 	},
 	"en": {
 		"Detail.index.427958-0": "essential information",
@@ -51,6 +53,8 @@
 		"Detail.index.427958-21": "yesterday",
 		"Detail.index.427958-22": "In the past week",
 		"Detail.index.427958-23": "In the past month",
-		"Detail.index.427958-24": "In the past year"
+		"Detail.index.427958-24": "In the past year",
+		"Detail.index.427958-25": "Synchronous state",
+		"Detail.index.427958-26": "Synchronization status of iot cards in batch operation"
 	}
 }
