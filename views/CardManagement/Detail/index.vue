@@ -138,6 +138,7 @@
                   <template #extra>
                     <TimeSelect
                       :type="'week'"
+                      :is-timer="isTimer"
                       :quickBtnList="quickBtnList"
                       @change="getEcharts"
                     />
@@ -321,6 +322,7 @@
                   <template #extra>
                     <TimeSelect
                       :type="'week'"
+                      :is-timer="isTimer"
                       :quickBtnList="quickBtnList"
                       @change="getEcharts"
                     />
@@ -552,7 +554,7 @@ const getDataTotal = () => {
           from: mTime?.[0],
           to: mTime?.[1],
           cardId: cardId.value,
-          limit: 30,
+          limit: 31,
         },
       }
     : {
