@@ -199,8 +199,8 @@ const jumpDashboard = () => {
  * 获取昨日流量消耗
  */
 const getTodayFlow = async () => {
-  const beginTime = moment().subtract(1, 'days').startOf('day').valueOf()
-  const endTime = moment().subtract(1, 'days').endOf('day').valueOf()
+  const beginTime = dayjs().subtract(1, 'days').startOf('day').valueOf()
+  const endTime = dayjs().subtract(1, 'days').endOf('day').valueOf()
   const dParams = isTimer.value ? {
     context: {
       format: "M月dd日 HH:mm:ss",

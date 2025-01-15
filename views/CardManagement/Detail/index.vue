@@ -416,7 +416,7 @@ import LineChart from "../../components/LineChart.vue";
 import { queryFlow } from "../../../api/home";
 import TimeSelect from "../../components/TimeSelect.vue";
 import { OperatorList, platformTypeList } from "../../data";
-import { getIsTimer } from "@/api/iot-card/home";
+import { getIsTimer } from "@networkCardManager/api/home";
 import { useI18n } from "vue-i18n";
 
 const { t: $t } = useI18n();
