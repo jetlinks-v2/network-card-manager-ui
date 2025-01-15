@@ -85,7 +85,7 @@
 <script setup lang="ts" name="IotCardHome">
 import { onlyMessage } from '@jetlinks-web/utils'
 import Guide from '../components/Guide.vue'
-import moment from 'dayjs'
+import dayjs from 'dayjs'
 import { queryFlow, list, getIsTimer } from '../../api/home'
 import * as echarts from 'echarts'
 import { useAuthStore, useMenuStore } from '@/store'
