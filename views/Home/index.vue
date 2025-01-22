@@ -85,7 +85,7 @@
 <script setup lang="ts" name="IotCardHome">
 import { onlyMessage } from '@jetlinks-web/utils'
 import Guide from '../components/Guide.vue'
-import moment from 'dayjs'
+import dayjs from 'dayjs'
 import { queryFlow, list, getIsTimer } from '../../api/home'
 import * as echarts from 'echarts'
 import { useAuthStore, useMenuStore } from '@/store'
@@ -199,8 +199,8 @@ const jumpDashboard = () => {
  * 获取昨日流量消耗
  */
 const getTodayFlow = async () => {
-  const beginTime = moment().subtract(1, 'days').startOf('day').valueOf()
-  const endTime = moment().subtract(1, 'days').endOf('day').valueOf()
+  const beginTime = dayjs().subtract(1, 'days').startOf('day').valueOf()
+  const endTime = dayjs().subtract(1, 'days').endOf('day').valueOf()
   const resp: any = await queryFlow(beginTime, endTime, { orderBy: 'date' })
   resp.result.map((item: any) => {
     currentSource.value += parseFloat(item.value.toFixed(2))
