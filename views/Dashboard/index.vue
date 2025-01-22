@@ -66,6 +66,7 @@
                 <TimeSelect
                   key="flow-static"
                   :type="'week'"
+                  :isTimer="isTimer"
                   :quickBtnList="quickBtnList"
                   @change="getEcharts"
                 />
@@ -91,6 +92,7 @@
                 <TimeSelect
                   key="flow-top10"
                   :quickBtn="false"
+                  :isTimer="isTimer"
                   :type="'week'"
                   @change="getTopRang"
               /></template>
@@ -149,7 +151,7 @@ const yearOptions = ref<any[]>([])
 const flowData = ref<any[]>([])
 const topList = ref<any[]>([])
 const topTotal = ref(0)
-const isTimer = ref(false)
+const isTimer = ref(undefined)
 
 const quickBtnList = [
   { label: $t('Dashboard.index.537937-6'), value: 'yesterday' },
@@ -171,7 +173,7 @@ const getData = (start: number, end: number, params: any): Promise<{ sortArray: 
               new Date(a.date).getTime() - new Date(b.date).getTime(),
           );
         }
-        const arr = sortArray.map(i => ({...i, value: Number(i.value / 1024)}))
+        const arr = sortArray.map(i => ({...i, value: Number(i.value)}))
         resolve({
           sortArray: arr
         });
@@ -209,7 +211,7 @@ const getDataTotal = () => {
       time: "1d",
       from: mTime?.[0],
       to: mTime?.[1],
-      limit: 30
+      limit: 31
     }
   } : {
     orderBy: 'date',
@@ -286,7 +288,7 @@ const getEcharts = (data: any) => {
     _time = '1M';
     format = $t('Dashboard.index.537937-15');
   }
-  const params = {
+  const params = isTimer.value ? {
     context: {
       time: _time,
       format: format,
@@ -294,6 +296,8 @@ const getEcharts = (data: any) => {
       from: data.start,
       to: data.end,
     }
+  } : {
+    orderBy: 'date',
   }
   getData(startTime, endTime, params).then((resp) => {
     flowData.value = resp.sortArray;
@@ -322,7 +326,7 @@ const getTopRang = (data: any) => {
     if (resp.status === 200) {
       const arr = resp.result
         .slice(0, 10)
-        .map(i => ({...i, value: i.value / 1024}))
+        .map(i => ({...i, value: i.value}))
         .sort((a: any, b: any) => b.value - a.value);
       topTotal.value = arr.length ? arr[0].value : 0;
       topList.value = arr;

@@ -108,7 +108,7 @@ interface GuideItemProps {
 const menuStory = useMenuStore()
 const menuHasPermission = useMenuStore().hasMenu
 const btnHasPermission = useAuthStore().hasPermission
-
+const isTimer = ref(false)
 // 菜单权限
 // const dashBoardUrl = menuHasPermission('iot-card/Dashboard')
 // const platformUrl = menuHasPermission('iot-card/Platform/Detail')
@@ -201,7 +201,18 @@ const jumpDashboard = () => {
 const getTodayFlow = async () => {
   const beginTime = dayjs().subtract(1, 'days').startOf('day').valueOf()
   const endTime = dayjs().subtract(1, 'days').endOf('day').valueOf()
-  const resp: any = await queryFlow(beginTime, endTime, { orderBy: 'date' })
+  const dParams = isTimer.value ? {
+    context: {
+      format: "M月dd日 HH:mm:ss",
+      time: "1h",
+      from: beginTime,
+      to: endTime,
+      limit: 24
+    }
+  } : {
+    orderBy: 'date',
+  }
+  const resp: any = await queryFlow(beginTime, endTime, dParams)
   resp.result.map((item: any) => {
     currentSource.value += parseFloat(item.value.toFixed(2))
   })
