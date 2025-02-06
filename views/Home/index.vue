@@ -239,7 +239,7 @@ const get15DaysTrafficConsumption = async () => {
   barChartData.value = resp.result
     .map((item: any) => ({
       ...item,
-      value: item.value / 1024
+      value: item.value
     }))
     .reverse();
   createBarChart();

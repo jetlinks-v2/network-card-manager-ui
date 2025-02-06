@@ -17,6 +17,9 @@
         :params="params"
         :mode="'TABLE'"
       >
+        <template #type="slotProps">
+          {{ slotProps.type?.text }}
+        </template>
         <template #time="slotProps">
           {{
             slotProps.time
@@ -51,6 +54,7 @@ const columns = [
     title: $t('Record.index.705509-1'),
     dataIndex: 'type',
     key: 'type',
+    scopedSlots: true,
     search: {
       type: 'string'
     }
