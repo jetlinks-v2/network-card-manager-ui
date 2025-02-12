@@ -500,7 +500,7 @@ const getData = (
         if (isTimer.value) {
           sortArray = resp.result.reverse();
         } else {
-          const sortArray = resp.result.sort(
+          sortArray = resp.result.sort(
             (a: any, b: any) =>
               new Date(a.date).getTime() - new Date(b.date).getTime()
           );
