@@ -1,6 +1,6 @@
 <template>
   <a-space align="end">
-    <ProUpload
+    <a-upload
       v-model:fileList="modelValue.upload"
       name="file"
       :action="FileStaticPath"
@@ -17,7 +17,7 @@
         <template #icon><AIcon type="UploadOutlined" /></template>
         {{ $t('CardManagement.UploadFile.427940-0') }}
       </a-button>
-    </ProUpload>
+    </a-upload>
     <div style="margin-left: 20px">
       <a-space>
         {{ $t('CardManagement.UploadFile.427940-1') }}
@@ -175,3 +175,8 @@ const handleImport = async (file: any) => {
   }
 }
 </script>
+<style scoped lang="less">
+.column {
+  margin-top: 10px;
+}
+</style>
