@@ -1,7 +1,7 @@
 <!-- 物联卡管理 -->
 <template>
   <j-page-container>
-    <j-advanced-search
+    <pro-search
       :columns="columns"
       target="iot-card-management-search"
       @search="handleSearch"
@@ -481,22 +481,22 @@ const columns = [
     search: {
       type: 'select',
       options: [
-        { label: '激活(正常)', value: 'using' },
+        { label: $t('CardManagement.index.427944-76'), value: 'using' },
         { label: $t('CardManagement.index.427944-25'), value: 'testActivation' },
         { label: $t('CardManagement.index.427944-26'), value: 'disassemble' },
-        { label: '停用(已停用)', value: 'deactivate' },
+        { label: $t('CardManagement.index.427944-77'), value: 'deactivate' },
         { label: $t('CardManagement.index.427944-29'), value: 'operatorManagement' },
-        { label: '可激活(电信)', value: 'beActivated' },
+        { label: $t('CardManagement.index.427944-78'), value: 'beActivated' },
         { label: $t('CardManagement.index.427944-21'), value: 'toBeActivated' },
         { label: $t('CardManagement.index.427944-32'), value: 'testToActivation' },
         { label: $t('CardManagement.index.427944-33'), value: 'testable' },
-        { label: '库存(移动)', value: 'inStock' },
+        { label: $t('CardManagement.index.427944-79'), value: 'inStock' },
         { label: $t('CardManagement.index.427944-36'), value: 'preSeller' },
         { label: $t('CardManagement.index.427944-37'), value: 'oneWayShutdown' },
         { label: $t('CardManagement.index.427944-38'), value: 'preSale' },
         { label: $t('CardManagement.index.427944-39'), value: 'transfer' },
         { label: $t('CardManagement.index.427944-40'), value: 'dormant' },
-        { label: '可激活(联通)', value: 'activatable' },
+        { label: $t('CardManagement.index.427944-80'), value: 'activatable' },
         { label: $t('CardManagement.index.427944-42'), value: 'expired' },
         { label: $t('CardManagement.index.427944-43'), value: 'cleared' },
         { label: $t('CardManagement.index.427944-44'), value: 'replaced' },

@@ -1,7 +1,7 @@
 <!-- 操作记录 -->
 <template>
   <j-page-container>
-    <j-advanced-search
+    <pro-search
       :columns="columns"
       target="record-search"
       @search="handleSearch"
