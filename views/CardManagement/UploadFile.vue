@@ -133,6 +133,7 @@ const uploadChange = async (info: Record<string, any>) => {
     //         flag.value = false;
     //     });
     const resp: any = info.file.response || { result: '' }
+    debugger
     handleImport(resp)
   }
 }
@@ -144,7 +145,7 @@ const handleImport = async (file: any) => {
   event = new EventSource(
     `${BASE_API}/network/card/${
       props.product
-    }/_import?${TOKEN_KEY_URL}=${getToken()}&fileUrl=${file.result}`,
+    }/_import?${TOKEN_KEY_URL}=${getToken()}&fileUrl=${file.result.accessUrl}`,
     { withCredentials: true }
   )
   event.onopen = (e) => {

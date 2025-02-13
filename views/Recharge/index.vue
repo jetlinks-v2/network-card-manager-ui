@@ -75,7 +75,7 @@ import Save from './Save.vue'
 import Detail from './Detail.vue'
 import { useI18n } from 'vue-i18n';
 
-const { t: $t } = useI18n();
+const { t: $t, locale } = useI18n();
 const rechargeRef = ref<Record<string, any>>({})
 const params = ref<Record<string, any>>({})
 const visible = ref<boolean>(false)
@@ -126,7 +126,7 @@ const columns = [
     title: $t('Recharge.index.444801-7'),
     key: 'action',
     fixed: 'right',
-    width: 60,
+    width: locale.value.includes('zh') ? 60 : 120,
     scopedSlots: true
   }
 ]
