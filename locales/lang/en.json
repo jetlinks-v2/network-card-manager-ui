@@ -609,7 +609,7 @@
 	"CardManagement.BindDevice.427957-8": "on-line",
 	"CardManagement.BindDevice.427957-9": "Operation successful",
 	"CardManagement.Sync.427942-0": "synchronization",
-	"CardManagement.Sync.427942-1": "Zhang IoT card waiting for update status",
+	"CardManagement.Sync.427942-1": "{0} IoT card waiting for update status",
 	"CardManagement.Sync.427942-2": "complete",
 	"components.LineChart.383786-0": "Traffic consumption",
 	"Dashboard.index.537937-0": "data statistics",

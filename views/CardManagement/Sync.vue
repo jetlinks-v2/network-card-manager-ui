@@ -14,7 +14,7 @@
 <!--      <div v-else>-->
 <!--        <p>{{ syncData.count }}张物联卡已同步至最新状态</p>-->
 <!--      </div>-->
-      <p>{{ syncData.total }}{{ $t('CardManagement.Sync.427942-1') }}</p>
+      <p>{{ $t('CardManagement.Sync.427942-1', [syncData.total]) }}</p>
     </div>
     <template #footer>
       <a-button :loading="flag" type="primary" @click="handleCancel">{{ $t('CardManagement.Sync.427942-2') }}</a-button>

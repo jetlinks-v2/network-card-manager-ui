@@ -609,7 +609,7 @@
 	"CardManagement.BindDevice.427957-8": "在线",
 	"CardManagement.BindDevice.427957-9": "操作成功",
 	"CardManagement.Sync.427942-0": "同步",
-	"CardManagement.Sync.427942-1": "张物联卡等待更新状态",
+	"CardManagement.Sync.427942-1": "{0}张物联卡等待更新状态",
 	"CardManagement.Sync.427942-2": "完成",
 	"components.LineChart.383786-0": "流量消耗",
 	"Dashboard.index.537937-0": "数据统计",

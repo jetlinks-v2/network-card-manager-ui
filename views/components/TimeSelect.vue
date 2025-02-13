@@ -72,7 +72,10 @@ const props = defineProps({
 });
 
 const radioValue = ref(props.type || "week" || undefined);
-const rangeVal = ref<[string, string]>();
+const rangeVal = ref<[string, string]>([
+  dayjs().subtract(6, 'days').format('YYYY-MM-DD HH:mm:ss'),
+  dayjs().format('YYYY-MM-DD HH:mm:ss')
+]);
 
 const rangeChange = (val: any) => {
   radioValue.value = undefined;
@@ -126,4 +129,8 @@ watch(
         });
     },
 );
+
+onMounted(() => {
+  handleBtnChange(radioValue.value)
+})
 </script>
