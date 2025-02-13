@@ -368,7 +368,6 @@ const columns = [
         return new Promise((resolve) => {
           queryPlatformNoPage({
             sorts: [{ name: 'createTime', order: 'desc' }],
-            terms: [{ column: 'state', value: 'enabled' }]
           }).then((resp: any) => {
             const list = resp.result.map((item: any) => ({
               label: item.name,
