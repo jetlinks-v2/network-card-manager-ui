@@ -133,7 +133,6 @@ const uploadChange = async (info: Record<string, any>) => {
     //         flag.value = false;
     //     });
     const resp: any = info.file.response || { result: '' }
-    debugger
     handleImport(resp)
   }
 }
