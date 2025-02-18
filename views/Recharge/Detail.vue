@@ -17,29 +17,27 @@
         :labelStyle="{ minWidth: '120px' }"
       >
         <a-descriptions-item :label="$t('Recharge.Detail.444790-3')">{{
-          data.chargeMoney
+          data.chargeMoney || '--'
         }}</a-descriptions-item>
         <a-descriptions-item :label="$t('Recharge.Detail.444790-4')">{{
-          data?.rechargeId
+          data?.rechargeId || '--'
         }}</a-descriptions-item>
         <a-descriptions-item :label="$t('Recharge.Detail.444790-5')">{{
-          data.configName
+          data.configName || '--'
         }}</a-descriptions-item>
         <a-descriptions-item :label="$t('Recharge.Detail.444790-6')">{{
-          data.orderNumber
+          data.orderNumber || '--'
         }}</a-descriptions-item>
         <a-descriptions-item :label="$t('Recharge.Detail.444790-7')">{{
-          data.paymentType
+          data.paymentType || '--'
         }}</a-descriptions-item>
         <a-descriptions-item :label="$t('Recharge.Detail.444790-8')">
-          <div style="height: 100px; overflow: auto">
-            {{ data.url ? data.url : '' }}
-          </div>
+            {{ data.url ? data.url : '--' }}
         </a-descriptions-item>
         <a-descriptions-item :label="$t('Recharge.Detail.444790-9')">{{
           data.createTime
             ? dayjs(data.createTime).format('YYYY-MM-DD HH:mm:ss')
-            : '-'
+            : '--'
         }}</a-descriptions-item>
       </a-descriptions>
     </div>

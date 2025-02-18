@@ -74,6 +74,7 @@ import { queryRechargeList } from '../../api/cardManagement'
 import Save from './Save.vue'
 import Detail from './Detail.vue'
 import { useI18n } from 'vue-i18n';
+import { PaymentMethod } from '../data'
 
 const { t: $t, locale } = useI18n();
 const rechargeRef = ref<Record<string, any>>({})
@@ -97,7 +98,13 @@ const columns = [
     dataIndex: 'paymentType',
     key: 'paymentType',
     search: {
-      type: 'string'
+      type: 'select',
+      options: PaymentMethod.map(item => {
+        return {
+          label: item.label,
+          value: item.label
+        }
+      })
     }
   },
   {

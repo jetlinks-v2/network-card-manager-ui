@@ -81,7 +81,8 @@
                 <a-col :span="6">
                   <div class="card-item-content-text">{{ $t('CardManagement.index.427944-2') }}</div>
                   <j-badge-status
-                    :status="slotProps.cardState?.value"
+                    v-if="slotProps.cardState?.state"
+                    :status="slotProps.cardState?.state"
                     :text="slotProps.cardState?.text"
                     :statusNames="{
                       using: 'processing',
@@ -89,6 +90,7 @@
                       deactivate: 'error'
                     }"
                   />
+                  <span v-else>--</span>
                 </a-col>
                 <a-col :span="6">
                   <div class="card-item-content-text">{{ $t('CardManagement.index.427944-3') }}</div>
@@ -96,7 +98,7 @@
                 </a-col>
                 <a-col :span="6">
                   <div class="card-item-content-text">{{ $t('CardManagement.index.427944-4') }}</div>
-                  <j-ellipsis>{{ slotProps.deviceName }}</j-ellipsis>
+                  <j-ellipsis>{{ slotProps.deviceName || '--' }}</j-ellipsis>
                 </a-col>
               </a-row>
               <a-divider style="margin: 12px 0" />
@@ -150,18 +152,18 @@
           </CardBox>
         </template>
         <template #deviceId="slotProps">
-          {{ slotProps.deviceName }}
+          {{ slotProps.deviceName || '--' }}
         </template>
         <template #totalFlow="slotProps">
           <div>
             {{
-              slotProps.totalFlow ? slotProps.totalFlow.toFixed(2) + ' M' : ''
+              slotProps.totalFlow ? slotProps.totalFlow.toFixed(2) + ' M' : '--'
             }}
           </div>
         </template>
         <template #usedFlow="slotProps">
           <div>
-            {{ slotProps.usedFlow ? slotProps.usedFlow.toFixed(2) + ' M' : '' }}
+            {{ slotProps.usedFlow ? slotProps.usedFlow.toFixed(2) + ' M' : '--' }}
           </div>
         </template>
         <template #residualFlow="slotProps">
@@ -169,7 +171,7 @@
             {{
               slotProps.residualFlow
                 ? slotProps.residualFlow.toFixed(2) + ' M'
-                : ''
+                : '--'
             }}
           </div>
         </template>
@@ -204,12 +206,13 @@
               deactivate: 'error'
             }"
           />
+          <span v-else>--</span>
         </template>
         <template #activationDate="slotProps">
           {{
             slotProps.activationDate
               ? dayjs(slotProps.activationDate).format('YYYY-MM-DD HH:mm:ss')
-              : ''
+              : '--'
           }}
         </template>
         <template #updateTime="slotProps">
@@ -424,6 +427,7 @@ const columns = [
     title: $t('CardManagement.index.427944-14'),
     dataIndex: 'residualFlow',
     width: 120,
+    ellipsis: true,
     scopedSlots: true
   },
   {
@@ -451,6 +455,7 @@ const columns = [
     dataIndex: 'cardStateType',
     key: 'cardStateType',
     width: 180,
+    ellipsis: true,
     scopedSlots: true,
     search: {
       type: 'select',
@@ -469,6 +474,7 @@ const columns = [
     dataIndex: 'cardState',
     key: 'cardState',
     width: 180,
+    ellipsis: true,
     scopedSlots: true
   },
   {
@@ -509,6 +515,7 @@ const columns = [
     dataIndex: 'syncCardStatus',
     key: 'syncCardStatus',
     width: 100,
+    ellipsis: true,
     search: {
       type: 'select',
       options: [

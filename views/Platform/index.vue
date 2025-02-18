@@ -64,11 +64,11 @@
               <a-row>
                 <a-col :span="12">
                   <div class="card-item-content-text">{{ $t('Platform.index.838700-1') }}</div>
-                  <div>{{ slotProps.operatorName }}</div>
+                  <div>{{ platformTypeList.find(item => item.value === slotProps.operatorName)?.label }}</div>
                 </a-col>
                 <a-col :span="12">
                   <div class="card-item-content-text">{{ $t('Platform.index.838700-2') }}</div>
-                  <j-ellipsis>{{ slotProps.explain }}</j-ellipsis>
+                  <j-ellipsis>{{ slotProps.explain || '--' }}</j-ellipsis>
                 </a-col>
               </a-row>
             </template>
@@ -90,6 +90,9 @@
               </j-permission-button>
             </template>
           </CardBox>
+        </template>
+        <template #operatorName="slotProps">
+          {{platformTypeList.find(item => item.value === slotProps.operatorName)?.label}}
         </template>
         <template #state="slotProps">
           <a-badge
@@ -129,6 +132,8 @@ import { queryList, update, del } from '../../api/platform'
 import { useMenuStore } from '@/store'
 import { iotCard, home } from '../../assets'
 import { useI18n } from 'vue-i18n';
+import { platformTypeList } from "../data";
+import { pick } from 'lodash-es';
 
 const { t: $t } = useI18n();
 const menuStory = useMenuStore()
@@ -150,13 +155,12 @@ const columns = [
     title: $t('Platform.index.838700-1'),
     dataIndex: 'operatorName',
     key: 'operatorName',
+    scopedSlots: true,
     search: {
       type: 'select',
-      options: [
-        { label: $t('Platform.index.838700-4'), value: 'onelink' },
-        { label: $t('Platform.index.838700-5'), value: 'ctwing' },
-        { label: $t('Platform.index.838700-6'), value: 'unicom' }
-      ]
+      options: platformTypeList.map(item => {
+        return pick(item, ['label', 'value'])
+      })
     }
   },
   {
@@ -183,7 +187,7 @@ const columns = [
     title: $t('Platform.index.838700-10'),
     key: 'action',
     fixed: 'right',
-    width: 120,
+    width: 150,
     scopedSlots: true
   }
 ]
