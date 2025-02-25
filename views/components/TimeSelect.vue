@@ -3,7 +3,7 @@
     style="display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px"
   >
     <a-radio-group
-      v-if="quickBtn"
+      v-if="quickBtn && isShowTime"
       default-value="today"
       button-style="solid"
       v-model:value="radioValue"
@@ -26,6 +26,23 @@
       v-model:value="rangeVal"
       :allowClear="false"
     >
+      <template #renderExtraFooter>
+        <a-radio-group
+          v-if="!isShowTime"
+          default-value="today"
+          button-style="solid"
+          v-model:value="radioValue"
+          @change="(e) => handleBtnChange(e.target.value)"
+        >
+          <a-radio-button
+            v-for="item in quickBtnList"
+            :key="item.value"
+            :value="item.value"
+          >
+            {{ item.label }}
+          </a-radio-button>
+        </a-radio-group>
+      </template>
     </a-range-picker>
   </div>
 </template>
@@ -68,6 +85,10 @@ const props = defineProps({
   isTimer: {
     type: Boolean,
     default: undefined,
+  },
+  isShowTime: {
+    type: Boolean,
+    default: true,
   },
 });
 
