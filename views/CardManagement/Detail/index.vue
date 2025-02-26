@@ -141,6 +141,7 @@
                       :is-timer="isTimer"
                       :quickBtnList="quickBtnList"
                       @change="getEcharts"
+                      :is-show-time="false"
                     />
                   </template>
                 </Guide>
@@ -325,6 +326,7 @@
                       :is-timer="isTimer"
                       :quickBtnList="quickBtnList"
                       @change="getEcharts"
+                      :is-show-time="false"
                     />
                   </template>
                 </Guide>
