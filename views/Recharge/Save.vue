@@ -51,6 +51,7 @@
           <a-select
             allowClear
             :options="PaymentMethod"
+            :field-names="{label: 'text'}"
             v-model:value="modelRef.paymentType"
             :placeholder="$t('Recharge.Save.444802-11')"
           >
@@ -62,14 +63,15 @@
 </template>
 
 <script lang="ts" setup>
-import { queryPlatformNoPage, recharge } from '../../api/cardManagement'
-import { PaymentMethod } from '../data'
+import { queryPlatformNoPage, recharge, getPayType } from '../../api/cardManagement'
 import { onlyMessage } from '@jetlinks-web/utils'
 import { useI18n } from 'vue-i18n';
+import { useRequest } from "@jetlinks-web/hooks";
 
 const { t: $t } = useI18n();
 const emit = defineEmits(['change', 'save'])
 
+const { data: PaymentMethod } = useRequest(getPayType)
 const btnLoading = ref<boolean>(false)
 const configList = ref<Record<string, any>[]>([])
 
