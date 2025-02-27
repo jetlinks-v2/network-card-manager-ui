@@ -162,3 +162,8 @@ export const queryCount = (data: any) =>
 
 export const queryDeactivate = (id: string) =>
   request.get(`/network/card/${id}/stop/reason`)
+
+/**
+ * 获取支付方式枚举
+ */
+export const getPayType = () => request.get(`/dictionary/network-card-payment-type/items`)
