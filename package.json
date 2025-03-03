@@ -1,5 +1,6 @@
 {
   "name": "network-card-manager-ui",
+  "id": "network-card-manager",
   "version": "1.0.0",
   "description": "物联卡管理",
   "main": "index.js",
