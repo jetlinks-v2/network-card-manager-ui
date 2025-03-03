@@ -34,6 +34,9 @@
             </div>
           </a-space>
         </template>
+        <template #paymentType="slotProps">
+          {{paymentMethod.find(item => item.value === slotProps.paymentType)?.text || slotProps.paymentType}}
+        </template>
         <template #createTime="slotProps">
           {{
             slotProps.createTime
@@ -70,11 +73,11 @@
 
 <script setup lang="ts">
 import dayjs from 'dayjs'
-import { queryRechargeList } from '../../api/cardManagement'
+import {getPayType, queryRechargeList} from '../../api/cardManagement'
 import Save from './Save.vue'
 import Detail from './Detail.vue'
 import { useI18n } from 'vue-i18n';
-import { PaymentMethod } from '../data'
+import {useRequest} from "@jetlinks-web/hooks";
 
 const { t: $t, locale } = useI18n();
 const rechargeRef = ref<Record<string, any>>({})
@@ -82,6 +85,7 @@ const params = ref<Record<string, any>>({})
 const visible = ref<boolean>(false)
 const detailVisible = ref<boolean>(false)
 const current = ref<Record<string, any>>({})
+const { data: paymentMethod } = useRequest(getPayType)
 
 const columns = [
   {
@@ -99,13 +103,16 @@ const columns = [
     key: 'paymentType',
     search: {
       type: 'select',
-      options: PaymentMethod.map(item => {
-        return {
-          label: item.label,
-          value: item.label
-        }
-      })
-    }
+      options: () => {
+        return paymentMethod.value.map(item => {
+          return {
+            label: item.text,
+            value: item.value
+          }
+        })
+      }
+    },
+    scopedSlots: true
   },
   {
     title: $t('Recharge.index.444801-4'),

@@ -56,7 +56,12 @@ const columns = [
     key: 'type',
     scopedSlots: true,
     search: {
-      type: 'string'
+      type: 'select',
+      options: [
+        { label: $t('Record.index.705509-4'), value: 'active' },
+        { label: $t('Record.index.705509-5'), value: 'deactivate' },
+        { label: $t('Record.index.705509-6'), value: 'resumption' }
+      ]
     }
   },
   {
