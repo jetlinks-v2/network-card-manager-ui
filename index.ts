@@ -9,7 +9,6 @@ const getAsyncRoutesMap = () => {
     const key = `${MODULE_CODE}/${code}`
     modules[key] = routerModules[item]
   })
-
   return modules
 }
 
