@@ -20,7 +20,7 @@
       />
       <j-pro-table
         ref="bindDeviceRef"
-        :alertRender="false"
+        :alertShow="false"
         :columns="columns"
         :request="queryUnbounded"
         mode="TABLE"

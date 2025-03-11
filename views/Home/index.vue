@@ -2,7 +2,7 @@
 <template>
   <j-page-container>
     <a-row :gutter="[24, 24]">
-      <a-col :xxl="14" :xl="24">
+      <a-col :xxl="13" :xl="24">
         <div class="home-guide">
           <Guide :title="$t('Home.index.662663-0')"></Guide>
           <div
@@ -26,7 +26,7 @@
           </div>
         </div>
       </a-col>
-      <a-col :xxl="10" :xl="24">
+      <a-col :xxl="11" :xl="24">
         <div class="home-statistics">
           <Guide :title="$t('Home.index.662663-1')">
             <template #extra>
@@ -435,11 +435,11 @@ onMounted(() => {
     display: flex;
     margin-top: 15px;
     width: 80%;
+    gap: 8px;
   }
 
   .item-node {
-    min-width: 58px;
-    margin-right: 8px;
+    min-width: 52px;
     z-index: 1;
 
     .item-node-text {

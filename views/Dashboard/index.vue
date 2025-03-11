@@ -69,6 +69,7 @@
                   :isTimer="isTimer"
                   :quickBtnList="quickBtnList"
                   @change="getEcharts"
+                  :isShowTime="false"
                 />
               </template>
             </Guide>
