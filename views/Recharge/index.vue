@@ -1,7 +1,7 @@
 <!-- 充值管理 -->
 <template>
   <j-page-container>
-    <j-advanced-search
+    <pro-search
       :columns="columns"
       target="recharge-search"
       @search="handleSearch"
