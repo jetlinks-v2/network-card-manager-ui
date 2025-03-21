@@ -137,6 +137,10 @@ const cancelSelect = () => {
 }
 
 const handleOk = () => {
+  if(!_selectedRowKeys.value.length) {
+    onlyMessage($t('CardManagement.BindDevice.427957-10'), 'error')
+    return 
+  }
   btnLoading.value = true
   bind(props.cardId, _selectedRowKeys.value[0])
     .then((resp: any) => {

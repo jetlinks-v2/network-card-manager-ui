@@ -608,6 +608,7 @@
 	"CardManagement.BindDevice.427957-7": "off-line",
 	"CardManagement.BindDevice.427957-8": "on-line",
 	"CardManagement.BindDevice.427957-9": "Operation successful",
+	"CardManagement.BindDevice.427957-10": "Please select a device",
 	"CardManagement.Sync.427942-0": "synchronization",
 	"CardManagement.Sync.427942-1": "{0} IoT card waiting for update status",
 	"CardManagement.Sync.427942-2": "complete",
