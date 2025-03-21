@@ -109,6 +109,7 @@
                 :tooltip="{
                   ...i.tooltip
                 }"
+                :danger="i.key === 'delete'"
                 @click="i.onClick"
                 type="link"
                 style="padding: 0px"

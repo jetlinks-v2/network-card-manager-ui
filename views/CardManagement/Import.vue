@@ -21,6 +21,7 @@
             v-model:value="modelRef.configId"
             :options="configList"
             :placeholder="$t('CardManagement.Import.427945-4')"
+            optionFilterProp="label"
           >
           </a-select>
         </a-form-item>

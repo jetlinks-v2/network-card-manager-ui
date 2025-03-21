@@ -8,7 +8,7 @@
     />
     <FullPage>
       <j-pro-table
-        :scroll="{ x: 'max-content' }"
+        :scroll="{ x: '2500px' }"
         ref="cardManageRef"
         :columns="columns"
         :request="query"
@@ -19,7 +19,9 @@
           isCheck
             ? {
                 selectedRowKeys: _selectedRowKeys,
-                onChange: onSelectChange
+                onSelect: onSelectChange,
+                onSelectAll: selectAll,
+                onSelectNone: () => (_selectedRowKeys = []),
               }
             : false
         "
@@ -73,9 +75,7 @@
                 <a-col :span="6">
                   <div class="card-item-content-text">{{ $t('CardManagement.index.427944-1') }}</div>
                   <j-ellipsis style="width: calc(100% - 20px)">
-                    <div>
-                      {{ slotProps.platformConfigName }}
-                    </div>
+                    {{ slotProps.platformConfigName }}
                   </j-ellipsis>
                 </a-col>
                 <a-col :span="6">
@@ -307,6 +307,7 @@ import SyncModal from './Sync.vue'
 import { OperatorList, OperatorMap } from '../data'
 import { iotCard } from '../../assets'
 import { useI18n } from 'vue-i18n';
+import { useRouterParams } from '@jetlinks-web/hooks';
 
 const { t: $t } = useI18n();
 const router = useRouter()
@@ -324,6 +325,7 @@ const current = ref<Partial<CardManagement>>({})
 const saveType = ref<string>('')
 const isCheck = ref<boolean>(false)
 const syncVisible = ref(false)
+const routerParams = useRouterParams();
 
 const columns = [
   {
@@ -364,6 +366,7 @@ const columns = [
     dataIndex: 'platformConfigName',
     key: 'platformConfigName',
     width: 200,
+    ellipsis: true,
     search: {
       rename: 'platformConfigId',
       type: 'select',
@@ -446,6 +449,7 @@ const columns = [
     key: 'updateTime',
     scopedSlots: true,
     width: 200,
+    ellipsis: true,
     search: {
       type: 'date'
     }
@@ -713,10 +717,35 @@ const handleSearch = (e: any) => {
   params.value = { terms: e?.terms || [] }
 }
 
-const onSelectChange = (keys: string[], rows: []) => {
-  _selectedRowKeys.value = [...keys]
-  // _selectedRow.value = [...rows];
+const onSelectChange = (item: any, state: boolean) => {
+  const arr = new Set(_selectedRowKeys.value);
+    // console.log(item, state);
+    if (state) {
+        arr.add(item.id);
+    } else {
+        arr.delete(item.id);
+    }
+    _selectedRowKeys.value = [...arr.values()];
 }
+
+const selectAll = (selected: Boolean, selectedRows: any, changeRows: any) => {
+    if (selected) {
+        changeRows.map((i: any) => {
+            if (!_selectedRowKeys.value.includes(i.id)) {
+                _selectedRowKeys.value.push(i.id);
+            }
+        });
+    } else {
+        const arr = changeRows.map((item: any) => item.id);
+        const _ids: string[] = [];
+        _selectedRowKeys.value.map((i: any) => {
+            if (!arr.includes(i)) {
+                _ids.push(i);
+            }
+        });
+        _selectedRowKeys.value = _ids;
+    }
+};
 
 const cancelSelect = () => {
   _selectedRowKeys.value = []
@@ -960,9 +989,9 @@ const syncClose = () => {
 }
 
 onMounted(() => {
-  // if (routerParams.params.value.type === 'add' && paltformPermission) {
-  //   handleAdd()
-  // }
+  if (routerParams.params.value.type === 'add' && paltformPermission) {
+    handleAdd()
+  }
 })
 </script>
 
