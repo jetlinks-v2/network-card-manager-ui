@@ -19,7 +19,9 @@
           isCheck
             ? {
                 selectedRowKeys: _selectedRowKeys,
-                onChange: onSelectChange
+                onSelect: onSelectChange,
+                onSelectAll: selectAll,
+                onSelectNone: () => (_selectedRowKeys = []),
               }
             : false
         "
@@ -715,10 +717,35 @@ const handleSearch = (e: any) => {
   params.value = { terms: e?.terms || [] }
 }
 
-const onSelectChange = (keys: string[], rows: []) => {
-  _selectedRowKeys.value = [...keys]
-  // _selectedRow.value = [...rows];
+const onSelectChange = (item: any, state: boolean) => {
+  const arr = new Set(_selectedRowKeys.value);
+    // console.log(item, state);
+    if (state) {
+        arr.add(item.id);
+    } else {
+        arr.delete(item.id);
+    }
+    _selectedRowKeys.value = [...arr.values()];
 }
+
+const selectAll = (selected: Boolean, selectedRows: any, changeRows: any) => {
+    if (selected) {
+        changeRows.map((i: any) => {
+            if (!_selectedRowKeys.value.includes(i.id)) {
+                _selectedRowKeys.value.push(i.id);
+            }
+        });
+    } else {
+        const arr = changeRows.map((item: any) => item.id);
+        const _ids: string[] = [];
+        _selectedRowKeys.value.map((i: any) => {
+            if (!arr.includes(i)) {
+                _ids.push(i);
+            }
+        });
+        _selectedRowKeys.value = _ids;
+    }
+};
 
 const cancelSelect = () => {
   _selectedRowKeys.value = []
