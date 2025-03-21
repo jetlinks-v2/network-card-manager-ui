@@ -38,7 +38,7 @@
           {{
             slotProps.registryTime
               ? dayjs(slotProps.registryTime).format('YYYY-MM-DD HH:mm:ss')
-              : ''
+              : '--'
           }}
         </template>
         <template #state="slotProps">

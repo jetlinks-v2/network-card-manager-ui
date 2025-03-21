@@ -8,7 +8,7 @@
     />
     <FullPage>
       <j-pro-table
-        :scroll="{ x: 'max-content' }"
+        :scroll="{ x: '2500px' }"
         ref="cardManageRef"
         :columns="columns"
         :request="query"
@@ -73,9 +73,7 @@
                 <a-col :span="6">
                   <div class="card-item-content-text">{{ $t('CardManagement.index.427944-1') }}</div>
                   <j-ellipsis style="width: calc(100% - 20px)">
-                    <div>
-                      {{ slotProps.platformConfigName }}
-                    </div>
+                    {{ slotProps.platformConfigName }}
                   </j-ellipsis>
                 </a-col>
                 <a-col :span="6">
@@ -307,6 +305,7 @@ import SyncModal from './Sync.vue'
 import { OperatorList, OperatorMap } from '../data'
 import { iotCard } from '../../assets'
 import { useI18n } from 'vue-i18n';
+import { useRouterParams } from '@jetlinks-web/hooks';
 
 const { t: $t } = useI18n();
 const router = useRouter()
@@ -324,6 +323,7 @@ const current = ref<Partial<CardManagement>>({})
 const saveType = ref<string>('')
 const isCheck = ref<boolean>(false)
 const syncVisible = ref(false)
+const routerParams = useRouterParams();
 
 const columns = [
   {
@@ -364,6 +364,7 @@ const columns = [
     dataIndex: 'platformConfigName',
     key: 'platformConfigName',
     width: 200,
+    ellipsis: true,
     search: {
       rename: 'platformConfigId',
       type: 'select',
@@ -446,6 +447,7 @@ const columns = [
     key: 'updateTime',
     scopedSlots: true,
     width: 200,
+    ellipsis: true,
     search: {
       type: 'date'
     }
@@ -960,9 +962,9 @@ const syncClose = () => {
 }
 
 onMounted(() => {
-  // if (routerParams.params.value.type === 'add' && paltformPermission) {
-  //   handleAdd()
-  // }
+  if (routerParams.params.value.type === 'add' && paltformPermission) {
+    handleAdd()
+  }
 })
 </script>
 
