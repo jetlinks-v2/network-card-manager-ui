@@ -608,6 +608,7 @@
 	"CardManagement.BindDevice.427957-7": "离线",
 	"CardManagement.BindDevice.427957-8": "在线",
 	"CardManagement.BindDevice.427957-9": "操作成功",
+	"CardManagement.BindDevice.427957-10": "请选择设备",
 	"CardManagement.Sync.427942-0": "同步",
 	"CardManagement.Sync.427942-1": "{0}张物联卡等待更新状态",
 	"CardManagement.Sync.427942-2": "完成",

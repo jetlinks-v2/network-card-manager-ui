@@ -26,6 +26,7 @@
             show-search
             style="width: 100%"
             :placeholder="$t('Recharge.Save.444802-5')"
+            optionFilterProp="label"
           >
           </a-select>
         </a-form-item>
