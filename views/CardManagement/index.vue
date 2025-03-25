@@ -94,7 +94,7 @@
                 </a-col>
                 <a-col :span="6">
                   <div class="card-item-content-text">{{ $t('CardManagement.index.427944-3') }}</div>
-                  <div>{{ slotProps.cardType.text }}</div>
+                  <div>{{ slotProps?.cardType?.text || '--' }}</div>
                 </a-col>
                 <a-col :span="6">
                   <div class="card-item-content-text">{{ $t('CardManagement.index.427944-4') }}</div>
@@ -179,7 +179,7 @@
           {{ OperatorMap[slotProps.operatorName] }}
         </template>
         <template #cardType="slotProps">
-          {{ slotProps.cardType.text }}
+          {{ slotProps?.cardType?.text || '--' }}
         </template>
         <template #cardStateType="slotProps">
           <j-badge-status
@@ -193,7 +193,7 @@
           />
         </template>
         <template #syncCardStatus="slotProps">
-          <span>{{slotProps.syncCardStatus?.text}}</span>
+          <span>{{slotProps.syncCardStatus?.text || '--'}}</span>
         </template>
         <template #cardState="slotProps">
           <j-badge-status
