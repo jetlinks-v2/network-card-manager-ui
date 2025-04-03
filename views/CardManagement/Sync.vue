@@ -24,7 +24,7 @@
 
 <script setup name="SyncModal">
 import { paramsEncodeQuery } from '@/utils/encodeQuery'
-import { getToken, LocalStore, setToken } from '@jetlinks-web/utils'
+import { getToken } from '@jetlinks-web/utils'
 import { EventSourcePolyfill } from 'event-source-polyfill'
 import { queryCount } from '../../api/cardManagement'
 import { BASE_API, TOKEN_KEY_URL } from '@jetlinks-web/constants'

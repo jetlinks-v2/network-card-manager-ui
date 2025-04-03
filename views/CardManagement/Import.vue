@@ -15,7 +15,11 @@
         ref="formRef"
         :rules="rules"
       >
-        <a-form-item :label="$t('CardManagement.Import.427945-3')" required name="configId">
+        <a-form-item
+          :label="$t('CardManagement.Import.427945-3')"
+          required
+          name="configId"
+        >
           <a-select
             showSearch
             v-model:value="modelRef.configId"
@@ -26,7 +30,10 @@
           </a-select>
         </a-form-item>
 
-        <a-form-item v-if="modelRef.configId" :label="$t('CardManagement.Import.427945-5')">
+        <a-form-item
+          v-if="modelRef.configId"
+          :label="$t('CardManagement.Import.427945-5')"
+        >
           <a-radio-group
             button-style="solid"
             v-model:value="modelRef.fileType"
@@ -37,7 +44,10 @@
           </a-radio-group>
         </a-form-item>
 
-        <a-form-item :label="$t('CardManagement.Import.427945-7')" v-if="modelRef.configId">
+        <a-form-item
+          :label="$t('CardManagement.Import.427945-7')"
+          v-if="modelRef.configId"
+        >
           <UploadFile
             :product="modelRef.configId"
             v-model="modelRef.upload"
@@ -86,35 +96,36 @@
                 </div> -->
     </div>
     <template #footer>
-      <a-button type="primary" @click="handleOk">{{ $t('CardManagement.Import.427945-8') }}</a-button>
+      <a-button type="primary" @click="handleOk">{{
+        $t("CardManagement.Import.427945-8")
+      }}</a-button>
     </template>
   </a-modal>
 </template>
 
 <script setup lang="ts">
-// import { downloadFile, downloadFileByUrl } from '@/utils/utils';
-import { queryPlatformNoPage, _import } from '../../api/cardManagement'
-import UploadFile from './UploadFile.vue'
-import { useI18n } from 'vue-i18n';
+import { queryPlatformNoPage } from "../../api/cardManagement";
+import UploadFile from "./UploadFile.vue";
+import { useI18n } from "vue-i18n";
 
 const { t: $t } = useI18n();
-const emit = defineEmits(['close', 'save'])
+const emit = defineEmits(["close", "save"]);
 
-const configList = ref<Record<string, any>[]>([])
+const configList = ref<Record<string, any>[]>([]);
 // const loading = ref<boolean>(false);
 // const totalCount = ref<number>(0);
 // const errCount = ref<number>(0);
-const formRef = ref(null)
+const formRef = ref(null);
 // const importStatus = ref(false);
 const modelRef = reactive({
   configId: undefined,
   upload: [],
-  fileType: 'xlsx'
-})
+  fileType: "xlsx",
+});
 
 const rules = {
-  configId: [{ required: true, message: $t('CardManagement.Import.427945-4') }]
-}
+  configId: [{ required: true, message: $t("CardManagement.Import.427945-4") }],
+};
 
 const getConfig = async () => {
   const resp: any = await queryPlatformNoPage({
@@ -123,19 +134,19 @@ const getConfig = async () => {
       {
         terms: [
           {
-            column: 'state',
-            termType: 'eq',
-            value: 'enabled',
-            type: 'and'
-          }
-        ]
-      }
-    ]
-  })
+            column: "state",
+            termType: "eq",
+            value: "enabled",
+            type: "and",
+          },
+        ],
+      },
+    ],
+  });
   configList.value = resp.result.map((item: any) => {
-    return { key: item.id, label: item.name, value: item.id }
-  })
-}
+    return { key: item.id, label: item.name, value: item.id };
+  });
+};
 
 // const fileChange = (info: any) => {
 //     loading.value = true;
@@ -171,21 +182,21 @@ const getConfig = async () => {
 const handleCancel = () => {
   // totalCount.value = 0;
   // errCount.value = 0;
-  modelRef.configId = undefined
+  modelRef.configId = undefined;
 
-  emit('close', true)
+  emit("close", true);
   // if (importStatus.value) {
   //     emit('save', true);
   // }
   // importStatus.value = false;
-}
+};
 
 const handleOk = () => {
-  modelRef.configId = undefined
-  emit('save', true)
-}
+  modelRef.configId = undefined;
+  emit("save", true);
+};
 
-getConfig()
+getConfig();
 </script>
 
 <style scoped lang="less">

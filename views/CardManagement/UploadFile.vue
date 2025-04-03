@@ -56,7 +56,7 @@ import {
   getToken,
   downloadFileByUrl
 } from '@jetlinks-web/utils'
-import { exportCard, _import } from '../../api/cardManagement'
+import { exportCard } from '../../api/cardManagement'
 import { TOKEN_KEY, TOKEN_KEY_URL, BASE_API } from '@jetlinks-web/constants'
 import { useI18n } from 'vue-i18n';
 

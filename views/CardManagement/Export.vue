@@ -12,7 +12,7 @@
   >
     <div style="margin-top: 10px">
       <a-space>
-        <span>{{ $t('CardManagement.Export.427956-3') }}</span>
+        <span>{{ $t("CardManagement.Export.427956-3") }}</span>
         <a-radio-group
           v-model:value="type"
           :placeholder="$t('CardManagement.Export.427956-4')"
@@ -27,41 +27,38 @@
 </template>
 
 <script setup lang="ts">
-import dayjs from 'dayjs';
-import {_export} from '../../api/cardManagement';
-import {downloadFileByUrl} from '@jetlinks-web/utils';
-import {paramsEncodeQuery} from "@/utils/encodeQuery";
-import {LocalStore} from "@jetlinks-web/utils";
-import {TOKEN_KEY} from "@jetlinks-web/constants";
-import { useI18n } from 'vue-i18n';
+import { paramsEncodeQuery } from "@/utils/encodeQuery";
+import { LocalStore } from "@jetlinks-web/utils";
+import { TOKEN_KEY } from "@jetlinks-web/constants";
+import { useI18n } from "vue-i18n";
 
 const { t: $t } = useI18n();
-const emit = defineEmits(['close'])
+const emit = defineEmits(["close"]);
 
 const props = defineProps({
   data: {
     type: Object,
-    default: undefined
-  }
-})
+    default: undefined,
+  },
+});
 
-const type = ref<string>('xlsx');
+const type = ref<string>("xlsx");
 const loading = ref<boolean>(false);
 
 const handleOk = () => {
-  loading.value = true
+  loading.value = true;
   const _params = paramsEncodeQuery(props.data);
-  const urlParams = new URLSearchParams()
+  const urlParams = new URLSearchParams();
 
-  Object.keys(_params).forEach(key => {
+  Object.keys(_params).forEach((key) => {
     if (_params[key]) {
-      urlParams.append(key, _params[key])
+      urlParams.append(key, _params[key]);
     }
-  })
-  const url = `${origin}/api/network/card/download.${type.value}/_query?:X_Access_Token=${LocalStore.get(TOKEN_KEY)}&${urlParams}`
-  window.open(url)
-  loading.value = false
-  emit('close');
+  });
+  const url = `${origin}/api/network/card/download.${type.value}/_query?:X_Access_Token=${LocalStore.get(TOKEN_KEY)}&${urlParams}`;
+  window.open(url);
+  loading.value = false;
+  emit("close");
   // _export(type.value, props.data).then((res: any) => {
   //   if (res) {
   //     const blob = new Blob([res.data], {type: type.value})
@@ -74,11 +71,11 @@ const handleOk = () => {
   //     emit('close')
   //   }
   // })
-}
+};
 
 const handleCancel = () => {
-  emit('close')
-}
+  emit("close");
+};
 </script>
 
 <style scoped lang="less"></style>
