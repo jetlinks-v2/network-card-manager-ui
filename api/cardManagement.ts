@@ -45,14 +45,14 @@ export const del = (id: string) => request.remove(`/network/card/${id}`)
  * @param data
  */
 export const changeDeployBatch = (data: any) =>
-  request.get(`/network/card/_activation/_batch`, data)
+  request.post(`/network/card/_activation/_batch`, data)
 
 /**
  * 停用已激活物联卡(批量)
  * @param data
  */
 export const unDeployBatch = (data: any) =>
-  request.get(`/network/card/_deactivate/_batch`, data)
+  request.post(`/network/card/_deactivate/_batch`, data)
 
 /**
  * 复机已停机物联卡(批量)
