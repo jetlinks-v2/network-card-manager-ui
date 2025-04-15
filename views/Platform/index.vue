@@ -131,7 +131,7 @@
 import { onlyMessage } from '@jetlinks-web/utils'
 import { queryList, update, del } from '../../api/platform'
 import { useMenuStore } from '@/store'
-import { iotCard, home } from '../../assets'
+import { iotCard } from '../../assets'
 import { useI18n } from 'vue-i18n';
 import { platformTypeList } from "../data";
 import { pick } from 'lodash-es';

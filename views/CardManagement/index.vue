@@ -296,7 +296,7 @@ import {
   unbind
 } from '../../api/cardManagement'
 import type { CardManagement } from './typing'
-import { downloadFileByUrl, getImage, onlyMessage } from '@jetlinks-web/utils'
+import { onlyMessage } from '@jetlinks-web/utils'
 import BindDevice from './BindDevice.vue'
 import Import from './Import.vue'
 import Export from './Export.vue'
