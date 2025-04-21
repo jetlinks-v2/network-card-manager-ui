@@ -59,7 +59,7 @@
         </a-row>
       </a-card>
       <a-row :gutter="24">
-        <a-col :span="16">
+        <a-col flex="auto">
           <div class="static-card">
             <Guide :title="$t('Dashboard.index.537937-4')">
               <template #extra>
@@ -73,20 +73,19 @@
                 />
               </template>
             </Guide>
-            <FullPage :fixed="false" v-if="flowData.length !== 0">
               <LineChart
+                v-if="flowData.length !== 0"
                 :showX="true"
                 :showY="true"
                 style="min-height: 490px"
                 :chartData="flowData"
               />
-            </FullPage>
             <div class="empty-body" v-else>
               <a-empty :image="Empty.PRESENTED_IMAGE_SIMPLE" />
             </div>
           </div>
         </a-col>
-        <a-col :span="8">
+        <a-col flex="600px">
           <div class="static-card">
             <Guide :title="$t('Dashboard.index.537937-5')">
               <template #extra>
@@ -96,6 +95,7 @@
                   :isTimer="isTimer"
                   :type="'week'"
                   @change="getTopRang"
+                  style="width: 370px"
               /></template>
             </Guide>
             <FullPage :fixed="false" v-if="topList.length !== 0">
