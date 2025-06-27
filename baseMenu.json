@@ -381,6 +381,67 @@
         "assetType": "networkCard"
       },
       {
+        "sortIndex": 1,
+        "level": 1,
+        "id": "899d4880929c3a8fc02068351f5587yu",
+        "owner": "iot",
+        "name": "流量池管理",
+        "i18nMessages": {
+          "name": {
+            "zh_CN": "流量池管理",
+            "en_US": "Traffic pool management",
+            "en": "Traffic pool management"
+          }
+        },
+        "code": "iot-card/TrafficPoolManagement",
+        "url": "/iot-card/TrafficPoolManagement",
+        "icon": "icon-zhihuishequ",
+        "showPage": [
+          "network-flow",
+          "network-card"
+        ],
+        "permissions": [
+
+        ],
+        "accessSupport": {
+          "text": "不支持",
+          "value": "unsupported"
+        },
+        "supportDataAccess": false
+      },
+      {
+        "sortIndex": 1,
+        "level": 1,
+        "id": "899d4880929c387hos2068351f5587yu",
+        "owner": "iot",
+        "name": "实时定位",
+        "i18nMessages": {
+          "name": {
+            "zh_CN": "实时定位",
+            "en_US": "Realtime positioning",
+            "en": "Realtime positioning"
+          }
+        },
+        "code": "iot-card/RealtimePositioning",
+        "url": "/iot-card/RealtimePositioning",
+        "icon": "icon-zhihuishequ",
+        "showPage": [
+          "network-flow",
+          "network-card"
+        ],
+        "permissions": [
+
+        ],
+        "buttons": [
+
+        ],
+        "accessSupport": {
+          "text": "不支持",
+          "value": "unsupported"
+        },
+        "supportDataAccess": false
+      },
+      {
         "path": "5Hpl-ZjAG",
         "sortIndex": 4,
         "level": 2,
