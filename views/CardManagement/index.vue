@@ -81,8 +81,8 @@
                 <a-col :span="6">
                   <div class="card-item-content-text">{{ $t('CardManagement.index.427944-2') }}</div>
                   <j-badge-status
-                    v-if="slotProps.cardState?.state"
-                    :status="slotProps.cardState?.state"
+                    v-if="slotProps.cardState?.value"
+                    :status="slotProps.cardState?.value"
                     :text="slotProps.cardState?.text"
                     :statusNames="{
                       using: 'processing',
@@ -94,7 +94,12 @@
                 </a-col>
                 <a-col :span="6">
                   <div class="card-item-content-text">{{ $t('CardManagement.index.427944-3') }}</div>
-                  <div>{{ slotProps?.cardType?.text || '--' }}</div>
+                  <div>{{ slotProps?.comboType?.text || '--' }}<a-tooltip :title="$t('CardManagement.index.427944-81')">
+                    <AIcon
+                        type="QuestionCircleOutlined"
+                        style="margin-left: 2px"
+                    />
+                  </a-tooltip></div>
                 </a-col>
                 <a-col :span="6">
                   <div class="card-item-content-text">{{ $t('CardManagement.index.427944-4') }}</div>
@@ -106,26 +111,18 @@
                 <div>
                   <div class="progress-text">
                     <div>
-                      {{
-                        slotProps.totalFlow
-                          ? (
-                              (slotProps.usedFlow / slotProps.totalFlow) *
-                              100
-                            ).toFixed(2)
-                          : '0.00'
-                      }}
-                      %
+                      {{slotProps.usedFlow ? slotProps.usedFlow.toFixed(2) : '--' }}
+                      M/<span class="card-item-content-text">{{slotProps.totalFlow ? slotProps.totalFlow.toFixed(2) : '--'}}M</span>
                     </div>
                     <div class="card-item-content-text">
-                      {{ $t('CardManagement.index.427944-5') }} {{ slotProps.totalFlow }} M
+                      {{ $t('CardManagement.index.427944-5') }} {{ (slotProps.totalFlow || 0) - (slotProps.usedFlow || 0) }} M
                     </div>
                   </div>
                   <a-progress
                     :strokeColor="'#ADC6FF'"
-                    :showInfo="false"
                     :percent="
                       slotProps.totalFlow
-                        ? (slotProps.usedFlow / slotProps.totalFlow) * 100
+                        ? Number(((slotProps.usedFlow / slotProps.totalFlow) * 100).toFixed(0))
                         : 0
                     "
                   />
@@ -176,10 +173,10 @@
           </div>
         </template>
         <template #operatorName="slotProps">
-          {{ OperatorMap[slotProps.operatorName] }}
+          {{ slotProps.platformType?.text || "--" }}
         </template>
-        <template #cardType="slotProps">
-          {{ slotProps?.cardType?.text || '--' }}
+        <template #comboType="slotProps">
+          {{ slotProps?.comboType?.text || '--' }}
         </template>
         <template #cardStateType="slotProps">
           <j-badge-status
@@ -197,8 +194,8 @@
         </template>
         <template #cardState="slotProps">
           <j-badge-status
-            v-if="slotProps.cardState?.state"
-            :status="slotProps.cardState?.state"
+            v-if="slotProps.cardState?.value"
+            :status="slotProps.cardState?.value"
             :text="slotProps.cardState?.text"
             :statusNames="{
               using: 'processing',
@@ -389,6 +386,7 @@ const columns = [
     title: $t('CardManagement.index.427944-7'),
     dataIndex: 'operatorName',
     key: 'operatorName',
+    scopedSlots: true,
     width: 120,
     search: {
       type: 'select',
@@ -399,17 +397,15 @@ const columns = [
   },
   {
     title: $t('CardManagement.index.427944-3'),
-    dataIndex: 'cardType',
-    key: 'cardType',
+    dataIndex: 'comboType',
+    key: 'comboType',
     scopedSlots: true,
     width: 120,
     search: {
       type: 'select',
       options: [
-        { label: $t('CardManagement.index.427944-8'), value: 'year' },
-        { label: $t('CardManagement.index.427944-9'), value: 'season' },
-        { label: $t('CardManagement.index.427944-10'), value: 'month' },
-        { label: $t('CardManagement.index.427944-11'), value: 'other' }
+        { label: $t('Dashboard.index.537937-19'), value: 'pool' },
+        { label: $t('Dashboard.index.537937-18'), value: 'single' },
       ]
     }
   },

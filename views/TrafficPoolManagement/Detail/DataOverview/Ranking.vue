@@ -1,14 +1,21 @@
 <template>
   <div class="header">
-    <TitleComponent data="流量使用TOP10"/>
-    <a-range-picker style="min-width: 300px"/>
+    <TitleComponent :data="$t('TrafficPoolManagement.Detail.index.390590-12')"/>
+    <TimeSelect
+        key="flow-ranking"
+        :type="'week'"
+        :quickBtnList="quickBtnList"
+        @change="onChange"
+        :isShowTime="false"
+        v-if="info.id"
+    />
   </div>
-  <div>
+  <div style="height: 100%; flex: 1; overflow-y: auto" v-if="info.id && list.length">
     <div v-for="item in list" :key="item.name" class="rank-item">
-      <div>{{ item.name }}</div>
+      <div>{{ item.cardId }}</div>
       <a-progress
-          :strokeColor="'#ADC6FF'"
-          :trailColor="'#E0E4E8'"
+          strokeColor="#1677FF"
+          trailColor="#F5F5F5"
           :strokeLinecap="'butt'"
           :showInfo="false"
           :percent="Math.ceil((item.value / topTotal) * 100)"
@@ -16,16 +23,55 @@
       <div>{{ item.value }}M</div>
     </div>
   </div>
+  <div v-else style="margin-top: 100px">
+    <j-empty/>
+  </div>
 </template>
 
 <script setup>
-const list = new Array(10).fill(0).map((item, index) => {
-  return {
-    value: Math.floor(Math.random() * 100),
-    name: Math.floor(Math.random() * 1000000000),
-  };
-});
-const topTotal = 100
+import {useI18n} from "vue-i18n";
+import {dashboard} from "@networkCardManager/api/trafficPoolManagement";
+import {TRAFFIC_POOL_INFO_KEY} from "@networkCardManager/views/TrafficPoolManagement/Detail/utils";
+import {quickBtnList} from "./data";
+import TimeSelect from "@networkCardManager/views/components/TimeSelect.vue";
+
+const {t: $t} = useI18n();
+const list = ref([])
+const topTotal = ref(0)
+const info = inject(TRAFFIC_POOL_INFO_KEY, ref({}))
+
+const handleSearch = (params = {}) => {
+  dashboard(params).then((resp) => {
+    if (resp.success) {
+      list.value = resp.result.map(item => item.data.value)
+      topTotal.value = resp.result.reduce((pre, cur) => pre + cur.value, 0)
+    }
+  });
+}
+
+const getEcharts = (data) => {
+  let startTime = data.start;
+  let endTime = data.end;
+  const params = {
+    "dashboard": "flow",
+    "object": "networkCardFlow",
+    "measurement": "rank",
+    "dimension": "agg",
+    "params": {
+      "limit": 10,
+      "from": startTime,
+      "to": endTime,
+      "poolId": info.value.id
+    }
+  }
+  handleSearch(params)
+};
+
+const onChange = (val) => {
+  if (info.value.id) {
+    getEcharts(val)
+  }
+}
 </script>
 
 <style lang="less" scoped>
@@ -33,7 +79,9 @@ const topTotal = 100
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .rank-item {

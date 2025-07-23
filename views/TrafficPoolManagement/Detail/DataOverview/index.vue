@@ -6,10 +6,10 @@
     <div class="data-view-item">
       <Alarm />
     </div>
-    <div class="data-view-item">
+    <div class="data-view-item" style="height: 420px">
       <FlowRate />
     </div>
-    <div class="data-view-item">
+    <div class="data-view-item" style="height: 420px">
       <Ranking />
     </div>
   </div>
@@ -26,7 +26,16 @@ import FlowRate from './FlowRate.vue'
 .data-view-box {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 24px;
+  gap: 22px;
+
+  .data-view-item {
+    border: 1px solid #B9B9B9;
+    padding: 16px;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    height: 348px;
+  }
 
   :deep(.title) {
     margin-bottom: 0;

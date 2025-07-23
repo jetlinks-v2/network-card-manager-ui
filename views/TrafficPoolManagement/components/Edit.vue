@@ -1,9 +1,9 @@
 <template>
-  <a-modal visible title="编辑" :confirm-loading="loading" @cancel="emits('close')" @ok="handleSave">
+  <a-modal visible :title="$t('CardManagement.index.427944-52')" :confirm-loading="loading" @cancel="emits('close')" @ok="handleSave">
     <a-form layout="vertical" ref="formRef" :model="formData">
       <a-form-item
-          label="名称"
-          name="name"
+          :label="$t('Detail.index.707691-2')"
+          name="alias"
           :rules="[
               {
                   required: true,
@@ -16,15 +16,15 @@
           ]"
       >
         <a-input
-            v-model:value="formData.name"
+            v-model:value="formData.alias"
             :placeholder="$t('save.index.551811-5')"
         ></a-input>
       </a-form-item>
-      <a-form-item :label="$t('save.index.551811-9')" name="describe">
+      <a-form-item :label="$t('save.index.551811-9')" name="description">
         <a-textarea
             :rows="4"
             :maxlength="200"
-            v-model:value="formData.describe"
+            v-model:value="formData.description"
             :placeholder="$t('save.index.551811-10')"
         ></a-textarea>
       </a-form-item>
@@ -34,6 +34,8 @@
 
 <script setup>
 import {useI18n} from "vue-i18n";
+import {update} from "@networkCardManager/api/trafficPoolManagement";
+import {onlyMessage} from "@jetlinks-web/utils";
 
 const props = defineProps({
   data: {
@@ -46,17 +48,30 @@ const {t: $t} = useI18n();
 const loading = ref(false);
 const formRef = ref();
 const formData = reactive({
-  name: "",
-  describe: "",
+  alias: "",
+  description: "",
 });
 
 watch(() => props.data, (newVal) => {
-  formData.name = newVal.name;
-  formData.describe = newVal.describe;
+  formData.alias = newVal.alias || newVal.name;
+  formData.description = newVal.description;
+}, {
+  deep: true,
+  immediate: true,
 })
 
-const handleSave = () => {
-
+const handleSave = async () => {
+  const resp = await formRef.value.validate()
+  if(resp){
+    loading.value = true;
+    const res = await update(props.data.id, formData).finally(() => {
+      loading.value = false;
+    })
+    if (res.success) {
+      onlyMessage($t('CardManagement.index.427944-57'))
+      emits('save')
+    }
+  }
 }
 </script>
 

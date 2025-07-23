@@ -1,0 +1,134 @@
+<template>
+  <div style="width: 100%; height: 100%;position: relative">
+    <RealTimeMap :marks="positions" ref="mapRef"/>
+    <div class="actions">
+      <a-space>
+        <a-button type="primary" danger @click="onRefresh">
+          <AIcon type="ReloadOutlined"/>
+          {{ $t('RealtimePositioning.index.390590-7') }}
+        </a-button>
+        <a-button type="primary" @click="onLoad">
+          <AIcon type="ExportOutlined"/>
+          {{ $t('RealtimePositioning.index.390590-8') }}
+        </a-button>
+        <a-button type="primary" @click="onError" v-if="_error.length > 0">
+          <AIcon type="FileSearchOutlined"/>
+          {{ '失败记录' }}
+        </a-button>
+      </a-space>
+    </div>
+  </div>
+  <ErrorModal v-if="error.visible" :data="error.data" @close="error.visible = false"/>
+</template>
+
+<script setup>
+import RealTimeMap from './components/RealTimeMap.vue';
+import {useI18n} from "vue-i18n";
+import {Modal} from "ant-design-vue";
+import {queryBatchPosition, _export} from "@networkCardManager/api/realtimePositioning";
+import ErrorModal from "./components/ErrorModal.vue";
+import { onlyMessage , downloadFileByUrl } from '@jetlinks-web/utils';
+import dayjs from 'dayjs'
+
+const props = defineProps({
+  cardIds: {
+    type: Array,
+    default: () => []
+  }
+})
+
+const {t: $t} = useI18n();
+const error = reactive({
+  visible: false,
+  data: []
+})
+const mapRef = ref()
+const dataMap = ref(new Map())
+
+const positions = computed(() => {
+  return [...dataMap.value.values()].filter(i => i && !i.error)
+})
+
+const _error = computed(() => {
+  return [...dataMap.value.values()].filter(i => i && i.error)
+})
+
+const onRefresh = () => {
+  Modal.confirm({
+    title: $t('RealtimePositioning.index.390590-10'),
+    onOk() {
+      dataMap.value.clear()
+      mapRef.value?.onRefresh()
+    },
+  });
+}
+
+const onLoad = async () => {
+  if(positions.value.length){
+    const resp = await _export('xlsx', {
+      "paging": false,
+      "terms": [
+        {
+          "column": "id",
+          "termType": "in",
+          "value": positions.value.map(i => i.id).join(',')
+        }
+      ]
+    })
+    if (resp) {
+      const blob = new Blob([resp], {type: 'xlsx'})
+      const url = URL.createObjectURL(blob)
+      downloadFileByUrl(
+          url,
+          `物联卡实时定位查询${dayjs(new Date()).format('YYYY-MM-DD')}`,
+          'xlsx'
+      )
+    }
+  }
+}
+
+const onError = () => {
+  error.visible = true
+  error.data = _error.value
+}
+
+const handleValue = async (_positions = []) => {
+  // 需要把新传入的数据重新查询，然后替换掉旧的数据
+  _positions.map(item => {
+    dataMap.value.set(item.iccId, item)
+  })
+}
+
+const getPositions = async (arr) => {
+  const resp = await queryBatchPosition(arr)
+  if (resp.success) {
+    handleValue(resp.result)
+    if (arr.length === 1 && resp.result?.[0].error) {
+      onlyMessage(resp.result?.[0]?.errorMessage, 'error')
+    }
+  }
+}
+
+watch(() => props.cardIds, (val) => {
+  if (val && val.length) {
+    const arr = Array.isArray(val) ? val : [val];
+    // 初始化，或者把原来的数据删除
+    arr.map(i => {
+      dataMap.value.set(i, null)
+    })
+    getPositions(arr)
+  }
+}, {
+  immediate: true,
+  deep: true
+})
+</script>
+<style lang="less">
+.actions {
+  position: absolute;
+  bottom: 20px;
+  right: 50%;
+  left: 50%;
+}
+</style>
+

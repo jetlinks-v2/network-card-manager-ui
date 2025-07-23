@@ -1,6 +1,6 @@
 <template>
   <div
-    style="display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px"
+    style="display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; width: 100%"
   >
     <a-radio-group
       v-if="quickBtn && isShowTime"
@@ -21,7 +21,7 @@
       format="YYYY-MM-DD HH:mm:ss"
       valueFormat="YYYY-MM-DD HH:mm:ss"
       :show-time="{ format: 'HH:mm:ss' }"
-      style="margin-left: 12px"
+      style="width: 100%"
       @change="rangeChange"
       v-model:value="rangeVal"
       :allowClear="false"

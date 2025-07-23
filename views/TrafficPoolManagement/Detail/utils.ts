@@ -1,0 +1,1 @@
+export const TRAFFIC_POOL_INFO_KEY = Symbol('TRAFFIC_POOL_INFO_KEY')

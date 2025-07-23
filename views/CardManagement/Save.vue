@@ -69,18 +69,18 @@
           </a-select>
         </a-form-item>
 
-        <a-form-item :label="$t('CardManagement.Save.427943-12')" name="cardType">
-          <a-select
-            allowClear
-            showSearch
-            :disabled="type === 'edit'"
-            :filter-option="filterOption"
-            :options="TypeList"
-            v-model:value="modelRef.cardType"
-            :placeholder="$t('CardManagement.Save.427943-13')"
-          >
-          </a-select>
-        </a-form-item>
+<!--        <a-form-item :label="$t('CardManagement.Save.427943-12')" name="cardType">-->
+<!--          <a-select-->
+<!--            allowClear-->
+<!--            showSearch-->
+<!--            :disabled="type === 'edit'"-->
+<!--            :filter-option="filterOption"-->
+<!--            :options="TypeList"-->
+<!--            v-model:value="modelRef.cardType"-->
+<!--            :placeholder="$t('CardManagement.Save.427943-13')"-->
+<!--          >-->
+<!--          </a-select>-->
+<!--        </a-form-item>-->
         <a-form-item :label="$t('CardManagement.Save.427943-14')" name="describe">
           <a-textarea
             v-model:value="modelRef.describe"

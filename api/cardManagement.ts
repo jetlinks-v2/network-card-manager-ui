@@ -12,6 +12,9 @@ export const queryPlatformNoPage = (data: any) =>
  * @param data
  */
 export const query = (data: any) => request.post(`/network/card/_query`, data)
+export const queryDetailList = (data: any) => request.post(`/network/card/detail/_query`, data)
+
+export const queryCardNoPaging = (data: any) => request.post(`/network/card/_query/no-paging`, data)
 
 /**
  * 激活待激活物联卡
@@ -86,7 +89,8 @@ export const unbind = (cardId: string) =>
  * @param data
  */
 export const queryUnbounded = (data: any) =>
-  request.post(`/network/card/unbounded/device/_query`, data)
+  request.post(`/device/instance/_query`, data)
+
 
 /**
  * 绑定设备
@@ -167,3 +171,8 @@ export const queryDeactivate = (id: string) =>
  * 获取支付方式枚举
  */
 export const getPayType = () => request.get(`/dictionary/network-card-payment-type/items`)
+
+// 同步记录查询
+export const querySyncLog = (data: any) => request.post(`/network/card/flow/sync/_log`, data)
+
+export const dashboard = (data:Record<string,any[]>)=> request.post('/dashboard/_multi',data);

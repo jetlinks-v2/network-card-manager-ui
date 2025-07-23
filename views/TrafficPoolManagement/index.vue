@@ -15,21 +15,8 @@
         }"
           :params="params"
           mode="CARD"
-          :gridColumns="[1]"
+          :gridColumns="[2]"
       >
-        <template #headerLeftRender>
-          <a-space>
-            <j-permission-button
-                :hasPermission="'iot-card/Platform:add'"
-                type="primary"
-                ghost
-                @click="handleSyncClick"
-            >
-              <AIcon type="SyncOutlined"/>
-              同步状态
-            </j-permission-button>
-          </a-space>
-        </template>
         <template #card="slotProps">
           <CardBox
               :value="slotProps"
@@ -38,24 +25,22 @@
               @click="handleClick(slotProps)"
           >
             <template #img>
-              <slot name="img">
-                <img
-                    :src="iotCard.iotCardBg"
-                />
-              </slot>
+              <div class="img-box">
+                <img :src="imgMap.get('onelink')"/>
+              </div>
             </template>
             <template #content>
               <div class="card-item-content">
                 <div class="card-item-content-header">
                   <div class="left">
                     <j-ellipsis>
-                      {{ slotProps.id }}
+                      {{ slotProps.alias || slotProps.name }}
                     </j-ellipsis>
                   </div>
                   <div class="right">
                     <AIcon
                         type="ClockCircleOutlined"
-                        style="margin-right: 10px"
+                        style="margin-right: 10px; color: #1677FF"
                     />
                     <span>{{ dayjs(slotProps.updateTime).format('YYYY-MM-DD HH:mm:ss') }}</span>
                   </div>
@@ -63,18 +48,26 @@
                 <div class="flex-center">
                   <div class="left-progress">
                     <div class="flex-center">
-                      <div class="text"><span class="bold-text large-text">86.55M</span>/100.00M</div>
-                      <div class="text">剩余： 13.12M</div>
+                      <div class="text"><span class="bold-text large-text">{{ slotProps.usedFlow.toFixed(2) }}M</span>/{{
+                          slotProps.totalFlow.toFixed(2)
+                        }}M
+                      </div>
+                      <div class="text">{{ $t('TrafficPoolManagement.index.390590-3') }}： <span
+                          class=" bold-text">{{ slotProps.residualFlow.toFixed(2) }}M</span></div>
                     </div>
-                    <a-progress status="active" :percent="30" :show-info="false"/>
+                    <a-tooltip
+                        :title="slotProps?.enabled ? `${$t('TrafficPoolManagement.index.390590-5')} < ${slotProps.alarmConfig?.flowThreshold || slotProps.alarmConfig?.flowTrafficThreshold}${slotProps.alarmConfig?.flowThreshold ? 'M' : '%'}` : ``">
+                      <a-progress
+                          :stroke-color="getStstusColor(slotProps)"
+                          :percent="slotProps.flowPercentage"/>
+                    </a-tooltip>
                   </div>
                   <div>
-                    <div>激活卡片数
-                      <a-tooltip>
-                        <AIcon type="QuestionCircleOutlined"/>
-                      </a-tooltip>
+                    <div class="text">{{ $t('TrafficPoolManagement.index.390590-4') }}</div>
+                    <div class="text"><span class="bold-text">{{
+                        slotProps.usingCardTotal
+                      }}</span>/{{ slotProps.cardTotal }}
                     </div>
-                    <div class="text"><span class="bold-text">6</span>/20</div>
                   </div>
                 </div>
               </div>
@@ -84,22 +77,29 @@
       </j-pro-table>
     </FullPage>
   </j-page-container>
-  <Sync v-if="sync.visible" :data="sync.num" @close="sync.visible = false" />
 </template>
 
 <script setup>
 import {useI18n} from "vue-i18n";
-import {query} from "@networkCardManager/api/cardManagement";
-import {iotCard} from '../../assets'
+import {query} from "@networkCardManager/api/trafficPoolManagement";
 import dayjs from "dayjs";
 import {useMenuStore} from "@/store";
-import Sync from './components/Sync.vue'
+import Onelink from '@networkCardManager/assets/traffic-pool/onelink.png'
+import Telecom from '@networkCardManager/assets/traffic-pool/telecom.png'
+import Unicom from '@networkCardManager/assets/traffic-pool/unicom.png'
+import {OperatorList} from "@networkCardManager/views/data";
 
 const {t: $t} = useI18n();
 const menuStore = useMenuStore()
+
+const imgMap = new Map()
+imgMap.set('onelink', Onelink)
+imgMap.set('ctwing', Telecom)
+imgMap.set('unicom', Unicom)
+
 const columns = [
   {
-    title: '名称',
+    title: $t('Detail.index.838702-2'),
     dataIndex: 'name',
     key: 'name',
     search: {
@@ -107,20 +107,18 @@ const columns = [
     }
   },
   {
-    title: '运营商',
-    dataIndex: 'state',
-    key: 'state',
+    title: $t('TrafficPoolManagement.Detail.index.390590-0'),
+    dataIndex: 'platformType',
+    key: 'platformType',
     search: {
       type: 'select',
-      options: [
-        {label: $t('Platform.index.838700-8'), value: 'enabled'},
-        {label: $t('Platform.index.838700-9'), value: 'disabled'},
-        {label: $t('Platform.index.838700-9'), value: 'disabled1'}
-      ]
+      options: async () => {
+        return OperatorList
+      }
     }
   },
   {
-    title: '更新时间',
+    title: $t('CardManagement.index.427944-16'),
     dataIndex: 'updateTime',
     key: 'updateTime',
     search: {
@@ -129,15 +127,34 @@ const columns = [
   },
 ]
 const params = ref({})
-const sync = reactive({
-  visible: false,
-  num: 9
-})
 
-const statusColor = {
-  enabled: 'success',
-  disabled: 'error',
-  disabled1: 'exception',
+const getStstusColor = (dt) => {
+  if(dt.flowPercentage > 100){
+    return {
+      '0%': '#ff4d4f',
+      '100%': '#ff4d4f',
+    }
+  } else if(dt?.enabled){
+    if(dt.alarmConfig.flowThreshold !== undefined){
+      if(dt.usedFlow > dt.alarmConfig.flowThreshold) {
+        return {
+          '0%': '#faad14',
+          '100%': '#faad14',
+        }
+      }
+    } else if(dt.alarmConfig.flowTrafficThreshold !== undefined && dt.totalFlow){
+      if(dt.usedFlow / dt.totalFlow * 100 > dt.alarmConfig.flowTrafficThreshold){
+        return {
+          '0%': '#faad14',
+          '100%': '#faad14',
+        }
+      }
+    }
+  }
+  return {
+    '0%': 'rgb(22, 119, 255)',
+    '100%': 'rgb(22, 119, 255)',
+  }
 }
 const handleSearch = (dt) => {
   params.value = dt
@@ -147,10 +164,6 @@ const handleClick = (dt) => {
   menuStore.jumpPage('iot-card/TrafficPoolManagement/Detail', {
     params: {id: dt.id}
   })
-}
-
-const handleSyncClick = () => {
-  sync.visible = true
 }
 </script>
 
@@ -162,9 +175,14 @@ const handleSyncClick = () => {
   gap: 48px;
 }
 
+.card-item-content {
+  padding-right: 18px;
+}
+
 .card-item-content-header {
+
   .flex-center();
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 
   .left {
     font-size: 18px;
@@ -178,18 +196,24 @@ const handleSyncClick = () => {
   }
 }
 
+.img-box {
+  background: #F5F5F5;
+  width: 64px;
+  height: 64px;
+  border-radius: 6px;
+}
+
 .left-progress {
   flex: 1;
   min-width: 0;
 }
 
 .text {
-  color: #777777;
+  color: #8D9399;
 }
 
 .bold-text {
-  color: #000000;
-  font-weight: 800;
+  color: #1F2429;
 }
 
 .large-text {

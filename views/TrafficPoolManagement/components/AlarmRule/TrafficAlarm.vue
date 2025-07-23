@@ -1,27 +1,27 @@
 <template>
   <div class="traffic-alarm">
     <div class="alert">
-      <AIcon type="InfoCircleOutlined" />
-      流量使用超出告警后，可在告警中心查看相关告警记录
+      <AIcon type="InfoCircleOutlined"/>
+      <j-ellipsis>{{ $t('TrafficPoolManagement.Detail.index.390590-14') }}</j-ellipsis>
     </div>
     <p class="text">
-      当前套内生效总流量
-      <span class="bold-text">300.00M</span>
+      {{ $t('TrafficPoolManagement.Detail.index.390590-15') }}
+      <span class="bold-text">{{ data.totalFlow?.toFixed(2) }}M</span>
     </p>
-    <TitleComponent data="流量池告警" />
+    <TitleComponent :data="$t('TrafficPoolManagement.Detail.index.390590-16')"/>
     <a-form layout="inline" ref="formRef" :model="formData">
-      <div class="text">当前剩余流量</div>
+      <div class="text">{{ $t('TrafficPoolManagement.Detail.index.390590-17') }}</div>
       <a-form-item name="type">
-        <a-radio-group :disabled="disabled" button-style="solid" v-model:value="formData.type">
-          <a-radio-button value="percent">百分比</a-radio-button>
-          <a-radio-button value="fixed">固定值</a-radio-button>
+        <a-radio-group :disabled="disabled" button-style="solid" v-model:value="formData.type" @change="formData.value = undefined">
+          <a-radio-button value="percent">{{ $t('TrafficPoolManagement.Detail.index.390590-27') }}</a-radio-button>
+          <a-radio-button value="fixed">{{ $t('TrafficPoolManagement.Detail.index.390590-28') }}</a-radio-button>
         </a-radio-group>
       </a-form-item>
-      <div class="text">低于</div>
+      <div class="text">{{ $t('TrafficPoolManagement.Detail.index.390590-18') }}</div>
       <a-form-item name="value" :rules="[
         {
           required: true,
-          message: '请输入值'
+          message: $t('TrafficPoolManagement.Detail.index.390590-16')
         }
       ]">
         <a-input-number
@@ -29,30 +29,59 @@
             :addon-after="formData.type === 'percent' ? '%' : ''"
             v-model:value="formData.value"
             :disabled="disabled"
+            :min="0"
+            :max="formData.type === 'percent' ? 100 : 99999"
+            :precision="formData.type === 'percent' ? 0 : 2"
         />
       </a-form-item>
-      <div class="text">触发告警</div>
+      <div class="text">{{ $t('TrafficPoolManagement.Detail.index.390590-19') }}</div>
     </a-form>
   </div>
 </template>
 
 <script setup>
+import {useI18n} from "vue-i18n";
+
 const props = defineProps({
   disabled: {
     type: Boolean,
     default: false
+  },
+  data: {
+    type: Object,
+    default: () => ({})
   }
 })
+const {t: $t} = useI18n();
 const formData = reactive({
-  type: 'percent',
-  value: 10,
+  type: 'fixed',
+  value: undefined,
 });
 const formRef = ref();
+
+watch(() => props.data, (val) => {
+  if(val.alarmConfig){
+    formData.type = val.alarmConfig.flowTrafficThreshold === undefined ? 'fixed' : 'percent'
+    formData.value = val.alarmConfig.flowTrafficThreshold || val.alarmConfig.flowThreshold
+  }
+}, {
+  immediate: true,
+  deep: true
+})
 const onSave = () => {
   return new Promise(async (resolve) => {
     const resp = await formRef.value.validate()
-    if(resp){
-      resolve(resp)
+    if (resp) {
+      const obj = {
+        enabled: !props.disabled,
+        type: "poolFLow",  //固定类型
+      }
+      if (resp.type === 'fixed') {
+        obj.flowThreshold = resp.value
+      } else {
+        obj.flowTrafficThreshold = resp.value
+      }
+      resolve(obj)
     } else {
       resolve(false)
     }
@@ -60,7 +89,6 @@ const onSave = () => {
 }
 
 defineExpose({
-  disabled: props.disabled,
   onSave
 })
 </script>
@@ -82,6 +110,7 @@ defineExpose({
     font-weight: 600;
   }
 }
+
 .alert {
   height: 40px;
   padding-left: 10px;
@@ -89,5 +118,8 @@ defineExpose({
   line-height: 40px;
   background-color: #f6f6f6;
   margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 </style>

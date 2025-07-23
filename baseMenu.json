@@ -21,7 +21,7 @@
       {
         "path": "5Hpl-mghg",
         "sortIndex": 1,
-        "level": 1,
+        "level": 2,
         "id": "899d4880929c3a8fc02068351f55316b",
         "owner": "iot",
         "name": "首页",
@@ -37,12 +37,11 @@
         "icon": "icon-zhihuishequ",
         "status": 1,
         "showPage": [
-          "network-flow",
           "network-card"
         ],
         "permissions": [
           {
-            "permission": "network-flow",
+            "permission": "network-card",
             "actions": [
               "query"
             ]
@@ -66,7 +65,7 @@
       {
         "path": "5Hpl-4VFS",
         "sortIndex": 2,
-        "level": 1,
+        "level": 2,
         "id": "f2ea1793896fa5ecc816e975e07d4edb",
         "owner": "iot",
         "name": "仪表盘",
@@ -81,11 +80,11 @@
         "url": "/iot-card/Dashboard",
         "icon": "icon-keshihua",
         "showPage": [
-          "network-flow"
+          "network-card"
         ],
         "permissions": [
           {
-            "permission": "network-flow",
+            "permission": "network-card",
             "actions": [
               "query"
             ]
@@ -135,7 +134,7 @@
             ]
           },
           {
-            "permission": "network-flow",
+            "permission": "network-card",
             "actions": [
               "query"
             ]
@@ -381,8 +380,8 @@
         "assetType": "networkCard"
       },
       {
-        "sortIndex": 1,
-        "level": 1,
+        "sortIndex": 4,
+        "level": 2,
         "id": "899d4880929c3a8fc02068351f5587yu",
         "owner": "iot",
         "name": "流量池管理",
@@ -395,13 +394,88 @@
         },
         "code": "iot-card/TrafficPoolManagement",
         "url": "/iot-card/TrafficPoolManagement",
-        "icon": "icon-zhihuishequ",
+        "icon": "icon-shebei",
         "showPage": [
-          "network-flow",
-          "network-card"
+          "network-card-pool"
         ],
         "permissions": [
-
+          {
+            "permission": "network-card-pool",
+            "actions": [
+              "query"
+            ]
+          }
+        ],
+        "buttons": [
+          {
+            "id": "view",
+            "name": "查看",
+            "i18nMessages": {
+              "zh_CN": "查看",
+              "en_US": "View",
+              "en": "View"
+            },
+            "permissions": [
+              {
+                "permission": "network-card-pool",
+                "actions": [
+                  "query"
+                ]
+              },
+              {
+                "permission": "dashboard",
+                "actions": [
+                  "query"
+                ]
+              },
+              {
+                "permission": "alarm-config",
+                "actions": [
+                  "query"
+                ]
+              },
+              {
+                "permission": "alarm-record",
+                "actions": [
+                  "query"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "update",
+            "name": "编辑",
+            "i18nMessages": {
+              "zh_CN": "编辑",
+              "en_US": "Edit",
+              "en": "Edit"
+            },
+            "permissions": [
+              {
+                "permission": "network-card-pool",
+                "actions": [
+                  "save"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "add-device",
+            "name": "添加设备",
+            "i18nMessages": {
+              "zh_CN": "添加设备",
+              "en_US": "Add Device",
+              "en": "Add Device"
+            },
+            "permissions": [
+              {
+                "permission": "device-instance",
+                "actions": [
+                  "query"
+                ]
+              }
+            ]
+          }
         ],
         "accessSupport": {
           "text": "不支持",
@@ -410,8 +484,8 @@
         "supportDataAccess": false
       },
       {
-        "sortIndex": 1,
-        "level": 1,
+        "sortIndex": 5,
+        "level": 2,
         "id": "899d4880929c387hos2068351f5587yu",
         "owner": "iot",
         "name": "实时定位",
@@ -424,17 +498,19 @@
         },
         "code": "iot-card/RealtimePositioning",
         "url": "/iot-card/RealtimePositioning",
-        "icon": "icon-zhihuishequ",
+        "icon": "icon-wulianwang",
         "showPage": [
-          "network-flow",
-          "network-card"
+          "network-card-pool"
         ],
         "permissions": [
-
+          {
+            "permission": "network-card-pool",
+            "actions": [
+              "queryLocation"
+            ]
+          }
         ],
-        "buttons": [
-
-        ],
+        "buttons": [],
         "accessSupport": {
           "text": "不支持",
           "value": "unsupported"
@@ -443,7 +519,7 @@
       },
       {
         "path": "5Hpl-ZjAG",
-        "sortIndex": 4,
+        "sortIndex": 6,
         "level": 2,
         "id": "e332ab7c3837fe08b86a6e4f16dd1dcc",
         "owner": "iot",
@@ -525,7 +601,7 @@
       },
       {
         "path": "5Hpl-eS9h",
-        "sortIndex": 5,
+        "sortIndex": 7,
         "level": 2,
         "id": "febd4c4b452ece6bb1d760c25b37b75f",
         "owner": "iot",
@@ -648,8 +724,8 @@
       },
       {
         "path": "5Hpl-cL34",
-        "sortIndex": 6,
-        "level": 1,
+        "sortIndex": 8,
+        "level": 2,
         "id": "c4dfe00c4d7ecfd327eaeb278546502e",
         "owner": "iot",
         "name": "操作记录",

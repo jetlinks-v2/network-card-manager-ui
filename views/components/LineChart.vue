@@ -43,7 +43,7 @@ const createChart = () => {
                 left: '5%',
                 right: '5%',
                 top: '5%',
-                bottom: '5%',
+                bottom: '8%',
             },
             tooltip: {
                 trigger: 'axis',
@@ -56,7 +56,7 @@ const createChart = () => {
                 {
                     show: props.showX,
                     boundaryGap: false,
-                    data: props.chartData.map((m: any) => m.date),
+                    data: props.chartData.map((m: any) => m.timeString),
                 },
             ],
             yAxis: [

@@ -21,7 +21,13 @@ const getExtraRoutesMap = () => {
           url: '/detail/:id',
           name: i18n.global.t('network-card-manager-ui.index.390590-0'),
           component: () => import('./views/CardManagement/Detail/index.vue')
-        }
+        },
+        // {
+        //   code: 'Record',
+        //   url: '/Record/:id',
+        //   name: i18n.global.t('network-card-manager-ui.index.390590-1'),
+        //   component: () => import('./views/CardManagement/SyncRecord/index.vue')
+        // }
       ]
     },
     [`${MODULE_CODE}/Platform`]: {
@@ -41,7 +47,13 @@ const getExtraRoutesMap = () => {
           url: '/detail/:id',
           name: i18n.global.t('network-card-manager-ui.index.390590-0'),
           component: () => import('./views/TrafficPoolManagement/Detail/index.vue')
-        }
+        },
+        // {
+        //   code: 'Record',
+        //   url: '/Record/:id',
+        //   name: i18n.global.t('network-card-manager-ui.index.390590-1'),
+        //   component: () => import('./views/TrafficPoolManagement/SyncRecord/index.vue')
+        // }
       ]
     },
   }

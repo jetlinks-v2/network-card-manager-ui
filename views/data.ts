@@ -30,6 +30,12 @@ export const OperatorMap = {
   unicom: $t('views.data.812529-5')
 }
 
+export const OperatorColor = {
+  onelink: '#52C41A',
+  ctwing: '#1677FF',
+  unicom: '#FF4D4F'
+}
+
 //运营商
 export const OperatorList = [
   {

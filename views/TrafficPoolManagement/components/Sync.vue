@@ -1,22 +1,35 @@
 <template>
-  <a-modal visible title="同步" :closable="false">
-    <p>{{ data }}张物联卡等待更新</p>
+  <a-modal visible :title="$t('CardManagement.Sync.427942-0')" :closable="false">
+    <p>{{ $t('CardManagement.Sync.427942-1', [data.cardTotal || 0]) }}</p>
     <template #footer>
-      <a-button type="primary" @click="onOk">完成</a-button>
+      <a-button type="primary" :loading="loading" @click="onOk">{{ $t('CardManagement.Sync.427942-2') }}</a-button>
     </template>
   </a-modal>
 </template>
 
 <script setup>
+import {useI18n} from "vue-i18n";
+import {syncTrafficPool} from "@networkCardManager/api/trafficPoolManagement";
+import {onlyMessage} from "@jetlinks-web/utils";
+
 const props = defineProps({
   data: {
-    type: Number,
-    default: 0
+    type: Object,
+    default: () => ({})
   }
 })
 const emit = defineEmits(['close'])
-const onOk = () => {
-  emit('close')
+const {t: $t} = useI18n();
+const loading = ref(false)
+const onOk = async () => {
+  loading.value = true
+  const resp = await syncTrafficPool(props.data.id).finally(() => {
+    loading.value = false
+  })
+  if(resp.success){
+    emit('close')
+    onlyMessage($t('CardManagement.index.427944-57'))
+  }
 }
 </script>
 

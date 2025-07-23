@@ -6,21 +6,21 @@
         <div class="home-guide">
           <Guide :title="$t('Home.index.662663-0')"></Guide>
           <div
-            class="home-guide-items"
-            :style="`grid-template-columns: repeat(${
+              class="home-guide-items"
+              :style="`grid-template-columns: repeat(${
               guideList ? guideList.length : 1
             }, 1fr);`"
           >
             <div
-              v-for="(item, index) in guideList"
-              :key="index"
-              class="home-guide-item step-bar arrow-2 pointer"
-              @click="jumpPage(item)"
+                v-for="(item, index) in guideList"
+                :key="index"
+                class="home-guide-item step-bar arrow-2 pointer"
+                @click="jumpPage(item)"
             >
               <div class="item-english">{{ item.english }}</div>
               <div class="item-title">{{ item.name }}</div>
               <div class="item-index">
-                <img :src="Image[index + 1]" />
+                <img :src="Image[index + 1]"/>
               </div>
             </div>
           </div>
@@ -38,8 +38,8 @@
               <div class="item-english">{{ $t('Home.index.662663-3') }}</div>
               <div class="item-title">{{ currentSource }} M</div>
               <div
-                class="item-index-echarts"
-                style="height: 75px; width: 110px"
+                  class="item-index-echarts"
+                  style="height: 75px; width: 110px"
               >
                 <div class="chart" ref="todayFlowChart"></div>
               </div>
@@ -48,9 +48,9 @@
               <div class="item-english">{{ $t('Home.index.662663-4') }}</div>
               <div class="item-content">
                 <div
-                  v-for="item in pieChartData"
-                  :key="item.key"
-                  class="item-node"
+                    v-for="item in pieChartData"
+                    :key="item.key"
+                    class="item-node"
                 >
                   <div class="item-node-text">
                     {{ item.value }}
@@ -61,8 +61,8 @@
                 </div>
               </div>
               <div
-                class="item-index-echarts"
-                style="height: 75px; width: 110px"
+                  class="item-index-echarts"
+                  style="height: 75px; width: 110px"
               >
                 <div class="chart" ref="iotCardChart"></div>
               </div>
@@ -72,9 +72,9 @@
       </a-col>
       <a-col :span="24">
         <div class="home-body">
-          <Guide :title="$t('Home.index.662663-5')" english="PLATFORM ARCHITECTURE DIAGRAM" />
+          <Guide :title="$t('Home.index.662663-5')" english="PLATFORM ARCHITECTURE DIAGRAM"/>
           <div class="home-body-img">
-            <img :src="iotCard.iotcardHome" />
+            <img :src="iotCard.iotcardHome"/>
           </div>
         </div>
       </a-col>
@@ -83,17 +83,18 @@
 </template>
 
 <script setup lang="ts" name="IotCardHome">
-import { onlyMessage } from '@jetlinks-web/utils'
+import {onlyMessage} from '@jetlinks-web/utils'
 import Guide from '../components/Guide.vue'
 import dayjs from 'dayjs'
-import { queryFlow, list, getIsTimer } from '../../api/home'
+import {queryFlow, list, getIsTimer} from '../../api/home'
 import * as echarts from 'echarts'
-import { useAuthStore, useMenuStore } from '@/store'
-import { iotCard, home } from '../../assets'
-import { useI18n } from 'vue-i18n';
+import {useAuthStore, useMenuStore} from '@/store'
+import {iotCard, home} from '../../assets'
+import {useI18n} from 'vue-i18n';
+import {dashboard} from "@networkCardManager/api/cardManagement";
 
-const { t: $t } = useI18n();
-const { proxy } = <any>getCurrentInstance()
+const {t: $t} = useI18n();
+const {proxy} = <any>getCurrentInstance()
 
 interface GuideItemProps {
   key: string
@@ -108,7 +109,7 @@ interface GuideItemProps {
 const menuStory = useMenuStore()
 const menuHasPermission = useMenuStore().hasMenu
 const btnHasPermission = useAuthStore().hasPermission
-const isTimer = ref(false)
+// const isTimer = ref(false)
 // 菜单权限
 // const dashBoardUrl = menuHasPermission('iot-card/Dashboard')
 // const platformUrl = menuHasPermission('iot-card/Platform/Detail')
@@ -140,7 +141,7 @@ const guideList = [
     auth: !!cardPermission,
     // url: cardUrl,
     url: 'iot-card/CardManagement',
-    param: { save: true }
+    param: {save: true}
   },
   {
     key: 'CASCADE',
@@ -181,13 +182,13 @@ const jumpPage = (data: GuideItemProps) => {
     return
   }
   if (data.key === 'EQUIPMENT') {
-    menuStory.jumpPage(data.url, { params: { id: ':id' } })
+    menuStory.jumpPage(data.url, {params: {id: ':id'}})
   } else {
     let params: any = undefined
     if (data.key === 'SCREEN') {
-      params = { type: 'add' }
+      params = {type: 'add'}
     }
-    menuStory.jumpPage(data.url, { params })
+    menuStory.jumpPage(data.url, {params})
   }
 }
 
@@ -201,21 +202,34 @@ const jumpDashboard = () => {
 const getTodayFlow = async () => {
   const beginTime = dayjs().subtract(1, 'days').startOf('day').valueOf()
   const endTime = dayjs().subtract(1, 'days').endOf('day').valueOf()
-  const dParams = isTimer.value ? {
-    context: {
-      format: "M月dd日 HH:mm:ss",
-      time: "1h",
-      from: beginTime,
-      to: endTime,
-      limit: 24
+  // const dParams = isTimer.value ? {
+  //   context: {
+  //     format: "M月dd日 HH:mm:ss",
+  //     time: "1h",
+  //     from: beginTime,
+  //     to: endTime,
+  //     limit: 24
+  //   }
+  // } : {
+  //   orderBy: 'date',
+  // }
+  const dParams = {
+    "dashboard": "flow",
+    "object": "networkCardFlow",
+    "measurement": "trend",
+    "dimension": "agg",
+    "group": "lastDay",  //分组
+    "params": {
+      "from": beginTime,   //昨天开始时间
+      "to": endTime  //昨天结束时间
     }
-  } : {
-    orderBy: 'date',
   }
-  const resp: any = await queryFlow(beginTime, endTime, dParams)
-  resp.result.map((item: any) => {
-    currentSource.value += parseFloat(item.value.toFixed(2))
-  })
+  const resp: any = await dashboard(dParams)
+  if(resp.success){
+    resp.result.map((item: any) => {
+      currentSource.value += parseFloat(item.data.value.toFixed(2))
+    })
+  }
 }
 
 /**
@@ -224,25 +238,50 @@ const getTodayFlow = async () => {
 const get15DaysTrafficConsumption = async () => {
   const beginTime = dayjs().subtract(15, 'days').startOf('day').valueOf();
   const endTime = dayjs().subtract(1, 'days').endOf('day').valueOf();
-  const dParams = isTimer.value ? {
-    context: {
+  // const dParams = isTimer.value ? {
+  //   context: {
+  //     format: $t('Home.index.662663-13'),
+  //     time: "1d",
+  //     from: beginTime,
+  //     to: endTime,
+  //     limit: 15
+  //   }
+  // } : {
+  //   orderBy: 'date',
+  // }
+  // const resp: any = await queryFlow(beginTime, endTime, dParams);
+  // barChartData.value = resp.result
+  //     .map((item: any) => ({
+  //       ...item,
+  //       value: item.value
+  //     }))
+  //     .reverse();
+  // createBarChart();
+  const dParams = {
+    "dashboard": "flow",
+    "object": "networkCardFlow",
+    "measurement": "trend",
+    "dimension": "agg",
+    "params": {
+      "time": "1d",
       format: $t('Home.index.662663-13'),
-      time: "1d",
-      from: beginTime,
-      to: endTime,
-      limit: 15
+      "limit": 15,
+      "from": beginTime,
+      "to": endTime,
     }
-  } : {
-    orderBy: 'date',
   }
-  const resp: any = await queryFlow(beginTime, endTime, dParams);
-  barChartData.value = resp.result
-    .map((item: any) => ({
-      ...item,
-      value: item.value
-    }))
-    .reverse();
-  createBarChart();
+  const resp: any = await dashboard(dParams)
+  if(resp.success){
+    resp.result.map((item: any) => {
+      barChartData.value = resp.result
+          .map((item: any) => ({
+            ...item.data,
+            value: item.data.value
+          }))
+          .reverse();
+      createBarChart();
+    })
+  }
 };
 
 /**
@@ -250,34 +289,34 @@ const get15DaysTrafficConsumption = async () => {
  */
 const getStateCard = async () => {
   Promise.all(
-    pieChartData.value.map((item) => {
-      const params = {
-        terms: [
-          {
-            terms: [
-              {
-                column: 'cardStateType',
-                termType: 'eq',
-                value: item.key
-              }
-            ]
-          }
-        ]
-      }
-      return list(params)
-    })
-  )
-    .then((resp) => {
-      resp.forEach((i: any, index) => {
-        if (i.success) {
-          pieChartData.value[index].value = i.result.total
+      pieChartData.value.map((item) => {
+        const params = {
+          terms: [
+            {
+              terms: [
+                {
+                  column: 'cardStateType',
+                  termType: 'eq',
+                  value: item.key
+                }
+              ]
+            }
+          ]
         }
+        return list(params)
       })
-      createPieChart()
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+  )
+      .then((resp) => {
+        resp.forEach((i: any, index) => {
+          if (i.success) {
+            pieChartData.value[index].value = i.result.total
+          }
+        })
+        createPieChart()
+      })
+      .catch((err) => {
+        console.log(err)
+      })
 }
 
 /**
@@ -290,7 +329,7 @@ const createBarChart = () => {
     tooltip: {},
     xAxis: {
       show: false,
-      data: barChartData.value.map((m) => m.date)
+      data: barChartData.value.map((m) => m.timeString)
     },
     yAxis: {
       show: false
@@ -352,23 +391,25 @@ const createPieChart = () => {
 }
 
 watch(
-  barChartData.value,
-  () => {
-    createBarChart()
-  },
-  { deep: true }
+    barChartData.value,
+    () => {
+      createBarChart()
+    },
+    {deep: true}
 )
 
 getStateCard()
 
 onMounted(() => {
-  getIsTimer().then(resp => {
-    if (resp.success) {
-      isTimer.value = resp.result
-      get15DaysTrafficConsumption();
-      getTodayFlow();
-    }
-  })
+  // getIsTimer().then(resp => {
+  //   if (resp.success) {
+  //     isTimer.value = resp.result
+  //     get15DaysTrafficConsumption();
+  //     getTodayFlow();
+  //   }
+  // })
+  get15DaysTrafficConsumption();
+  getTodayFlow();
 })
 </script>
 
@@ -392,16 +433,16 @@ onMounted(() => {
 .home-guide-item {
   position: relative;
   padding: 16px;
-  background: linear-gradient(
-    135.62deg,
-    #f6f7fd 22.27%,
-    rgba(255, 255, 255, 0.86) 91.82%
-  );
+  background: linear-gradient(135.62deg,
+  #f6f7fd 22.27%,
+  rgba(255, 255, 255, 0.86) 91.82%);
   border-radius: 2px;
   box-shadow: 0 4px 18px #efefef;
+
   .state {
     position: relative;
     padding-left: 8px;
+
     &::before {
       position: absolute;
       top: 7px;
@@ -412,12 +453,15 @@ onMounted(() => {
       margin-right: 2px;
       content: '';
     }
+
     &.normal::before {
       background: #85a5ff;
     }
+
     &.notActive::before {
       background: #f29b55;
     }
+
     &.stopped::before {
       background: #c4c4c4;
     }

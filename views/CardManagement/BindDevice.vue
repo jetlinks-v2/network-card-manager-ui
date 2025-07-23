@@ -17,6 +17,7 @@
         target="iot-card-bind-device"
         @search="handleSearch"
         type="simple"
+        style="margin: 0; padding: 0"
       />
       <j-pro-table
         ref="bindDeviceRef"
@@ -33,6 +34,7 @@
           onSelect: onSelectChange
         }"
         :params="params"
+        style="margin: 0; padding: 0"
       >
         <template #registryTime="slotProps">
           {{
@@ -68,7 +70,16 @@ const props = defineProps({
 })
 
 const bindDeviceRef = ref<Record<string, any>>({})
-const params = ref<Record<string, any>>({})
+const params = ref<Record<string, any>>({
+  "terms": [
+    {
+      "value": "",
+      "termType": "card_bind_device$not",  //固定条件
+      "column": "id",
+      "terms": [] //自定义条件
+    }
+  ]
+})
 const _selectedRowKeys = ref<string[]>([])
 const btnLoading = ref<boolean>(false)
 
@@ -125,7 +136,16 @@ const columns = [
 ]
 
 const handleSearch = (e: any) => {
-  params.value = e
+  params.value = {
+    "terms": [
+      {
+        "value": "",
+        "termType": "card_bind_device$not",  //固定条件
+        "column": "id",
+        "terms": e.terms || []
+      }
+    ]
+  }
 }
 
 const onSelectChange = (record: any) => {
@@ -139,7 +159,7 @@ const cancelSelect = () => {
 const handleOk = () => {
   if(!_selectedRowKeys.value.length) {
     onlyMessage($t('CardManagement.BindDevice.427957-10'), 'error')
-    return 
+    return
   }
   btnLoading.value = true
   bind(props.cardId, _selectedRowKeys.value[0])

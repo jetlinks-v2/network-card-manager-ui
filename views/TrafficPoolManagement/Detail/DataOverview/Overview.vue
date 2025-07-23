@@ -1,75 +1,79 @@
 <template>
   <div class="header">
-    <TitleComponent data="本月流量池概览"/>
-    <j-permission-button type="link" :hasPermission="true">
-      同步记录
+    <TitleComponent :data="$t('TrafficPoolManagement.Detail.index.390590-7')"/>
+    <j-permission-button type="link" :hasPermission="true" @click="onSyncLog">
+      {{ $t('Detail.index.427958-29') }}
     </j-permission-button>
   </div>
   <div class="progress">
     <div class="flex-center">
-      <div class="text"><span class="bold-text large-text">86.55M</span>/100.00M</div>
-      <div class="text">剩余： 13.12M</div>
+      <div class="text"><span class="bold-text large-text">{{
+          info.usedFlow?.toFixed(2)
+        }}M</span>/{{ info.totalFlow?.toFixed(2) }}M
+      </div>
+      <div class="text">{{ $t('TrafficPoolManagement.index.390590-3') }}： {{ info.residualFlow?.toFixed(2) }}M</div>
     </div>
-    <a-progress status="active" :percent="30" :show-info="false"/>
+    <a-progress status="active" :percent="info.flowPercentage"/>
   </div>
-  <div style="height: 350px" class="flex-center">
-    <div style="height: 100%; flex: 1">
+  <div class="charts-box">
+    <div style="height: 100%; width: 320px">
       <Echarts :options="echartsOptions"/>
     </div>
-    <div style="width: 300px">
-      <div v-for="(item, index) in list" :key="item.name" class="flex-center" style="margin-bottom: 12px">
-        <div style="display: flex; align-items: center">
+    <div class="right">
+      <div v-for="(item, index) in (statusNumber.status || [])" :key="item.status?.value" class="right-item">
+        <div class="right-item-item">
           <div class="radius-box" :style="{'background-color': colors[index % colors.length]}"></div>
-          {{ item.name }}
         </div>
-        <div class="flex-center">
-          <span>26%</span>
-          <span>{{ item.value }}</span>
+        <div class="right-item-item-center">
+          <div>{{ item.status?.text || '--' }}</div>
+          <div>{{ item.numberPercentage }}%</div>
+        </div>
+        <div class="right-item-item">
+          {{ item.number || 0 }}
         </div>
       </div>
     </div>
   </div>
+  <SyncRecord v-if="sync.visible" :data="sync.data" @close="sync.visible = false" />
 </template>
 
 <script setup>
 import Echarts from "@/components/Dashboard/components/Charts.vue";
 import {colors} from "./data";
+import {useI18n} from "vue-i18n";
+import {TRAFFIC_POOL_INFO_KEY} from "../utils";
+import {queryStatusNumber} from "@networkCardManager/api/trafficPoolManagement";
+import SyncRecord from "../../components/SyncRecord/index.vue";
 
-const list = [
-  {value: 30, name: '激活（正常）'},
-  {value: 35, name: '测试激活'},
-  {value: 40, name: '拆机'},
-  {value: 45, name: '停机（已停用）'},
-  {value: 50, name: '运营商管理状态'},
-  {value: 60, name: 'rose 6'},
-  {value: 70, name: 'rose 7'},
-  {value: 80, name: 'rose 8'}
-]
+const {t: $t} = useI18n();
+
+const info = inject(TRAFFIC_POOL_INFO_KEY, ref({}))
+const statusNumber = ref({})
+
+const sync = reactive({
+  visible: false,
+  data: {}
+})
+
 const echartsOptions = computed(() => {
   return {
     color: colors,
-    grid: {
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0
-    },
     tooltip: {
       trigger: 'axis',
       valueFormatter: (value) => `${value}%`,
     },
     title: {
-      text: '20',
-      subtext: '卡片总数',
-      fontSize: 25,
+      text: statusNumber.value.total || 0,
+      subtext: $t('TrafficPoolManagement.Detail.index.390590-46'),
+      fontSize: 20,
       left: 'center',
-      top: 'center',
+      top: 80,
     },
     series: [
       {
         type: 'pie',
-        radius: [50, 180],
-        center: ['50%', '55%'],
+        radius: [50, 100],
+        center: ['50%', '50%'],
         roseType: 'area',
         itemStyle: {
           borderRadius: 8
@@ -79,10 +83,37 @@ const echartsOptions = computed(() => {
             show: false
           }
         },
-        data: list
+        data: (statusNumber.value.status || [])?.map(item => ({
+          value: item.number,
+          name: item.status?.text,
+        }))
       }
     ]
   }
+})
+
+const onSyncLog = () => {
+  sync.visible = true
+  sync.data = info.value
+}
+
+const handleSearch = async (id) => {
+  const resp = await queryStatusNumber({
+    "paging":false,
+    "where": `poolId eq ${id}`
+  })
+  if(resp.success){
+    statusNumber.value = resp.result
+  }
+}
+
+watch(() => info.value.id, (newVal) => {
+  if (newVal) {
+    handleSearch(newVal)
+  }
+}, {
+  deep: true,
+  immediate: true,
 })
 </script>
 
@@ -91,7 +122,7 @@ const echartsOptions = computed(() => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 48px;
+  gap: 24px;
 }
 
 .header {
@@ -113,10 +144,45 @@ const echartsOptions = computed(() => {
   font-size: 18px;
 }
 
-.radius-box {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  margin-right: 10px;
+.charts-box {
+  display: flex;
+  min-height: 0;
+  flex: 1;
+  margin-top: 16px;
+  justify-content: space-between;
+  align-items: center;
+
+  .right {
+    flex: 1;
+    min-width: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+
+    .right-item {
+      display: flex;
+      align-items: center;
+
+      .right-item-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .right-item-item-center {
+        display: flex;
+        width: 200px;
+        justify-content: space-between;
+        margin: 0 36px 0 12px;
+      }
+
+      .radius-box {
+        width: 12px;
+        height: 12px;
+        //border-radius: 50%;
+        margin-right: 12px;
+      }
+    }
+  }
 }
 </style>
