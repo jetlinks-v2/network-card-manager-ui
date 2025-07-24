@@ -18,9 +18,9 @@
           trailColor="#F5F5F5"
           :strokeLinecap="'butt'"
           :showInfo="false"
-          :percent="Math.ceil((item.value / topTotal) * 100)"
+          :percent="Math.ceil((item.sum / topTotal) * 100)"
       />
-      <div>{{ item.value }}M</div>
+      <div>{{ (item.sum || 0).toFixed(2) }}M</div>
     </div>
   </div>
   <div v-else style="margin-top: 100px">
@@ -44,7 +44,7 @@ const handleSearch = (params = {}) => {
   dashboard(params).then((resp) => {
     if (resp.success) {
       list.value = resp.result.map(item => item.data.value)
-      topTotal.value = resp.result.reduce((pre, cur) => pre + cur.value, 0)
+      topTotal.value = list.value.reduce((pre, cur) => pre + cur.sum, 0)
     }
   });
 }

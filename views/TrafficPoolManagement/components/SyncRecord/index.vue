@@ -147,8 +147,8 @@ const columns = [
   },
   {
     title: $t('TrafficPoolManagement.Detail.index.390590-45'),
-    dataIndex: 'cardTotal',
-    key: 'cardTotal',
+    dataIndex: 'usingCardTotal',
+    key: 'usingCardTotal',
     ellipsis: true,
     width: 80,
     search: {
@@ -157,8 +157,8 @@ const columns = [
   },
   {
     title: $t('TrafficPoolManagement.Detail.index.390590-46'),
-    dataIndex: 'cardUsedTotal',
-    key: 'cardUsedTotal',
+    dataIndex: 'cardTotal',
+    key: 'cardTotal',
     ellipsis: true,
     width: 80,
     search: {

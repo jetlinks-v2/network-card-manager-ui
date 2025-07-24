@@ -1,4 +1,4 @@
-import { request } from '@jetlinks-web/core'
+import {request} from '@jetlinks-web/core'
 
 
 export const query = (data?: Record<string, any>) => request.post('/network/card/pool/query/_detail', data)
@@ -29,7 +29,7 @@ export const queryDeviceNoPagingPost = (data?: Record<string, any>) => request.p
 
 export const queryDevice = (data?: Record<string, any>) => request.post('/device-instance/_query', data)
 
-export const dashboard = (data:Record<string,any[]>)=> request.post('/dashboard/_multi',data);
-    export const queryAlarmCount = (targetId: string, data:Record<string,any[]>)=> request.post(`/alarm/history/_count?targetType=networkCardPool${targetId ? `&targetId=${targetId}` : ''}`,data);
+export const dashboard = (data: Record<string, any[]>) => request.post('/dashboard/_multi', data);
+export const queryAlarmCount = (targetId: string, data: Record<string, any[]>) => request.post(`/alarm/history/networkCardPool/_count${targetId ? `?&targetId=${targetId}` : ''}`, data);
 
 

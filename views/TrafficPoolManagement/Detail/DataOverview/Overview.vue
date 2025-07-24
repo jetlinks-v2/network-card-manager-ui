@@ -74,7 +74,8 @@ const echartsOptions = computed(() => {
         type: 'pie',
         radius: [50, 100],
         center: ['50%', '50%'],
-        roseType: 'area',
+        // roseType: 'area',
+        minAngle: 10,
         itemStyle: {
           borderRadius: 8
         },
@@ -84,7 +85,7 @@ const echartsOptions = computed(() => {
           }
         },
         data: (statusNumber.value.status || [])?.map(item => ({
-          value: item.number,
+          value: Math.pow(item.number, 0.4),
           name: item.status?.text,
         }))
       }
