@@ -13,7 +13,13 @@
       </div>
       <div class="text">{{ $t('TrafficPoolManagement.index.390590-3') }}： {{ info.residualFlow?.toFixed(2) }}M</div>
     </div>
-    <a-progress status="active" :percent="info.flowPercentage"/>
+    <a-tooltip
+        :title="info?.alarmEnable ? `${$t('TrafficPoolManagement.index.390590-5')} < ${info.alarmConfig?.flowThreshold || info.alarmConfig?.flowTrafficThreshold}${info.alarmConfig?.flowThreshold ? 'M' : '%'}` : ``">
+      <a-progress
+          :stroke-color="getStstusColor(info)"
+          :percent="info.flowPercentage"/>
+    </a-tooltip>
+<!--    <a-progress status="active" :percent="info.flowPercentage"/>-->
   </div>
   <div class="charts-box">
     <div style="height: 100%; width: 320px">
@@ -44,6 +50,7 @@ import {useI18n} from "vue-i18n";
 import {TRAFFIC_POOL_INFO_KEY} from "../utils";
 import {queryStatusNumber} from "@networkCardManager/api/trafficPoolManagement";
 import SyncRecord from "../../components/SyncRecord/index.vue";
+import {getStstusColor} from '@networkCardManager/views/data'
 
 const {t: $t} = useI18n();
 

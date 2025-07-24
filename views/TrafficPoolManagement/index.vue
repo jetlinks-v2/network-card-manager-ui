@@ -56,7 +56,7 @@
                           class=" bold-text">{{ slotProps.residualFlow.toFixed(2) }}M</span></div>
                     </div>
                     <a-tooltip
-                        :title="slotProps?.enabled ? `${$t('TrafficPoolManagement.index.390590-5')} < ${slotProps.alarmConfig?.flowThreshold || slotProps.alarmConfig?.flowTrafficThreshold}${slotProps.alarmConfig?.flowThreshold ? 'M' : '%'}` : ``">
+                        :title="slotProps?.alarmEnable ? `${$t('TrafficPoolManagement.index.390590-5')} < ${slotProps.alarmConfig?.flowThreshold || slotProps.alarmConfig?.flowTrafficThreshold}${slotProps.alarmConfig?.flowThreshold ? 'M' : '%'}` : ``">
                       <a-progress
                           :stroke-color="getStstusColor(slotProps)"
                           :percent="slotProps.flowPercentage"/>
@@ -87,7 +87,7 @@ import {useMenuStore} from "@/store";
 import Onelink from '@networkCardManager/assets/traffic-pool/onelink.png'
 import Telecom from '@networkCardManager/assets/traffic-pool/telecom.png'
 import Unicom from '@networkCardManager/assets/traffic-pool/unicom.png'
-import {OperatorList} from "@networkCardManager/views/data";
+import {OperatorList, getStstusColor} from "@networkCardManager/views/data";
 
 const {t: $t} = useI18n();
 const menuStore = useMenuStore()
@@ -128,34 +128,7 @@ const columns = [
 ]
 const params = ref({})
 
-const getStstusColor = (dt) => {
-  if(dt.flowPercentage > 100){
-    return {
-      '0%': '#ff4d4f',
-      '100%': '#ff4d4f',
-    }
-  } else if(dt?.enabled){
-    if(dt.alarmConfig.flowThreshold !== undefined){
-      if(dt.usedFlow > dt.alarmConfig.flowThreshold) {
-        return {
-          '0%': '#faad14',
-          '100%': '#faad14',
-        }
-      }
-    } else if(dt.alarmConfig.flowTrafficThreshold !== undefined && dt.totalFlow){
-      if(dt.usedFlow / dt.totalFlow * 100 > dt.alarmConfig.flowTrafficThreshold){
-        return {
-          '0%': '#faad14',
-          '100%': '#faad14',
-        }
-      }
-    }
-  }
-  return {
-    '0%': 'rgb(22, 119, 255)',
-    '100%': 'rgb(22, 119, 255)',
-  }
-}
+
 const handleSearch = (dt) => {
   params.value = dt
 }

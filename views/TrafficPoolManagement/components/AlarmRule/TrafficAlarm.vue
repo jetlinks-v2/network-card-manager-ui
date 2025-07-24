@@ -73,7 +73,6 @@ const onSave = () => {
     const resp = await formRef.value.validate()
     if (resp) {
       const obj = {
-        enabled: !props.disabled,
         type: "poolFLow",  //固定类型
       }
       if (resp.type === 'fixed') {

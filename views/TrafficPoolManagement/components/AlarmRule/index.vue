@@ -49,29 +49,26 @@ const components = {
 }
 
 watch(() => props.data, (val) => {
-  tabList.value[0].enabled = !!val.alarmConfig?.enabled
+  tabList.value[0].enabled = !!val?.alarmEnable
 }, {
   immediate: true,
   deep: true
 })
 
 const onSave = async () => {
-  if(!_dt.disabled) {
-    const resp = await componentsRef.value.onSave()
-    if(resp){
-      loading.value = true;
-      const res = await update(props.data.id, {
-        alarmConfig: resp
-      }).finally(() => {
-        loading.value = false;
-      })
-      if (res.success) {
-        onlyMessage($t('CardManagement.index.427944-57'))
-        emits('save')
-      }
+  const resp = await componentsRef.value.onSave()
+  if(resp){
+    loading.value = true;
+    const res = await update(props.data.id, {
+      alarmConfig: resp,
+      alarmEnable: _dt.value.enabled,
+    }).finally(() => {
+      loading.value = false;
+    })
+    if (res.success) {
+      onlyMessage($t('CardManagement.index.427944-57'))
+      emits('save')
     }
-  } else {
-    emits('close')
   }
 }
 </script>

@@ -147,6 +147,7 @@ export const edit = (data: any) => request.put(`/network/card/${data.id}`, data)
  * @param id
  */
 export const queryDetail = (id: any) => request.get(`/network/card/${id}`)
+export const queryDetailById = (id: any) => request.get(`/network/card/detail/${id}`)
 
 /**
  * 查询物联卡充值缴费日志
@@ -176,3 +177,5 @@ export const getPayType = () => request.get(`/dictionary/network-card-payment-ty
 export const querySyncLog = (data: any) => request.post(`/network/card/flow/sync/_log`, data)
 
 export const dashboard = (data:Record<string,any[]>)=> request.post('/dashboard/_multi',data);
+export const queryLocationById = (cardId: string)=> request.get(`/network/card/location/record/${cardId}/_query`);
+export const queryPlatformByIccid = (iccid: string)=> request.get(`/network/card/iccid/${iccid}/_platform`);

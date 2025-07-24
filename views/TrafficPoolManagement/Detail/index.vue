@@ -6,13 +6,15 @@
       @tabChange="onTabChange"
   >
     <template #title>
-      <j-ellipsis>{{ info.alias || info.name }}</j-ellipsis>
+      <div style="width: 500px;white-space: normal;">
+        <j-ellipsis>{{ info.alias || info.name }}</j-ellipsis>
+      </div>
     </template>
     <template #content>
       <a-descriptions size="small" :column="4">
         <a-descriptions-item :label="$t('TrafficPoolManagement.Detail.index.390590-0')">{{info.platformType?.text || '--'}}</a-descriptions-item>
         <a-descriptions-item :label="$t('Detail.index.707691-23')">
-          {{info.description || '--'}}
+          <j-ellipsis>{{info.description || '--'}}</j-ellipsis>
         </a-descriptions-item>
       </a-descriptions>
     </template>

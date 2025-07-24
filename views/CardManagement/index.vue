@@ -2,20 +2,20 @@
 <template>
   <j-page-container>
     <pro-search
-      :columns="columns"
-      target="iot-card-management-search"
-      @search="handleSearch"
+        :columns="columns"
+        target="iot-card-management-search"
+        @search="handleSearch"
     />
     <FullPage>
       <j-pro-table
-        :scroll="{ x: '2500px' }"
-        ref="cardManageRef"
-        :columns="columns"
-        :request="query"
-        :defaultParams="{
+          :scroll="{ x: '2500px' }"
+          ref="cardManageRef"
+          :columns="columns"
+          :request="queryDetailList"
+          :defaultParams="{
           sorts: [{ name: 'createTime', order: 'desc' }]
         }"
-        :rowSelection="
+          :rowSelection="
           isCheck
             ? {
                 selectedRowKeys: _selectedRowKeys,
@@ -25,36 +25,37 @@
               }
             : false
         "
-        :params="params"
-        modeValue="CARD"
-        :gridColumns="[2]"
+          :params="params"
+          modeValue="CARD"
+          :gridColumns="[2]"
       >
         <template #headerLeftRender>
           <a-space>
             <j-permission-button
-              @click="handleAdd"
-              :hasPermission="'iot-card/CardManagement:add'"
-              type="primary"
+                @click="handleAdd"
+                :hasPermission="'iot-card/CardManagement:add'"
+                type="primary"
             >
-              <AIcon type="PlusOutlined" />{{ $t('CardManagement.index.427944-0') }}
+              <AIcon type="PlusOutlined"/>
+              {{ $t('CardManagement.index.427944-0') }}
             </j-permission-button>
             <BatchDropdown
-              v-model:isCheck="isCheck"
-              :actions="batchActions"
-              @change="onCheckChange"
+                v-model:isCheck="isCheck"
+                :actions="batchActions"
+                @change="onCheckChange"
             />
           </a-space>
         </template>
         <template #card="slotProps">
           <CardBox
-            :value="slotProps"
-            @click="handleClick"
-            :actions="getActions(slotProps, 'card')"
-            v-bind="slotProps"
-            :active="_selectedRowKeys.includes(slotProps.id)"
-            :status="slotProps.cardStateType?.value"
-            :statusText="slotProps.cardStateType?.text"
-            :statusNames="{
+              :value="slotProps"
+              @click="handleClick"
+              :actions="getActions(slotProps, 'card')"
+              v-bind="slotProps"
+              :active="_selectedRowKeys.includes(slotProps.id)"
+              :status="slotProps.cardStateType?.value"
+              :statusText="slotProps.cardStateType?.text"
+              :statusNames="{
               using: 'processing',
               toBeActivated: 'default',
               deactivate: 'error'
@@ -62,7 +63,7 @@
           >
             <template #img>
               <slot name="img">
-                <img :src="iotCard.iotCardBg" />
+                <img :src="iotCard.iotCardBg"/>
               </slot>
             </template>
             <template #content>
@@ -81,10 +82,10 @@
                 <a-col :span="6">
                   <div class="card-item-content-text">{{ $t('CardManagement.index.427944-2') }}</div>
                   <j-badge-status
-                    v-if="slotProps.cardState?.value"
-                    :status="slotProps.cardState?.value"
-                    :text="slotProps.cardState?.text"
-                    :statusNames="{
+                      v-if="slotProps.cardState?.value"
+                      :status="slotProps.cardState?.value"
+                      :text="slotProps.cardState?.text"
+                      :statusNames="{
                       using: 'processing',
                       toBeActivated: 'default',
                       deactivate: 'error'
@@ -94,54 +95,87 @@
                 </a-col>
                 <a-col :span="6">
                   <div class="card-item-content-text">{{ $t('CardManagement.index.427944-3') }}</div>
-                  <div>{{ slotProps?.comboType?.text || '--' }}<a-tooltip :title="$t('CardManagement.index.427944-81')">
-                    <AIcon
-                        type="QuestionCircleOutlined"
-                        style="margin-left: 2px"
-                    />
-                  </a-tooltip></div>
+                  <div>{{ slotProps?.comboType?.text || '--' }}
+                    <a-tooltip :title="$t('CardManagement.index.427944-81')">
+                      <AIcon
+                          type="QuestionCircleOutlined"
+                          style="margin-left: 2px"
+                      />
+                    </a-tooltip>
+                  </div>
                 </a-col>
                 <a-col :span="6">
                   <div class="card-item-content-text">{{ $t('CardManagement.index.427944-4') }}</div>
                   <j-ellipsis>{{ slotProps.deviceName || '--' }}</j-ellipsis>
                 </a-col>
               </a-row>
-              <a-divider style="margin: 12px 0" />
+              <a-divider style="margin: 12px 0"/>
               <div class="content-bottom">
                 <div>
                   <div class="progress-text">
-                    <div>
-                      {{slotProps.usedFlow ? slotProps.usedFlow.toFixed(2) : '--' }}
-                      M/<span class="card-item-content-text">{{slotProps.totalFlow ? slotProps.totalFlow.toFixed(2) : '--'}}M</span>
-                    </div>
-                    <div class="card-item-content-text">
-                      {{ $t('CardManagement.index.427944-5') }} {{ (slotProps.totalFlow || 0) - (slotProps.usedFlow || 0) }} M
-                    </div>
+                    <template v-if="slotProps.comboType.value === 'pool'">
+                      <div>
+                        {{ slotProps.usedFlow ? slotProps.usedFlow.toFixed(2) : '0.00' }}
+                        M/<span
+                          class="card-item-content-text">{{
+                          slotProps.poolTotalFlow ? slotProps.poolTotalFlow.toFixed(2) : '0.00'
+                        }}M</span>
+                      </div>
+                      <div class="card-item-content-text">
+                        {{ $t('CardManagement.index.427944-5') }}
+                        {{ slotProps.poolResidualFlow.toFixed(2) || '0.00' }} M
+                      </div>
+                    </template>
+                    <template v-else>
+                      <div>
+                        {{ slotProps.usedFlow ? slotProps.usedFlow.toFixed(2) : '0.00' }}
+                        M/<span
+                          class="card-item-content-text">{{
+                          slotProps.totalFlow ? slotProps.totalFlow.toFixed(2) : '0.00'
+                        }}M</span>
+                      </div>
+                      <div class="card-item-content-text">
+                        {{ $t('CardManagement.index.427944-5') }}
+                        {{ slotProps.residualFlow ? slotProps.residualFlow.toFixed(2) : '0.00' }} M
+                      </div>
+                    </template>
                   </div>
-                  <a-progress
-                    :strokeColor="'#ADC6FF'"
-                    :percent="
+                  <template v-if="slotProps.comboType.value === 'pool'">
+                    <a-progress
+                        :strokeColor="'#ADC6FF'"
+                        :percent="
+                      slotProps.totalFlow
+                        ? Number(((slotProps.usedFlow / slotProps.poolTotalFlow) * 100).toFixed(0))
+                        : 0
+                    "
+                    />
+                  </template>
+                  <template v-else>
+                    <a-progress
+                        :strokeColor="'#ADC6FF'"
+                        :percent="
                       slotProps.totalFlow
                         ? Number(((slotProps.usedFlow / slotProps.totalFlow) * 100).toFixed(0))
                         : 0
                     "
-                  />
+                    />
+                  </template>
                 </div>
               </div>
             </template>
             <template #actions="item">
               <j-permission-button
-                :disabled="item.disabled"
-                :popConfirm="item.popConfirm"
-                :tooltip="{
+                  :disabled="item.disabled"
+                  :popConfirm="item.popConfirm"
+                  :tooltip="{
                   ...item.tooltip
                 }"
-                @click="item.onClick"
-                :hasPermission="'iot-card/CardManagement:' + item.key"
+                  @click="item.onClick"
+                  :hasPermission="'iot-card/CardManagement:' + item.key"
               >
-                <AIcon type="DeleteOutlined" v-if="item.key === 'delete'" />
+                <AIcon type="DeleteOutlined" v-if="item.key === 'delete'"/>
                 <template v-else>
-                  <AIcon :type="item.icon" />
+                  <AIcon :type="item.icon"/>
                   <span>{{ item?.text }}</span>
                 </template>
               </j-permission-button>
@@ -167,8 +201,8 @@
           <div>
             {{
               slotProps.residualFlow
-                ? slotProps.residualFlow.toFixed(2) + ' M'
-                : '--'
+                  ? slotProps.residualFlow.toFixed(2) + ' M'
+                  : '--'
             }}
           </div>
         </template>
@@ -180,9 +214,9 @@
         </template>
         <template #cardStateType="slotProps">
           <j-badge-status
-            :status="slotProps.cardStateType?.value"
-            :text="slotProps.cardStateType?.text"
-            :statusNames="{
+              :status="slotProps.cardStateType?.value"
+              :text="slotProps.cardStateType?.text"
+              :statusNames="{
               using: 'processing',
               toBeActivated: 'default',
               deactivate: 'error'
@@ -190,14 +224,14 @@
           />
         </template>
         <template #syncCardStatus="slotProps">
-          <span>{{slotProps.syncCardStatus?.text || '--'}}</span>
+          <span>{{ slotProps.syncCardStatus?.text || '--' }}</span>
         </template>
         <template #cardState="slotProps">
           <j-badge-status
-            v-if="slotProps.cardState?.value"
-            :status="slotProps.cardState?.value"
-            :text="slotProps.cardState?.text"
-            :statusNames="{
+              v-if="slotProps.cardState?.value"
+              :status="slotProps.cardState?.value"
+              :text="slotProps.cardState?.text"
+              :statusNames="{
               using: 'processing',
               toBeActivated: 'default',
               deactivate: 'error'
@@ -208,36 +242,47 @@
         <template #activationDate="slotProps">
           {{
             slotProps.activationDate
-              ? dayjs(slotProps.activationDate).format('YYYY-MM-DD HH:mm:ss')
-              : '--'
+                ? dayjs(slotProps.activationDate).format('YYYY-MM-DD HH:mm:ss')
+                : '--'
           }}
+        </template>
+        <template #flowError="slotProps">
+          <template v-if="slotProps.flowError === true">
+            {{ $t('CardManagement.index.427944-50') }}
+          </template>
+          <template v-else-if="slotProps.flowError === false">
+            {{ $t('CardManagement.index.427944-19') }}
+          </template>
+          <template v-else>
+            {{ $t('CardManagement.index.427944-18') }}
+          </template>
         </template>
         <template #updateTime="slotProps">
           {{
             slotProps.updateTime
-              ? dayjs(slotProps.updateTime).format('YYYY-MM-DD HH:mm:ss')
-              : ''
+                ? dayjs(slotProps.updateTime).format('YYYY-MM-DD HH:mm:ss')
+                : ''
           }}
         </template>
         <template #action="slotProps">
           <a-space>
             <template v-for="i in getActions(slotProps, 'table')" :key="i.key">
               <j-permission-button
-                :disabled="i.disabled"
-                :popConfirm="i.popConfirm"
-                :tooltip="{
+                  :disabled="i.disabled"
+                  :popConfirm="i.popConfirm"
+                  :tooltip="{
                   ...i.tooltip
                 }"
-                @click="i.onClick"
-                type="link"
-                style="padding: 0px"
-                :hasPermission="
+                  @click="i.onClick"
+                  type="link"
+                  style="padding: 0px"
+                  :hasPermission="
                   i.key === 'view' ? true : 'iot-card/CardManagement:' + i.key
                 "
-                :danger="i.key === 'delete'"
+                  :danger="i.key === 'delete'"
               >
                 <template #icon>
-                  <AIcon :type="i.icon" />
+                  <AIcon :type="i.icon"/>
                 </template>
               </j-permission-button>
             </template>
@@ -247,39 +292,38 @@
     </FullPage>
     <!-- {{ $t('CardManagement.index.427944-69') }} -->
     <Import
-      v-if="importVisible"
-      @close="importVisible = false"
-      @save="importSave"
+        v-if="importVisible"
+        @close="importVisible = false"
+        @save="importSave"
     />
     <!-- {{ $t('CardManagement.index.427944-68') }} -->
     <Export
-      v-if="exportVisible"
-      @close="exportVisible = false"
-      :data="_selectedRowKeys"
+        v-if="exportVisible"
+        @close="exportVisible = false"
+        :data="_selectedRowKeys"
     />
     <!-- {{ $t('CardManagement.index.427944-4') }} -->
     <BindDevice
-      v-if="bindDeviceVisible"
-      :cardId="cardId"
-      @change="bindDevice"
-      +
+        v-if="bindDeviceVisible"
+        :cardId="cardId"
+        @change="bindDevice"
+        +
     />
     <!-- {{ $t('CardManagement.index.427944-0') }}、{{ $t('CardManagement.index.427944-52') }} -->
     <Save
-      v-if="visible"
-      :type="saveType"
-      :data="current"
-      @change="saveChange"
+        v-if="visible"
+        :type="saveType"
+        :data="current"
+        @change="saveChange"
     />
     <!--   批量同步     -->
-    <SyncModal v-if="syncVisible" :params="params" @close="syncClose" />
+    <SyncModal v-if="syncVisible" :params="params" @close="syncClose"/>
   </j-page-container>
 </template>
 
 <script setup lang="ts">
 import dayjs from 'dayjs'
 import {
-  query,
   queryPlatformNoPage,
   changeDeploy,
   unDeploy,
@@ -290,23 +334,23 @@ import {
   resumptionBatch,
   sync,
   removeCards,
-  unbind
+  unbind, queryDetailList
 } from '../../api/cardManagement'
-import type { CardManagement } from './typing'
-import { onlyMessage } from '@jetlinks-web/utils'
+import type {CardManagement} from './typing'
+import {onlyMessage} from '@jetlinks-web/utils'
 import BindDevice from './BindDevice.vue'
 import Import from './Import.vue'
 import Export from './Export.vue'
 import Save from './Save.vue'
-import { BatchActionsType } from '@/components/BatchDropdown/types'
-import { useMenuStore, useAuthStore } from '@/store'
+import {BatchActionsType} from '@/components/BatchDropdown/types'
+import {useMenuStore, useAuthStore} from '@/store'
 import SyncModal from './Sync.vue'
-import { OperatorList, OperatorMap } from '../data'
-import { iotCard } from '../../assets'
-import { useI18n } from 'vue-i18n';
-import { useRouterParams } from '@jetlinks-web/hooks';
+import {OperatorList, OperatorMap} from '../data'
+import {iotCard} from '../../assets'
+import {useI18n} from 'vue-i18n';
+import {useRouterParams} from '@jetlinks-web/hooks';
 
-const { t: $t } = useI18n();
+const {t: $t} = useI18n();
 const router = useRouter()
 const menuStory = useMenuStore()
 const cardManageRef = ref<Record<string, any>>({})
@@ -370,7 +414,7 @@ const columns = [
       options: async () => {
         return new Promise((resolve) => {
           queryPlatformNoPage({
-            sorts: [{ name: 'createTime', order: 'desc' }],
+            sorts: [{name: 'createTime', order: 'desc'}],
           }).then((resp: any) => {
             const list = resp.result.map((item: any) => ({
               label: item.name,
@@ -404,8 +448,8 @@ const columns = [
     search: {
       type: 'select',
       options: [
-        { label: $t('Dashboard.index.537937-19'), value: 'pool' },
-        { label: $t('Dashboard.index.537937-18'), value: 'single' },
+        {label: $t('Dashboard.index.537937-19'), value: 'pool'},
+        {label: $t('Dashboard.index.537937-18'), value: 'single'},
       ]
     }
   },
@@ -460,12 +504,12 @@ const columns = [
     search: {
       type: 'select',
       options: [
-        { label: $t('CardManagement.index.427944-18'), value: 'notReady' },
-        { label: $t('CardManagement.index.427944-19'), value: 'error' },
-        { label: $t('CardManagement.index.427944-20'), value: 'using' },
-        { label: $t('CardManagement.index.427944-21'), value: 'toBeActivated' },
-        { label: $t('CardManagement.index.427944-22'), value: 'deactivate' },
-        { label: $t('CardManagement.index.427944-23'), value: 'other' }
+        {label: $t('CardManagement.index.427944-18'), value: 'notReady'},
+        {label: $t('CardManagement.index.427944-19'), value: 'error'},
+        {label: $t('CardManagement.index.427944-20'), value: 'using'},
+        {label: $t('CardManagement.index.427944-21'), value: 'toBeActivated'},
+        {label: $t('CardManagement.index.427944-22'), value: 'deactivate'},
+        {label: $t('CardManagement.index.427944-23'), value: 'other'}
       ]
     }
   },
@@ -483,32 +527,49 @@ const columns = [
     key: 'operatorState',
     // hidden: true,
     hideInTable: true,
+    width: 100,
     search: {
       type: 'select',
       options: [
-        { label: $t('CardManagement.index.427944-76'), value: 'using' },
-        { label: $t('CardManagement.index.427944-25'), value: 'testActivation' },
-        { label: $t('CardManagement.index.427944-26'), value: 'disassemble' },
-        { label: $t('CardManagement.index.427944-77'), value: 'deactivate' },
-        { label: $t('CardManagement.index.427944-29'), value: 'operatorManagement' },
-        { label: $t('CardManagement.index.427944-78'), value: 'beActivated' },
-        { label: $t('CardManagement.index.427944-21'), value: 'toBeActivated' },
-        { label: $t('CardManagement.index.427944-32'), value: 'testToActivation' },
-        { label: $t('CardManagement.index.427944-33'), value: 'testable' },
-        { label: $t('CardManagement.index.427944-79'), value: 'inStock' },
-        { label: $t('CardManagement.index.427944-36'), value: 'preSeller' },
-        { label: $t('CardManagement.index.427944-37'), value: 'oneWayShutdown' },
-        { label: $t('CardManagement.index.427944-38'), value: 'preSale' },
-        { label: $t('CardManagement.index.427944-39'), value: 'transfer' },
-        { label: $t('CardManagement.index.427944-40'), value: 'dormant' },
-        { label: $t('CardManagement.index.427944-80'), value: 'activatable' },
-        { label: $t('CardManagement.index.427944-42'), value: 'expired' },
-        { label: $t('CardManagement.index.427944-43'), value: 'cleared' },
-        { label: $t('CardManagement.index.427944-44'), value: 'replaced' },
-        { label: $t('CardManagement.index.427944-45'), value: 'stock' },
-        { label: $t('CardManagement.index.427944-46'), value: 'start' }
+        {label: $t('CardManagement.index.427944-76'), value: 'using'},
+        {label: $t('CardManagement.index.427944-25'), value: 'testActivation'},
+        {label: $t('CardManagement.index.427944-26'), value: 'disassemble'},
+        {label: $t('CardManagement.index.427944-77'), value: 'deactivate'},
+        {label: $t('CardManagement.index.427944-29'), value: 'operatorManagement'},
+        {label: $t('CardManagement.index.427944-78'), value: 'beActivated'},
+        {label: $t('CardManagement.index.427944-21'), value: 'toBeActivated'},
+        {label: $t('CardManagement.index.427944-32'), value: 'testToActivation'},
+        {label: $t('CardManagement.index.427944-33'), value: 'testable'},
+        {label: $t('CardManagement.index.427944-79'), value: 'inStock'},
+        {label: $t('CardManagement.index.427944-36'), value: 'preSeller'},
+        {label: $t('CardManagement.index.427944-37'), value: 'oneWayShutdown'},
+        {label: $t('CardManagement.index.427944-38'), value: 'preSale'},
+        {label: $t('CardManagement.index.427944-39'), value: 'transfer'},
+        {label: $t('CardManagement.index.427944-40'), value: 'dormant'},
+        {label: $t('CardManagement.index.427944-80'), value: 'activatable'},
+        {label: $t('CardManagement.index.427944-42'), value: 'expired'},
+        {label: $t('CardManagement.index.427944-43'), value: 'cleared'},
+        {label: $t('CardManagement.index.427944-44'), value: 'replaced'},
+        {label: $t('CardManagement.index.427944-45'), value: 'stock'},
+        {label: $t('CardManagement.index.427944-46'), value: 'start'}
       ]
     }
+  },
+  {
+    title: $t('Detail.index.427958-27'),
+    dataIndex: 'flowError',
+    key: 'flowError',
+    width: 100,
+    ellipsis: true,
+    search: {
+      type: 'select',
+      options: [
+        {label: $t('CardManagement.index.427944-19'), value: true},
+        {label: $t('CardManagement.index.427944-50'), value: false},
+        {label: $t('CardManagement.index.427944-18'), value: 'flowError'},
+      ],
+    },
+    scopedSlots: true
   },
   {
     title: $t('CardManagement.index.427944-47'),
@@ -544,8 +605,8 @@ const importSave = () => {
 }
 
 const getActions = (
-  data: Partial<Record<string, any>>,
-  type: 'card' | 'table'
+    data: Partial<Record<string, any>>,
+    type: 'card' | 'table'
 ): any[] => {
   if (!data) return []
   const arr = [
@@ -570,7 +631,7 @@ const getActions = (
       },
       icon: data.deviceId ? 'DisconnectOutlined' : 'LinkOutlined',
       popConfirm: data.deviceId
-        ? {
+          ? {
             title: $t('CardManagement.index.427944-54'),
             okText: $t('CardManagement.index.427944-55'),
             cancelText: $t('CardManagement.index.427944-56'),
@@ -585,7 +646,7 @@ const getActions = (
               return response
             }
           }
-        : undefined,
+          : undefined,
       onClick: () => {
         if (!data.deviceId) {
           bindDeviceVisible.value = true
@@ -596,32 +657,32 @@ const getActions = (
     {
       key: data.cardStateType?.value === 'toBeActivated' ? 'active' : 'action',
       text:
-        data.cardStateType?.value === 'toBeActivated'
-          ? $t('CardManagement.index.427944-20')
-          : data.cardStateType?.value === 'deactivate'
-          ? $t('CardManagement.index.427944-58')
-          : $t('CardManagement.index.427944-27'),
+          data.cardStateType?.value === 'toBeActivated'
+              ? $t('CardManagement.index.427944-20')
+              : data.cardStateType?.value === 'deactivate'
+                  ? $t('CardManagement.index.427944-58')
+                  : $t('CardManagement.index.427944-27'),
       tooltip: {
         title:
-          data.cardStateType?.value === 'toBeActivated'
-            ? $t('CardManagement.index.427944-20')
-            : data.cardStateType?.value === 'deactivate'
-            ? $t('CardManagement.index.427944-58')
-            : $t('CardManagement.index.427944-27')
+            data.cardStateType?.value === 'toBeActivated'
+                ? $t('CardManagement.index.427944-20')
+                : data.cardStateType?.value === 'deactivate'
+                    ? $t('CardManagement.index.427944-58')
+                    : $t('CardManagement.index.427944-27')
       },
       icon:
-        data.cardStateType?.value === 'toBeActivated'
-          ? 'CheckCircleOutlined'
-          : data.cardStateType?.value === 'deactivate'
-          ? 'PoweroffOutlined'
-          : 'StopOutlined',
+          data.cardStateType?.value === 'toBeActivated'
+              ? 'CheckCircleOutlined'
+              : data.cardStateType?.value === 'deactivate'
+                  ? 'PoweroffOutlined'
+                  : 'StopOutlined',
       popConfirm: {
         title:
-          data.cardStateType?.value === 'toBeActivated'
-            ? $t('CardManagement.index.427944-59')
-            : data.cardStateType?.value === 'deactivate'
-            ? $t('CardManagement.index.427944-60')
-            : $t('CardManagement.index.427944-61'),
+            data.cardStateType?.value === 'toBeActivated'
+                ? $t('CardManagement.index.427944-59')
+                : data.cardStateType?.value === 'deactivate'
+                    ? $t('CardManagement.index.427944-60')
+                    : $t('CardManagement.index.427944-61'),
         okText: $t('CardManagement.index.427944-55'),
         cancelText: $t('CardManagement.index.427944-56'),
         onConfirm: () => {
@@ -671,7 +732,7 @@ const getActions = (
             if (resp.status === 200) {
               onlyMessage($t('CardManagement.index.427944-57'))
               const index = _selectedRowKeys.value.findIndex(
-                (id: any) => id === data.id
+                  (id: any) => id === data.id
               )
               if (index !== -1) {
                 _selectedRowKeys.value.splice(index, 1)
@@ -700,7 +761,7 @@ const getActions = (
         icon: 'EyeOutlined',
         onClick: () => {
           menuStory.jumpPage('iot-card/CardManagement/Detail', {
-            params: { id: data.id }
+            params: {id: data.id}
           })
         }
       },
@@ -710,37 +771,45 @@ const getActions = (
 }
 
 const handleSearch = (e: any) => {
-  params.value = { terms: e?.terms || [] }
+  e.terms.map((i: any) => {
+    i.terms.forEach((item: any) => {
+      if (item.column === "flowError" && item.value === 'flowError') {
+        item.termType = "isnull";
+        item.value = "";
+      }
+    });
+  });
+  params.value = {terms: e?.terms || []}
 }
 
 const onSelectChange = (item: any, state: boolean) => {
   const arr = new Set(_selectedRowKeys.value);
-    // console.log(item, state);
-    if (state) {
-        arr.add(item.id);
-    } else {
-        arr.delete(item.id);
-    }
-    _selectedRowKeys.value = [...arr.values()];
+  // console.log(item, state);
+  if (state) {
+    arr.add(item.id);
+  } else {
+    arr.delete(item.id);
+  }
+  _selectedRowKeys.value = [...arr.values()];
 }
 
 const selectAll = (selected: Boolean, selectedRows: any, changeRows: any) => {
-    if (selected) {
-        changeRows.map((i: any) => {
-            if (!_selectedRowKeys.value.includes(i.id)) {
-                _selectedRowKeys.value.push(i.id);
-            }
-        });
-    } else {
-        const arr = changeRows.map((item: any) => item.id);
-        const _ids: string[] = [];
-        _selectedRowKeys.value.map((i: any) => {
-            if (!arr.includes(i)) {
-                _ids.push(i);
-            }
-        });
-        _selectedRowKeys.value = _ids;
-    }
+  if (selected) {
+    changeRows.map((i: any) => {
+      if (!_selectedRowKeys.value.includes(i.id)) {
+        _selectedRowKeys.value.push(i.id);
+      }
+    });
+  } else {
+    const arr = changeRows.map((item: any) => item.id);
+    const _ids: string[] = [];
+    _selectedRowKeys.value.map((i: any) => {
+      if (!arr.includes(i)) {
+        _ids.push(i);
+      }
+    });
+    _selectedRowKeys.value = _ids;
+  }
 };
 
 const cancelSelect = () => {
@@ -760,7 +829,7 @@ const handleClick = (dt: any) => {
     }
   } else {
     menuStory.jumpPage('iot-card/CardManagement/Detail', {
-      params: { id: dt.id }
+      params: {id: dt.id}
     })
   }
 }
@@ -810,8 +879,8 @@ const handleActive = () => {
     return onlyMessage($t('CardManagement.index.427944-66'), 'warning')
   }
   if (
-    _selectedRowKeys.value.length >= 10 &&
-    _selectedRowKeys.value.length <= 100
+      _selectedRowKeys.value.length >= 10 &&
+      _selectedRowKeys.value.length <= 100
   ) {
     changeDeployBatch(_selectedRowKeys.value).then((res: any) => {
       if (res.status === 200) {
@@ -828,8 +897,8 @@ const handleActive = () => {
  */
 const handleStop = () => {
   if (
-    _selectedRowKeys.value.length >= 10 &&
-    _selectedRowKeys.value.length <= 100
+      _selectedRowKeys.value.length >= 10 &&
+      _selectedRowKeys.value.length <= 100
   ) {
     const response = unDeployBatch(_selectedRowKeys.value)
     response.then((res: any) => {
@@ -848,8 +917,8 @@ const handleStop = () => {
  */
 const handleResumption = () => {
   if (
-    _selectedRowKeys.value.length >= 10 &&
-    _selectedRowKeys.value.length <= 100
+      _selectedRowKeys.value.length >= 10 &&
+      _selectedRowKeys.value.length <= 100
   ) {
     const response = resumptionBatch(_selectedRowKeys.value)
     response.then((res: any) => {
@@ -899,7 +968,7 @@ const handelRemove = () => {
     onlyMessage($t('CardManagement.index.427944-66'), 'error')
     return
   }
-  const response = removeCards(_selectedRowKeys.value.map((v) => ({ id: v })))
+  const response = removeCards(_selectedRowKeys.value.map((v) => ({id: v})))
   response.then((resp) => {
     if (resp.status === 200) {
       onlyMessage($t('CardManagement.index.427944-57'))
@@ -995,6 +1064,7 @@ onMounted(() => {
 .content-bottom {
   height: 38px;
 }
+
 .flow-text {
   font-size: 20px;
   font-weight: 600;
