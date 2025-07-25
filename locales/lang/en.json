@@ -848,5 +848,8 @@
 	"RealtimePositioning.index.390590-7": "Reset",
 	"RealtimePositioning.index.390590-8": "Export Query",
 	"RealtimePositioning.index.390590-9": "Historical Positioning",
-	"RealtimePositioning.index.390590-10": "Confirm reset？"
+	"RealtimePositioning.index.390590-10": "Confirm reset？",
+	"RealtimePositioning.index.390590-11": "Failed Record",
+	"RealtimePositioning.index.390590-12": "Card Location Failed",
+	"RealtimePositioning.index.390590-13": "Partial Card Location Failed"
 }

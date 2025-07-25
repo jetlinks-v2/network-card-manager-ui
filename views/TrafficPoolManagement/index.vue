@@ -55,12 +55,7 @@
                       <div class="text">{{ $t('TrafficPoolManagement.index.390590-3') }}： <span
                           class=" bold-text">{{ slotProps.residualFlow.toFixed(2) }}M</span></div>
                     </div>
-                    <a-tooltip
-                        :title="slotProps?.alarmEnable ? `${$t('TrafficPoolManagement.index.390590-5')} < ${slotProps.alarmConfig?.flowThreshold || slotProps.alarmConfig?.flowTrafficThreshold}${slotProps.alarmConfig?.flowThreshold ? 'M' : '%'}` : ``">
-                      <a-progress
-                          :stroke-color="getStstusColor(slotProps)"
-                          :percent="slotProps.flowPercentage"/>
-                    </a-tooltip>
+                    <Progress :data="slotProps" />
                   </div>
                   <div>
                     <div class="text">{{ $t('TrafficPoolManagement.index.390590-4') }}</div>
@@ -87,7 +82,8 @@ import {useMenuStore} from "@/store";
 import Onelink from '@networkCardManager/assets/traffic-pool/onelink.png'
 import Telecom from '@networkCardManager/assets/traffic-pool/telecom.png'
 import Unicom from '@networkCardManager/assets/traffic-pool/unicom.png'
-import {OperatorList, getStstusColor} from "@networkCardManager/views/data";
+import {OperatorList} from "@networkCardManager/views/data";
+import Progress from "./components/Progress.vue";
 
 const {t: $t} = useI18n();
 const menuStore = useMenuStore()

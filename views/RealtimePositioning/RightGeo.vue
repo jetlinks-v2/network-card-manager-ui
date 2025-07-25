@@ -13,7 +13,7 @@
         </a-button>
         <a-button type="primary" @click="onError" v-if="_error.length > 0">
           <AIcon type="FileSearchOutlined"/>
-          {{ '失败记录' }}
+          {{ $t('RealtimePositioning.index.390590-11') }}
         </a-button>
       </a-space>
     </div>
@@ -38,6 +38,7 @@ const props = defineProps({
 })
 
 const {t: $t} = useI18n();
+const loadings = inject('loadings', ref({}))
 const error = reactive({
   visible: false,
   data: []
@@ -100,11 +101,21 @@ const handleValue = async (_positions = []) => {
 }
 
 const getPositions = async (arr) => {
-  const resp = await queryBatchPosition(arr)
+  const resp = await queryBatchPosition(arr).finally(() => {
+    arr.map(i => {
+      loadings.value[i] = false
+    })
+  })
   if (resp.success) {
     handleValue(resp.result)
     if (arr.length === 1 && resp.result?.[0].error) {
-      onlyMessage(resp.result?.[0]?.errorMessage, 'error')
+      // resp.result?.[0]?.errorMessage
+      onlyMessage($t('RealtimePositioning.index.390590-12'), 'error')
+    } else {
+      if(arr.length > 1){
+        const dt = resp.result.some(i => i.iccId.includes(i.iccId) && i.error)
+        onlyMessage($t('RealtimePositioning.index.390590-13'), 'error')
+      }
     }
   }
 }
@@ -114,6 +125,7 @@ watch(() => props.cardIds, (val) => {
     const arr = Array.isArray(val) ? val : [val];
     // 初始化，或者把原来的数据删除
     arr.map(i => {
+      loadings.value[i] = true
       dataMap.value.set(i, null)
     })
     getPositions(arr)
@@ -128,7 +140,7 @@ watch(() => props.cardIds, (val) => {
   position: absolute;
   bottom: 20px;
   right: 50%;
-  left: 50%;
+  left: calc(50% - 150px)
 }
 </style>
 

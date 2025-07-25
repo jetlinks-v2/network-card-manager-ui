@@ -848,5 +848,8 @@
 	"RealtimePositioning.index.390590-7": "重置",
 	"RealtimePositioning.index.390590-8": "导出查询",
 	"RealtimePositioning.index.390590-9": "历史定位",
-	"RealtimePositioning.index.390590-10": "确认重置?"
+	"RealtimePositioning.index.390590-10": "确认重置?",
+	"RealtimePositioning.index.390590-11": "失败记录",
+	"RealtimePositioning.index.390590-12": "卡片定位失败",
+	"RealtimePositioning.index.390590-13": "部分卡片定位失败"
 }

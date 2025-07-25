@@ -24,6 +24,7 @@
         <a-textarea
             :rows="4"
             :maxlength="200"
+            showCount
             v-model:value="formData.description"
             :placeholder="$t('save.index.551811-10')"
         ></a-textarea>

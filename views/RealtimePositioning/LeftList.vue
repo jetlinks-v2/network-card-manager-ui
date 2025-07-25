@@ -29,15 +29,19 @@
             <div class="_header">
               <div class="_header-left">
                 <div class="title" @click="onClick(item)">{{ item.id }}</div>
-                <a-tag :color="OperatorColor[item.operatorName]">{{OperatorMap[item.operatorName] || '--'}}</a-tag>
+                <a-tag :color="OperatorColor[item.operatorName]">{{ OperatorMap[item.operatorName] || '--' }}</a-tag>
               </div>
-              <div class="actions1">
-                <a-tooltip :title="$t('Detail.index.427958-28')">
-                  <a-button type="link" size="small" @click="setPosition(item)">
-                    <AIcon style="font-size: 16px" type="EnvironmentFilled"/>
-                  </a-button>
-                </a-tooltip>
-              </div>
+              <a-spin size="small" :spinning="!!loadings[item.iccId]">
+                <div style="width: 30px">
+                  <div class="actions1">
+                    <a-tooltip :title="$t('Detail.index.427958-28')">
+                      <a-button type="link" size="small" @click="setPosition(item)">
+                        <AIcon style="font-size: 16px" type="EnvironmentFilled"/>
+                      </a-button>
+                    </a-tooltip>
+                  </div>
+                </div>
+              </a-spin>
             </div>
             <div class="items-content">
               <div class="item">
@@ -72,6 +76,7 @@ const params = ref({})
 const searchValue = ref()
 const visible = ref(false)
 const menuStore = useMenuStore()
+const loadings = inject('loadings', ref({}))
 const onSearch = () => {
   params.value = searchValue.value ? {
     terms: [

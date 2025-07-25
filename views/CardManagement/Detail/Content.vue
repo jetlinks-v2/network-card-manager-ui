@@ -358,6 +358,7 @@ import {useMenuStore} from "@/store";
 import RealTimeMap from "../../RealtimePositioning/components/RealTimeMap.vue"
 import SyncRecord from './SyncRecord/index.vue'
 import {map} from "lodash-es";
+import {onlyMessage} from "@jetlinks-web/utils";
 
 const {t: $t} = useI18n();
 const props = defineProps({
@@ -750,6 +751,9 @@ const getPositions = async (id: string) => {
   })
   if (res.success) {
     marks.value = res.result.error === false ? [res.result] : []
+    if(res.result.error){
+      onlyMessage(res.result.errorMessage, 'error')
+    }
   }
 }
 const getPositionsHistory = async (id: string) => {

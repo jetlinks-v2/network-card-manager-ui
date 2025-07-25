@@ -30,7 +30,7 @@
             v-model:value="formData.value"
             :disabled="disabled"
             :min="0"
-            :max="formData.type === 'percent' ? 100 : 99999"
+            :max="formData.type === 'percent' ? 100 : (data.totalFlow || 99999)"
             :precision="formData.type === 'percent' ? 0 : 2"
         />
       </a-form-item>

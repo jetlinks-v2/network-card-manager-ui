@@ -18,6 +18,9 @@ import LeftList from './LeftList.vue';
 import RightGeo from './RightGeo.vue';
 
 const cardIds = ref([])
+const loadings = ref({})
+
+provide('loadings', loadings)
 const onChange = (_item) => {
   cardIds.value = _item
   // 清空传过去的数据，防止客户一直点击同一个数据，不触发watch去重新查询数据
