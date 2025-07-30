@@ -793,7 +793,7 @@
 	"TrafficPoolManagement.index.390590-2": "张物联卡等待更新",
 	"TrafficPoolManagement.index.390590-3": "剩余",
 	"TrafficPoolManagement.index.390590-4": "激活卡片数",
-	"TrafficPoolManagement.index.390590-5": "告警阈值",
+	"TrafficPoolManagement.index.390590-5": "剩余流量 < {0}时告警",
 	"TrafficPoolManagement.Detail.index.390590-0": "运营商",
 	"TrafficPoolManagement.Detail.index.390590-2": "告警规则",
 	"TrafficPoolManagement.Detail.index.390590-5": "数据概览",
@@ -840,8 +840,8 @@
 	"TrafficPoolManagement.Detail.index.390590-46": "卡片总数",
 	"RealtimePositioning.index.390590-0": "请输入卡号/ICCID",
 	"RealtimePositioning.index.390590-1": "批量查询",
-	"RealtimePositioning.index.390590-2": "单次批量查询仅支持同一运营商，暂不支持联通，不支持查询非平台内卡片，具体资费请咨询对应运营商",
-	"RealtimePositioning.index.390590-3": "请输入ICCID，一行一个，单次最多支持50个",
+	"RealtimePositioning.index.390590-2": "不支持查询非平台内卡片，具体资费请咨询对应运营商",
+	"RealtimePositioning.index.390590-3": "请输入ICCID或卡号，一行一个，单次最多支持50个",
 	"RealtimePositioning.index.390590-4": "坐标",
 	"RealtimePositioning.index.390590-5": "地址",
 	"RealtimePositioning.index.390590-6": "时间",
@@ -851,5 +851,6 @@
 	"RealtimePositioning.index.390590-10": "确认重置?",
 	"RealtimePositioning.index.390590-11": "失败记录",
 	"RealtimePositioning.index.390590-12": "卡片定位失败",
-	"RealtimePositioning.index.390590-13": "部分卡片定位失败"
+	"RealtimePositioning.index.390590-13": "部分卡片定位失败",
+	"RealtimePositioning.index.390590-14": "卡片定位失败，请稍后再试"
 }

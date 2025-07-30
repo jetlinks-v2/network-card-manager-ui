@@ -27,7 +27,7 @@ import {useI18n} from "vue-i18n";
 import {Modal} from "ant-design-vue";
 import {queryBatchPosition, _export} from "@networkCardManager/api/realtimePositioning";
 import ErrorModal from "./components/ErrorModal.vue";
-import { onlyMessage , downloadFileByUrl } from '@jetlinks-web/utils';
+import {onlyMessage, downloadFileByUrl} from '@jetlinks-web/utils';
 import dayjs from 'dayjs'
 
 const props = defineProps({
@@ -44,28 +44,28 @@ const error = reactive({
   data: []
 })
 const mapRef = ref()
-const dataMap = ref(new Map())
+const dataMap = ref([])
 
 const positions = computed(() => {
-  return [...dataMap.value.values()].filter(i => i && !i.error)
+  return dataMap.value.filter(i => i && !i.error)
 })
 
 const _error = computed(() => {
-  return [...dataMap.value.values()].filter(i => i && i.error)
+  return dataMap.value.filter(i => i && i.error)
 })
 
 const onRefresh = () => {
   Modal.confirm({
     title: $t('RealtimePositioning.index.390590-10'),
     onOk() {
-      dataMap.value.clear()
+      dataMap.value = []
       mapRef.value?.onRefresh()
     },
   });
 }
 
 const onLoad = async () => {
-  if(positions.value.length){
+  if (positions.value.length) {
     const resp = await _export('xlsx', {
       "paging": false,
       "terms": [
@@ -93,13 +93,6 @@ const onError = () => {
   error.data = _error.value
 }
 
-const handleValue = async (_positions = []) => {
-  // 需要把新传入的数据重新查询，然后替换掉旧的数据
-  _positions.map(item => {
-    dataMap.value.set(item.iccId, item)
-  })
-}
-
 const getPositions = async (arr) => {
   const resp = await queryBatchPosition(arr).finally(() => {
     arr.map(i => {
@@ -107,13 +100,13 @@ const getPositions = async (arr) => {
     })
   })
   if (resp.success) {
-    handleValue(resp.result)
+    dataMap.value.push(...resp.result)
     if (arr.length === 1 && resp.result?.[0].error) {
       // resp.result?.[0]?.errorMessage
       onlyMessage($t('RealtimePositioning.index.390590-12'), 'error')
     } else {
-      if(arr.length > 1){
-        const dt = resp.result.some(i => i.iccId.includes(i.iccId) && i.error)
+      if (arr.length > 1) {
+        const dt = resp.result.some(i => (arr.includes(i.iccId) || arr.includes(i.id)) && i.error)
         onlyMessage($t('RealtimePositioning.index.390590-13'), 'error')
       }
     }
@@ -126,7 +119,11 @@ watch(() => props.cardIds, (val) => {
     // 初始化，或者把原来的数据删除
     arr.map(i => {
       loadings.value[i] = true
-      dataMap.value.set(i, null)
+      // 判断是iccId还是id
+      const _index = dataMap.value.findIndex(j => j.iccId === i || j.id === i)
+      if(_index !== -1){
+        dataMap.value.splice(_index, 1)
+      }
     })
     getPositions(arr)
   }

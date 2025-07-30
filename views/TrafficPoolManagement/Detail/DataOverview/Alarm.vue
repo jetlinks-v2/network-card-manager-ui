@@ -13,7 +13,7 @@
     />
   </div>
   <div style="height: 100%; flex: 1; display: flex;align-items: center; justify-content: center">
-    <Echarts :options="echartsOptions"/>
+    <Echarts :options="echartsOptions" @subTitleClick="onClick"/>
 <!--    <a-progress type="circle" :percent="100" :width="200" :stroke-color="{-->
 <!--      '0%': '#FF4D4F',-->
 <!--      '100%': '#FF4D4F',-->
@@ -35,11 +35,13 @@ import {queryAlarmCount} from "@networkCardManager/api/trafficPoolManagement";
 import {quickBtnList} from "./data";
 import {TRAFFIC_POOL_INFO_KEY} from "../utils";
 import TimeSelect from "@networkCardManager/views/components/TimeSelect.vue";
+import {useMenuStore} from "@/store";
 
 const {t: $t} = useI18n();
 
 const info = inject(TRAFFIC_POOL_INFO_KEY, ref({}))
 const total = ref(0)
+const menuStore = useMenuStore()
 const echartsOptions = computed(() => {
   return {
     // tooltip: {
@@ -51,6 +53,7 @@ const echartsOptions = computed(() => {
       fontSize: 40,
       left: 'center',
       top: 'center',
+      triggerEvent: true
     },
     series: [
       {
@@ -98,6 +101,10 @@ const onChange = (val) => {
   if (info.value.id) {
     handleSearch(val)
   }
+}
+
+const onClick = () => {
+  menuStore.jumpPage(`rule-engine/Alarm/Log`, {query: {tab: 'networkCardPool', id: info.value.id}});
 }
 </script>
 

@@ -750,9 +750,9 @@ const getPositions = async (id: string) => {
     loading.value = false
   })
   if (res.success) {
-    marks.value = res.result.error === false ? [res.result] : []
-    if(res.result.error){
-      onlyMessage(res.result.errorMessage, 'error')
+    marks.value = res.result?.error === false ? [res.result] : []
+    if(!res.result || res.result.error){
+      onlyMessage($t('RealtimePositioning.index.390590-14'), 'error')
     }
   }
 }
@@ -762,7 +762,7 @@ const getPositionsHistory = async (id: string) => {
     loading.value = false
   })
   if (res.success) {
-    marks.value = res.result.error === false ? [res.result] : []
+    marks.value = res.result?.error === false ? [res.result] : []
   }
 }
 

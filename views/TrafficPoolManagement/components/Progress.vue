@@ -2,17 +2,16 @@
   <div class="progress-container">
     <a-tooltip
         :title="data?.alarmEnable ?
-        `${$t('TrafficPoolManagement.index.390590-5')} < ${data.alarmConfig?.flowThreshold || data.alarmConfig?.flowTrafficThreshold}${data.alarmConfig?.flowThreshold ? 'M'
-        : '%'}` : ``"
+        `${$t('TrafficPoolManagement.index.390590-5',[getAlarmValue])}` : ``"
     >
       <div class="progress-box">
-        <div class="progress-item" :style="{backgroundColor: getStstusColor(data), width: getLeftValue(data)[0]}"></div>
+        <div class="progress-item" :style="{backgroundColor: getStstusColor, width: getLeftValue[0]}"></div>
         <div class="progress-value"
-             :style="{left: getLeftValue(data)[0], backgroundColor: getStstusColor(data)}">
+             :style="{left: getLeftValue[0], backgroundColor: getStstusColor}">
           {{ data.flowPercentage || 0 }}%
         </div>
       </div>
-      <div v-if="data?.alarmEnable" :style="{left: getLeftValue(data)[1]}" class="progress-alarm"></div>
+      <div v-if="data?.alarmEnable" :style="{left: getLeftValue[1]}" class="progress-alarm"></div>
     </a-tooltip>
   </div>
 </template>
@@ -25,35 +24,52 @@ const props = defineProps({
   }
 })
 
-const getLeftValue = (dt) => {
-  if (dt.alarmEnable && dt.totalFlow) {
-    const _flowPercentage = dt.flowPercentage > 100 ? 100 : dt.flowPercentage
-    if (dt.alarmConfig?.flowThreshold !== undefined) {
-      const _value = dt.alarmConfig.flowThreshold / dt.totalFlow * 100
+const getLeftValue = computed(() => {
+  if (props.data.alarmEnable && props.data.totalFlow) {
+    const _alarmConfig = props.data.alarmConfig || {}
+    const _flowPercentage = props.data.flowPercentage > 100 ? 100 : props.data.flowPercentage
+    if (_alarmConfig?.flowThreshold !== undefined) {
+      const _value = (props.data.totalFlow - _alarmConfig.flowThreshold) / props.data.totalFlow * 100
       return [`${_flowPercentage}%`, `${_value}%`]
-    } else if (dt.alarmConfig.flowTrafficThreshold !== undefined && dt.totalFlow) {
-      return [`${_flowPercentage}%`, `${(dt.alarmConfig.flowTrafficThreshold)}%`]
+    } else if (_alarmConfig.flowTrafficThreshold !== undefined) {
+
+      return [`${_flowPercentage}%`, `${(100 - _alarmConfig.flowTrafficThreshold)}%`]
     }
   }
   return [0, 0]
-}
+})
 
-const getStstusColor = (dt) => {
-  if (dt.flowPercentage > 100) {
+const getAlarmValue = computed(() => {
+  if (props.data.alarmEnable) {
+    const _alarmConfig = props.data.alarmConfig || {}
+    if (_alarmConfig.flowThreshold !== undefined) {
+      return `${_alarmConfig.flowThreshold || 0}M`
+    } else if (_alarmConfig.flowTrafficThreshold !== undefined) {
+      return `${_alarmConfig.flowTrafficThreshold || 0}%`
+    }
+  }
+  return 0
+})
+
+const getStstusColor = computed(() => {
+  if (props.data.flowPercentage > 100) {
     return '#ff4d4f'
-  } else if (dt?.alarmEnable && dt.totalFlow) {
-    if (dt.alarmConfig.flowThreshold !== undefined) {
-      if (dt.usedFlow > dt.alarmConfig.flowThreshold) {
+  } else if (props.data?.alarmEnable && props.data.totalFlow) {
+    const _alarmConfig = props.data.alarmConfig || {}
+    if (_alarmConfig.flowThreshold !== undefined) {
+      if (props.data.residualFlow < _alarmConfig.flowThreshold) {
         return '#faad14'
       }
-    } else if (dt.alarmConfig.flowTrafficThreshold !== undefined) {
-      if (dt.usedFlow / dt.totalFlow * 100 > dt.alarmConfig.flowTrafficThreshold) {
+    } else if (_alarmConfig.flowTrafficThreshold !== undefined) {
+      // 剩余占有率
+      const residualTraffic = Math.ceil(props.data.residualFlow / props.data.totalFlow * 100)
+      if (residualTraffic < _alarmConfig.flowTrafficThreshold) {
         return '#faad14'
       }
     }
   }
   return 'rgb(22, 119, 255)'
-}
+})
 </script>
 
 <style lang="less" scoped>

@@ -793,7 +793,7 @@
 	"TrafficPoolManagement.index.390590-2": "IOT cards waiting to be updated",
 	"TrafficPoolManagement.index.390590-3": "surplus",
 	"TrafficPoolManagement.index.390590-4": "number of activated cards",
-	"TrafficPoolManagement.index.390590-5": "Alarm threshold",
+	"TrafficPoolManagement.index.390590-5": "Remaining traffic < {0} when alarm",
 	"TrafficPoolManagement.Detail.index.390590-0": "operator",
 	"TrafficPoolManagement.Detail.index.390590-2": "Alarm Rules",
 	"TrafficPoolManagement.Detail.index.390590-5": "Data overview",
@@ -840,8 +840,8 @@
 	"TrafficPoolManagement.Detail.index.390590-46": "Total number of cards",
 	"RealtimePositioning.index.390590-0": "Please enter card number/ICCID",
 	"RealtimePositioning.index.390590-1": "Batch Query",
-	"RealtimePositioning.index.390590-2": "Batch queries support only one operator at a time. Currently unsupported for China Unicom. Cards not on the platform cannot be queried. For specific charges, consult the relevant operator",
-	"RealtimePositioning.index.390590-3": "Please enter ICCIDs, one for each line, maximum 50 supported at a time.",
+	"RealtimePositioning.index.390590-2": "Non-platform card queries are not supported. For specific charges, please consult the corresponding operator",
+	"RealtimePositioning.index.390590-3": "Please enter ICCIDs or card numbers, one for each line, maximum 50 supported at a time.",
 	"RealtimePositioning.index.390590-4": "Coordinates",
 	"RealtimePositioning.index.390590-5": "Address",
 	"RealtimePositioning.index.390590-6": "Time",
@@ -851,5 +851,6 @@
 	"RealtimePositioning.index.390590-10": "Confirm reset？",
 	"RealtimePositioning.index.390590-11": "Failed Record",
 	"RealtimePositioning.index.390590-12": "Card Location Failed",
-	"RealtimePositioning.index.390590-13": "Partial Card Location Failed"
+	"RealtimePositioning.index.390590-13": "Partial Card Location Failed",
+	"RealtimePositioning.index.390590-14": "Card Location Failed, Please Try Again Later"
 }

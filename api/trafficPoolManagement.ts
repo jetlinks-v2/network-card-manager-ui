@@ -32,4 +32,8 @@ export const queryDevice = (data?: Record<string, any>) => request.post('/device
 export const dashboard = (data: Record<string, any[]>) => request.post('/dashboard/_multi', data);
 export const queryAlarmCount = (targetId: string, data: Record<string, any[]>) => request.post(`/alarm/history/networkCardPool/_count${targetId ? `?&targetId=${targetId}` : ''}`, data);
 
+export const queryOperateState = (platform: string) => request.get(`/network/card/${platform}/state/_all`);
+
+export const batchUnbind = (data: any) => request.post(`/network/card/_unbind/batch`, data);
+
 

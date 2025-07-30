@@ -54,7 +54,7 @@
                   </a-menu-item>
                   <a-menu-item key="batch-unbind">
                     <a-button type="text">
-                      <AIcon type="StopOutlined"/>
+                      <AIcon type="DisconnectOutlined"/>
                       {{ $t('TrafficPoolManagement.Detail.index.390590-29') }}
                     </a-button>
                   </a-menu-item>
@@ -259,10 +259,9 @@ import {Modal} from "ant-design-vue";
 import {TRAFFIC_POOL_INFO_KEY} from "@networkCardManager/views/TrafficPoolManagement/Detail/utils";
 import {resumption, unbind} from "@networkCardManager/api/cardManagement";
 import {onlyMessage} from "@jetlinks-web/utils";
-import {batchBindDevice} from "@networkCardManager/api/trafficPoolManagement";
+import {batchBindDevice, queryOperateState, batchUnbind} from "@networkCardManager/api/trafficPoolManagement";
 import {useMenuStore} from "@/store";
 import dayjs from "dayjs";
-
 import {debounce} from "lodash-es";
 
 const {t: $t} = useI18n();
@@ -297,7 +296,7 @@ const columns = [
     ellipsis: true,
     scopedSlots: true,
     search: {
-      type: 'string'
+      type: 'number'
     }
   },
   {
@@ -346,6 +345,24 @@ const columns = [
     width: 120,
     ellipsis: true,
     scopedSlots: true
+  },
+  {
+    title: $t('CardManagement.index.427944-2'),
+    dataIndex: 'operatorState',
+    key: 'operatorState',
+    hideInTable: true,
+    search: {
+      type: 'select',
+      options: () => new Promise((resolve) => {
+        queryOperateState(info.value.platformType?.value).then((resp) => {
+          const arr = resp.result.map((item) => ({
+            label: item.text,
+            value: item.value,
+          }))
+          resolve(arr);
+        });
+      })
+    }
   },
   {
     title: $t('CardManagement.index.427944-47'),
@@ -562,7 +579,25 @@ const handleMenuClick = (e) => {
       });
       break;
     case 'batch-unbind':
-      // handleBatchDevice()
+      Modal.confirm({
+        title: $t('TrafficPoolManagement.Detail.index.390590-32'),
+        async onOk() {
+          const response = await batchUnbind({
+            terms: [
+              {
+                column: 'id',
+                termType: 'in',
+                value: _selectedRowKeys.value
+              }
+            ]
+          })
+          if (response.success) {
+            onlyMessage($t('CardManagement.index.427944-57'))
+            _selectedRowKeys.value = []
+            tableRef.value.reload()
+          }
+        },
+      });
       break;
     case 'batch-delete':
       Modal.confirm({

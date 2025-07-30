@@ -21,11 +21,11 @@
       <a-form-item name="value" :rules="[
         {
           required: true,
-          message: $t('TrafficPoolManagement.Detail.index.390590-16')
+          message: $t('TrafficPoolManagement.Detail.index.390590-26')
         }
       ]">
         <a-input-number
-            style="width: 100px"
+            style="width: 120px"
             :addon-after="formData.type === 'percent' ? '%' : ''"
             v-model:value="formData.value"
             :disabled="disabled"
@@ -41,6 +41,7 @@
 
 <script setup>
 import {useI18n} from "vue-i18n";
+import {randomString} from "@jetlinks-web/utils";
 
 const props = defineProps({
   disabled: {
@@ -74,6 +75,7 @@ const onSave = () => {
     if (resp) {
       const obj = {
         type: "poolFLow",  //固定类型
+        id: props.data.alarmConfig?.id || randomString(8)
       }
       if (resp.type === 'fixed') {
         obj.flowThreshold = resp.value
@@ -94,14 +96,9 @@ defineExpose({
 
 <style lang="less" scoped>
 .traffic-alarm {
-  :deep(.ant-form) {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
   .text {
     color: rgba(0, 0, 0, 0.55);
+    margin-top: 6px;
   }
 
   .bold-text {

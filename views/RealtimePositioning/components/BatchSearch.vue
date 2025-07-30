@@ -2,7 +2,7 @@
   <a-modal visible :title="$t('RealtimePositioning.index.390590-1')" @cancel="emits('close')" @ok="onSave">
     <a-alert style="margin-bottom: 16px" :message="$t('RealtimePositioning.index.390590-2')" />
     <a-form :model="formData" ref="formRef" layout="vertical">
-      <a-form-item label="ICCID" name="cardIds" required>
+      <a-form-item :label="`ICCID/${$t('CardManagement.index.427944-6')}`" name="cardIds" required>
         <a-textarea :rows="5" v-model:value="formData.cardIds" :placeholder="$t('RealtimePositioning.index.390590-3')" />
       </a-form-item>
     </a-form>
