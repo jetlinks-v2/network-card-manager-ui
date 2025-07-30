@@ -6,6 +6,7 @@
       @cancel="emits('close')"
       @ok="handleOk"
       :confirm-loading="loading"
+      :mask-closable="false"
   >
     <TabsCard :options="options" v-model:active-key="activeKey"/>
     <div class="config-content">

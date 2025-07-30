@@ -82,22 +82,32 @@ const columns = [
     },
   },
   {
-    title: $t('Save.SelectDevices.386303-6'),
-    dataIndex: 'version',
-    key: 'version',
+    title: $t('TrafficPoolManagement.Detail.index.390590-47'),
+    dataIndex: 'productName',
+    key: 'productName',
     ellipsis: true,
     search: {
-      type: 'string',
+      type: 'select',
+      rename: 'productId',
+      options: () =>
+          new Promise((resolve) => {
+            queryNoPagingPost({paging: false}).then((resp) => {
+              resolve(
+                  resp.result.map((item) => ({
+                    label: item.name,
+                    value: item.id,
+                  })),
+              );
+            });
+          }),
     },
-    scopedSlots: true,
   },
   {
-    title: $t('Save.SelectDevices.386303-7'),
-    key: 'registerTime',
-    dataIndex: 'registerTime',
+    title: $t('TrafficPoolManagement.Detail.index.390590-48'),
+    key: 'createTime',
+    dataIndex: 'createTime',
     search: {
       type: 'date',
-      rename: 'registryTime',
     },
     width: 200,
     scopedSlots: true,
