@@ -478,10 +478,11 @@
           }
         ],
         "accessSupport": {
-          "text": "不支持",
-          "value": "unsupported"
+          "text": "支持",
+          "value": "support"
         },
-        "supportDataAccess": false
+        "supportDataAccess": true,
+        "assetType": "networkCardFlowPool"
       },
       {
         "sortIndex": 5,
@@ -504,9 +505,15 @@
         ],
         "permissions": [
           {
-            "permission": "network-card-pool",
+            "permission": "network-card",
             "actions": [
               "queryLocation"
+            ]
+          },
+          {
+            "permission": "network-card-pool",
+            "actions": [
+              "query"
             ]
           }
         ],
