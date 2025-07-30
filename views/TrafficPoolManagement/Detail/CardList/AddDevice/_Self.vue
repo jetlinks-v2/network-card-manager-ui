@@ -216,7 +216,7 @@ const handleClick = (dt) => {
 }
 const onSelectChange = (record, selected, selectedRows) => {
   if (selected) {
-    _selectedRowKeys.value = map(selectedRows, 'id')
+    _selectedRowKeys.value = [..._selectedRowKeys.value, record?.id]
   } else {
     _selectedRowKeys.value = _selectedRowKeys.value.filter((item) => item !== record?.id);
   }
@@ -224,16 +224,16 @@ const onSelectChange = (record, selected, selectedRows) => {
 
 const onSelectAllChange = (selected, selectedRows, changeRows) => {
   if (selected) {
-    _selectedRowKeys.value = [..._selectedRowKeys.value, ...map(selectedRows, 'id')]
+    _selectedRowKeys.value = [..._selectedRowKeys.value, ...changeRows.map(i => i.id)].filter(item => item)
   } else {
     _selectedRowKeys.value = _selectedRowKeys.value.filter((item) => !map(changeRows, 'id').includes(item))
   }
 };
 
 const onChange = (selectedRowKeys) => {
-  if (selectedRowKeys.length === 0) {
-    _selectedRowKeys.value = [];
-  }
+  // if (selectedRowKeys.length === 0) {
+  //   _selectedRowKeys.value = [];
+  // }
 };
 
 const handleSearch = (e) => {
