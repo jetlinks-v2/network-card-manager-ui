@@ -158,7 +158,11 @@ watch(() => props.marks, (val) => {
     if(props.isShow){
       visible.value = true
       windowPosition.value = markerPoints.value[0]
+    } else {
+      visible.value = false
     }
+  } else {
+    visible.value = false
   }
 }, {
   immediate: true,

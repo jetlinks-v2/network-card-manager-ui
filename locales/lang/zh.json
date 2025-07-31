@@ -838,6 +838,8 @@
 	"TrafficPoolManagement.Detail.index.390590-44": "从右侧拖拽卡片至此处",
 	"TrafficPoolManagement.Detail.index.390590-45": "激活卡数",
 	"TrafficPoolManagement.Detail.index.390590-46": "卡片总数",
+	"TrafficPoolManagement.Detail.index.390590-47": "所属产品",
+	"TrafficPoolManagement.Detail.index.390590-48": "创建时间",
 	"RealtimePositioning.index.390590-0": "请输入卡号/ICCID",
 	"RealtimePositioning.index.390590-1": "批量查询",
 	"RealtimePositioning.index.390590-2": "不支持查询非平台内卡片，具体资费请咨询对应运营商",

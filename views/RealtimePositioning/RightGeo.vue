@@ -1,16 +1,18 @@
 <template>
   <div style="width: 100%; height: 100%;position: relative">
-    <RealTimeMap :marks="positions" ref="mapRef"/>
+    <RealTimeMap :marks="positions" :is-show="isShow" ref="mapRef"/>
     <div class="actions">
       <a-space>
-        <a-button type="primary" danger @click="onRefresh">
-          <AIcon type="ReloadOutlined"/>
-          {{ $t('RealtimePositioning.index.390590-7') }}
-        </a-button>
-        <a-button type="primary" @click="onLoad">
-          <AIcon type="ExportOutlined"/>
-          {{ $t('RealtimePositioning.index.390590-8') }}
-        </a-button>
+        <template v-if="positions.length && !_error.length" >
+          <a-button type="primary" danger @click="onRefresh">
+            <AIcon type="ReloadOutlined"/>
+            {{ $t('RealtimePositioning.index.390590-7') }}
+          </a-button>
+          <a-button type="primary" @click="onLoad">
+            <AIcon type="ExportOutlined"/>
+            {{ $t('RealtimePositioning.index.390590-8') }}
+          </a-button>
+        </template>
         <a-button type="primary" @click="onError" v-if="_error.length > 0">
           <AIcon type="FileSearchOutlined"/>
           {{ $t('RealtimePositioning.index.390590-11') }}
@@ -37,6 +39,7 @@ const props = defineProps({
   }
 })
 
+const isShow = ref(false)
 const {t: $t} = useI18n();
 const loadings = inject('loadings', ref({}))
 const error = reactive({
@@ -94,6 +97,7 @@ const onError = () => {
 }
 
 const getPositions = async (arr) => {
+  dataMap.value = []
   const resp = await queryBatchPosition(arr).finally(() => {
     arr.map(i => {
       loadings.value[i] = false
@@ -104,10 +108,14 @@ const getPositions = async (arr) => {
     if (arr.length === 1 && resp.result?.[0].error) {
       // resp.result?.[0]?.errorMessage
       onlyMessage($t('RealtimePositioning.index.390590-12'), 'error')
+      isShow.value = false
     } else {
-      if (arr.length > 1) {
-        const dt = resp.result.some(i => (arr.includes(i.iccId) || arr.includes(i.id)) && i.error)
+      if (arr.length > 1 && resp.result?.length) {
+        const dt = resp.result.some(i => (arr.includes(i.iccId) || arr.includes(i.id)) && !i.error)
         onlyMessage($t('RealtimePositioning.index.390590-13'), 'error')
+        isShow.value = dt
+      } else {
+        isShow.value = true
       }
     }
   }
