@@ -28,8 +28,6 @@
 import {getTreeData_api} from "@/api/system/department";
 import {useI18n} from "vue-i18n";
 import {onlyMessage} from "@jetlinks-web/utils";
-import {queryDetailList} from "@device/api/firmware";
-import {map} from "lodash-es";
 import {queryDeviceNoPagingPost} from "@networkCardManager/api/trafficPoolManagement";
 
 const props = defineProps({
