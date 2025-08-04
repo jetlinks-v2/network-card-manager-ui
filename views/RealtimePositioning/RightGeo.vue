@@ -140,7 +140,7 @@ watch(() => props.cardIds, (val) => {
   deep: true
 })
 </script>
-<style lang="less">
+<style lang="less" scoped>
 .actions {
   position: absolute;
   bottom: 20px;
