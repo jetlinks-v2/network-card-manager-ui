@@ -37,6 +37,7 @@
             v-model:value="modelRef.iccId"
             :placeholder="$t('CardManagement.Save.427943-7')"
             :disabled="type === 'edit'"
+            @blur="onChange"
           />
         </a-form-item>
         <a-form-item :label="$t('CardManagement.Save.427943-8')" name="operatorName">
@@ -69,18 +70,18 @@
           </a-select>
         </a-form-item>
 
-        <a-form-item :label="$t('CardManagement.Save.427943-12')" name="cardType">
-          <a-select
-            allowClear
-            showSearch
-            :disabled="type === 'edit'"
-            :filter-option="filterOption"
-            :options="TypeList"
-            v-model:value="modelRef.cardType"
-            :placeholder="$t('CardManagement.Save.427943-13')"
-          >
-          </a-select>
-        </a-form-item>
+<!--        <a-form-item :label="$t('CardManagement.Save.427943-12')" name="cardType">-->
+<!--          <a-select-->
+<!--            allowClear-->
+<!--            showSearch-->
+<!--            :disabled="type === 'edit'"-->
+<!--            :filter-option="filterOption"-->
+<!--            :options="TypeList"-->
+<!--            v-model:value="modelRef.cardType"-->
+<!--            :placeholder="$t('CardManagement.Save.427943-13')"-->
+<!--          >-->
+<!--          </a-select>-->
+<!--        </a-form-item>-->
         <a-form-item :label="$t('CardManagement.Save.427943-14')" name="describe">
           <a-textarea
             v-model:value="modelRef.describe"
@@ -99,7 +100,8 @@ import {
   queryPlatformNoPage,
   validateId,
   add,
-  edit
+  edit,
+  queryPlatformByIccid
 } from '../../api/cardManagement'
 import { onlyMessage } from '@jetlinks-web/utils'
 import { OperatorList, TypeList } from '../data'
@@ -141,6 +143,15 @@ const isValidateId = async (id: string) => {
     }
   } else {
     return $t('CardManagement.Save.427943-16')
+  }
+}
+
+const onChange = async (e) => {
+  if(e.target.value) {
+    const resp = await queryPlatformByIccid(e.target.value)
+    if(resp.success){
+      modelRef.operatorName = resp.result?.value
+    }
   }
 }
 

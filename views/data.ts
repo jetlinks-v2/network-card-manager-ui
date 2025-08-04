@@ -30,6 +30,12 @@ export const OperatorMap = {
   unicom: $t('views.data.812529-5')
 }
 
+export const OperatorColor = {
+  onelink: '#52C41A',
+  ctwing: '#1677FF',
+  unicom: '#FF4D4F'
+}
+
 //运营商
 export const OperatorList = [
   {
@@ -85,3 +91,32 @@ export const PaymentMethod = [
     value: 'WEIXIN_NATIVE'
   }
 ]
+
+export const getStstusColor = (dt) => {
+  if(dt.flowPercentage > 100){
+    return {
+      '0%': '#ff4d4f',
+      '100%': '#ff4d4f',
+    }
+  } else if(dt?.alarmEnable){
+    if(dt.alarmConfig.flowThreshold !== undefined){
+      if(dt.usedFlow > dt.alarmConfig.flowThreshold) {
+        return {
+          '0%': '#faad14',
+          '100%': '#faad14',
+        }
+      }
+    } else if(dt.alarmConfig.flowTrafficThreshold !== undefined && dt.totalFlow){
+      if(dt.usedFlow / dt.totalFlow * 100 > dt.alarmConfig.flowTrafficThreshold){
+        return {
+          '0%': '#faad14',
+          '100%': '#faad14',
+        }
+      }
+    }
+  }
+  return {
+    '0%': 'rgb(22, 119, 255)',
+    '100%': 'rgb(22, 119, 255)',
+  }
+}
