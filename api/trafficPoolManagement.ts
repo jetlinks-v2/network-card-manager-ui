@@ -36,4 +36,4 @@ export const queryOperateState = (platform: string) => request.get(`/network/car
 
 export const batchUnbind = (data: any) => request.post(`/network/card/_unbind/batch`, data);
 
-
+export const queryProductNoPagingPost = (data?: Record<string, any>) => request.post('/device-product/_query/no-paging?paging=false', data)

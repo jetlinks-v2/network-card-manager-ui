@@ -11,7 +11,7 @@
         ref="tableRef"
         modeValue="TABLE"
         :columns="columns"
-        :request="query"
+        :request="queryDevice"
         :defaultParams="{
             sorts: [{ name: 'createTime', order: 'desc' }, { name: 'name', order: 'desc'}],
         }"
@@ -56,7 +56,7 @@
                 :height="80"
                 :src="
                     slotProps?.photoUrl ||
-                    device.deviceCard
+                    deviceCardImg
                 "
             />
           </template>
@@ -98,9 +98,8 @@
 import {useI18n} from 'vue-i18n';
 import dayjs from "dayjs";
 import {onlyMessage} from "@jetlinks-web/utils";
-import {device} from "@device/assets";
-import {query} from "@device/api/instance";
-import {queryNoPagingPost} from "@/modules/device-manager-ui/api/product";
+import deviceCardImg from "@networkCardManager/assets/device/device-card.png";
+import {queryDevice,queryProductNoPagingPost} from "@networkCardManager/api/trafficPoolManagement";
 import {map} from "lodash-es";
 
 const {t: $t} = useI18n();
@@ -170,7 +169,7 @@ const columns = [
       rename: 'productId',
       options: () =>
           new Promise((resolve) => {
-            queryNoPagingPost({paging: false}).then((resp) => {
+            queryProductNoPagingPost({paging: false}).then((resp) => {
               resolve(
                   resp.result.map((item) => ({
                     label: item.name,
