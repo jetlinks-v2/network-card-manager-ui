@@ -27,8 +27,8 @@
       <template #version="slotProps">
         <span>{{ slotProps.firmwareInfo?.version || '--' }}</span>
       </template>
-      <template #registerTime="slotProps">
-        <span>{{ slotProps.registerTime ? dayjs(slotProps.registerTime).format('YYYY-MM-DD HH:mm:ss') : '--' }}</span>
+      <template #createTime="slotProps">
+        <span>{{ slotProps.createTime ? dayjs(slotProps.createTime).format('YYYY-MM-DD HH:mm:ss') : '--' }}</span>
       </template>
     </j-pro-table>
   </div>

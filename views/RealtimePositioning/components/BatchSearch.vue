@@ -1,5 +1,5 @@
 <template>
-  <a-modal visible :title="$t('RealtimePositioning.index.390590-1')" @cancel="emits('close')" @ok="onSave">
+  <a-modal visible :title="$t('RealtimePositioning.index.390590-1')" :mask-closable="false" @cancel="emits('close')" @ok="onSave">
     <a-alert style="margin-bottom: 16px" :message="$t('RealtimePositioning.index.390590-2')" />
     <a-form :model="formData" ref="formRef" layout="vertical">
       <a-form-item :label="`ICCID/${$t('CardManagement.index.427944-6')}`" name="cardIds" required>
