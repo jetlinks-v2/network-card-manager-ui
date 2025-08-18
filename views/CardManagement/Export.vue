@@ -2,7 +2,7 @@
   <!-- 导入 -->
   <a-modal
     :maskClosable="false"
-    :visible="true"
+    :open="true"
     :title="$t('CardManagement.Export.427956-0')"
     :okText="$t('CardManagement.Export.427956-1')"
     :cancelText="$t('CardManagement.Export.427956-2')"

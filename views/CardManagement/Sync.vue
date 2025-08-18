@@ -1,6 +1,6 @@
 <template>
   <a-modal
-    visible
+    open
     width="800px"
     :maskClosable="false"
     :title="$t('CardManagement.Sync.427942-0')"

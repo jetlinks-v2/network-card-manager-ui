@@ -2,7 +2,7 @@
   <a-modal
     :maskClosable="false"
     width="600px"
-    :visible="true"
+    :open="true"
     :title="type === 'add' ? $t('CardManagement.Save.427943-0') : $t('CardManagement.Save.427943-1')"
     :okText="$t('CardManagement.Save.427943-2')"
     :cancelText="$t('CardManagement.Save.427943-3')"

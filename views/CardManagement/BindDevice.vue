@@ -3,7 +3,7 @@
   <a-modal
     :maskClosable="false"
     width="1100px"
-    :visible="true"
+    :open="true"
     :title="$t('CardManagement.BindDevice.427957-0')"
     :okText="$t('CardManagement.BindDevice.427957-1')"
     :cancelText="$t('CardManagement.BindDevice.427957-2')"

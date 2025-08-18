@@ -34,7 +34,7 @@
         <div style="min-height: 100px;flex: 1">
           <a-dropdown
               :trigger="['contextmenu']"
-              :visible="menuVisible"
+              :open="menuVisible"
               @visible-change="handleVisible"
           >
             <template #overlay>
