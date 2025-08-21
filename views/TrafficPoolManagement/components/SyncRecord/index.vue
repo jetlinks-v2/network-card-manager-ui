@@ -1,5 +1,5 @@
 <template>
-  <a-drawer :title="$t('Detail.index.427958-29')" visible :width="1100" @close="emits('close')">
+  <a-drawer :title="$t('Detail.index.427958-29')" open :width="1100" @close="emits('close')">
     <pro-search
         :columns="columns"
         target="iot-card-management-sync-record-search"

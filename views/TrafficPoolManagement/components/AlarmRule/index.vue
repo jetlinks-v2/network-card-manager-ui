@@ -1,5 +1,5 @@
 <template>
-  <a-modal :confirm-loading="loading" visible :title="$t('TrafficPoolManagement.Detail.index.390590-2')" :width="800" @cancel="emits('close')" @ok="onSave">
+  <a-modal :confirm-loading="loading" open :title="$t('TrafficPoolManagement.Detail.index.390590-2')" :width="800" @cancel="emits('close')" @ok="onSave">
     <div class="alarm-rule-box">
       <div class="tabs">
         <div v-for="item in tabList" :key="item.key" class="tabs-item">

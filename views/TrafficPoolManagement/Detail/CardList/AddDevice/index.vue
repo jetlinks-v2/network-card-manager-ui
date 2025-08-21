@@ -1,6 +1,6 @@
 <template>
   <a-modal
-      visible
+      open
       title="添加设备"
       :width="1200"
       @cancel="emits('close')"

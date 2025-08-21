@@ -1,5 +1,5 @@
 <template>
-  <a-modal visible title="失败记录" @cancel="emits('close')" :width="900">
+  <a-modal open title="失败记录" @cancel="emits('close')" :width="900">
     <a-button type="link" @click="onCopy">复制所有卡号</a-button>
     <a-table :dataSource="data" :columns="columns" :pagination="false" :scroll="{y: 500}">
       <template #bodyCell="{column, record}">
