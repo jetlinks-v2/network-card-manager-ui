@@ -87,7 +87,6 @@ const columns = computed(() => {
       key: 'poolResidualFlow',
       ellipsis: true,
       scopedSlots: true,
-      width: 120,
       search: {
         type: 'number',
       }
@@ -103,6 +102,14 @@ const columns = computed(() => {
       }
     },
   ] : [
+    {
+      title: $t('CardManagement.Sync.427942-3'),
+      dataIndex: 'exceeded',
+      key: 'exceeded',
+      ellipsis: true,
+      scopedSlots: true,
+      width: 120,
+    },
     {
       title: $t('CardManagement.index.427944-14'),
       dataIndex: 'residualFlow',
@@ -167,14 +174,6 @@ const columns = computed(() => {
       search: {
         type: 'number',
       }
-    },
-    {
-      title: $t('CardManagement.Sync.427942-3'),
-      dataIndex: 'exceeded',
-      key: 'exceeded',
-      ellipsis: true,
-      scopedSlots: true,
-      width: 120,
     },
     ...arr,
     {
