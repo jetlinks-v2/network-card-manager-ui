@@ -300,7 +300,7 @@
         </a-col>
       </a-row>
     </a-col>
-    <a-col :span="24" v-if="detail.platformType?.value !== 'unicom'">
+    <a-col :span="24">
       <div class="card">
         <Guide :title="$t('Detail.index.427958-30')"/>
         <a-spin :spinning="loading">
