@@ -136,6 +136,7 @@ const onSave = (arr) => {
       padding: 12px 16px;
       border-radius: 4px;
       border: 1px solid #D9D9D9;
+      width: 100%;
 
       ._header {
         display: flex;
