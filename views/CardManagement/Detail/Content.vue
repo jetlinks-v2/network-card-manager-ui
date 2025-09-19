@@ -344,15 +344,13 @@ import {
   query,
   dashboard,
   queryLocationById
-} from "../../../api/cardManagement";
-import { getPositionById } from '../../../api/realtimePositioning'
+} from "@network-card-manager-ui/api/cardManagement";
+import { getPositionById } from '@network-card-manager-ui/api/realtimePositioning'
 import Save from "../Save.vue";
 import Guide from "../../components/Guide.vue";
 import LineChart from "../../components/LineChart.vue";
-import {queryFlow} from "../../../api/home";
 import TimeSelect from "../../components/TimeSelect.vue";
 import {OperatorList, platformTypeList} from "../../data";
-import {getIsTimer} from "@networkCardManager/api/home";
 import {useI18n} from "vue-i18n";
 import {useMenuStore} from "@/store";
 import RealTimeMap from "../../RealtimePositioning/components/RealTimeMap.vue"

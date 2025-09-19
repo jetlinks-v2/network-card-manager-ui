@@ -42,9 +42,8 @@ import Echarts from "@/components/Dashboard/components/Charts.vue";
 import {colors} from "./data";
 import {useI18n} from "vue-i18n";
 import {TRAFFIC_POOL_INFO_KEY} from "../utils";
-import {queryStatusNumber} from "@networkCardManager/api/trafficPoolManagement";
+import {queryStatusNumber} from "@network-card-manager-ui/api/trafficPoolManagement";
 import SyncRecord from "../../components/SyncRecord/index.vue";
-import {getStstusColor} from '@networkCardManager/views/data'
 import Progress from "../../components/Progress.vue";
 
 const {t: $t} = useI18n();

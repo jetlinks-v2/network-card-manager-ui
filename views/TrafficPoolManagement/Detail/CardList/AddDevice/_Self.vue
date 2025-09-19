@@ -98,8 +98,8 @@
 import {useI18n} from 'vue-i18n';
 import dayjs from "dayjs";
 import {onlyMessage} from "@jetlinks-web/utils";
-import deviceCardImg from "@networkCardManager/assets/device/device-card.png";
-import {queryDevice,queryProductNoPagingPost} from "@networkCardManager/api/trafficPoolManagement";
+import deviceCardImg from "@network-card-manager-ui/assets/device/device-card.png";
+import {queryDevice,queryProductNoPagingPost} from "@network-card-manager-ui/api/trafficPoolManagement";
 import {map} from "lodash-es";
 
 const {t: $t} = useI18n();

@@ -64,7 +64,7 @@
 <script setup>
 import {Modal} from "ant-design-vue";
 import AddDevice from './AddDevice/index.vue'
-import {queryDeviceNoPagingPost} from "@networkCardManager/api/trafficPoolManagement";
+import {queryDeviceNoPagingPost} from "@network-card-manager-ui/api/trafficPoolManagement";
 import {useI18n} from "vue-i18n";
 import {map} from "lodash-es";
 

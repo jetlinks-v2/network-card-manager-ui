@@ -35,7 +35,7 @@
 
 <script setup>
 import {useI18n} from "vue-i18n";
-import {update} from "@networkCardManager/api/trafficPoolManagement";
+import {update} from "@network-card-manager-ui/api/trafficPoolManagement";
 import {onlyMessage} from "@jetlinks-web/utils";
 
 const props = defineProps({

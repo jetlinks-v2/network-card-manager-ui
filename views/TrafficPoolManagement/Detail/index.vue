@@ -61,7 +61,7 @@ import Sync from "../components/Sync.vue";
 import Edit from "../components/Edit.vue";
 import AlarmRule from "../components/AlarmRule/index.vue";
 import {useI18n} from "vue-i18n";
-import {queryDetailById} from "@networkCardManager/api/trafficPoolManagement";
+import {queryDetailById} from "@network-card-manager-ui/api/trafficPoolManagement";
 import {TRAFFIC_POOL_INFO_KEY} from "./utils"
 import {EventEmitter} from "@jetlinks-web/utils";
 

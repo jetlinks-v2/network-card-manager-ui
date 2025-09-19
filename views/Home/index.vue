@@ -86,12 +86,12 @@
 import {onlyMessage} from '@jetlinks-web/utils'
 import Guide from '../components/Guide.vue'
 import dayjs from 'dayjs'
-import {queryFlow, list, getIsTimer} from '../../api/home'
+import { list} from '../../api/home'
 import * as echarts from 'echarts'
 import {useAuthStore, useMenuStore} from '@/store'
 import {iotCard, home} from '../../assets'
 import {useI18n} from 'vue-i18n';
-import {dashboard} from "@networkCardManager/api/cardManagement";
+import {dashboard} from "@network-card-manager-ui/api/cardManagement";
 
 const {t: $t} = useI18n();
 const {proxy} = <any>getCurrentInstance()

@@ -47,7 +47,7 @@
 </template>
 
 <script setup>
-import {querySyncLog} from "@networkCardManager/api/trafficPoolManagement";
+import {querySyncLog} from "@network-card-manager-ui/api/trafficPoolManagement";
 import {useI18n} from "vue-i18n";
 import dayjs from 'dayjs'
 

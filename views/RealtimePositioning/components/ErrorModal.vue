@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import {OperatorMap} from "@networkCardManager/views/data";
+import {OperatorMap} from "@network-card-manager-ui/views/data";
 import {onlyMessage} from "@jetlinks-web/utils";
 
 const props = defineProps({

@@ -18,7 +18,7 @@
 import TrafficAlarm from './TrafficAlarm.vue';
 import {useI18n} from "vue-i18n";
 import {onlyMessage} from "@jetlinks-web/utils";
-import {update} from "@networkCardManager/api/trafficPoolManagement";
+import {update} from "@network-card-manager-ui/api/trafficPoolManagement";
 
 const props = defineProps({
   data: {

@@ -85,7 +85,7 @@
 
 <script setup>
 import {useI18n} from "vue-i18n";
-import {queryPositionRecord} from "@networkCardManager/api/realtimePositioning";
+import {queryPositionRecord} from "@network-card-manager-ui/api/realtimePositioning";
 import dayjs from 'dayjs'
 import {useMenuStore} from "@/store";
 

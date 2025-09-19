@@ -159,13 +159,12 @@
 import Guide from '../components/Guide.vue'
 import LineChart from '../components/LineChart.vue'
 import dayjs from 'dayjs'
-import {getIsTimer, queryFlow} from '../../api/home'
 import TimeSelect from '../components/TimeSelect.vue'
 import {Empty} from 'ant-design-vue'
 import {useI18n} from 'vue-i18n';
-import trafficImg from '@networkCardManager/assets/dashboard/traffic-pool.png'
-import {dashboard} from "@networkCardManager/api/cardManagement";
-import {queryAlarmCount} from "@networkCardManager/api/trafficPoolManagement";
+import trafficImg from '@network-card-manager-ui/assets/dashboard/traffic-pool.png'
+import {dashboard} from "@network-card-manager-ui/api/cardManagement";
+import {queryAlarmCount} from "@network-card-manager-ui/api/trafficPoolManagement";
 import {map} from 'lodash-es'
 import {useMenuStore} from "@/store";
 

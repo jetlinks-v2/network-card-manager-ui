@@ -35,7 +35,7 @@
 </template>
 
 <script setup>
-import {queryDevice} from '@networkCardManager/api/trafficPoolManagement';
+import {queryDevice} from '@network-card-manager-ui/api/trafficPoolManagement';
 import {useI18n} from 'vue-i18n';
 import dayjs from "dayjs";
 import {onlyMessage} from "@jetlinks-web/utils";

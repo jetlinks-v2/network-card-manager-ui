@@ -252,14 +252,14 @@ import {
   resumptionBatch,
   unDeploy,
   unDeployBatch
-} from "@networkCardManager/api/cardManagement";
+} from "@network-card-manager-ui/api/cardManagement";
 import UnbindDevice from './UnbindDevice.vue';
-import BindDevice from '@networkCardManager/views/CardManagement/BindDevice.vue';
+import BindDevice from '@network-card-manager-ui/views/CardManagement/BindDevice.vue';
 import {Modal} from "ant-design-vue";
-import {TRAFFIC_POOL_INFO_KEY} from "@networkCardManager/views/TrafficPoolManagement/Detail/utils";
-import {resumption, unbind} from "@networkCardManager/api/cardManagement";
+import {TRAFFIC_POOL_INFO_KEY} from "@network-card-manager-ui/views/TrafficPoolManagement/Detail/utils";
+import {resumption, unbind} from "@network-card-manager-ui/api/cardManagement";
 import {onlyMessage} from "@jetlinks-web/utils";
-import {batchBindDevice, queryOperateState, batchUnbind} from "@networkCardManager/api/trafficPoolManagement";
+import {batchBindDevice, queryOperateState, batchUnbind} from "@network-card-manager-ui/api/trafficPoolManagement";
 import {useMenuStore} from "@/store";
 import dayjs from "dayjs";
 import {debounce} from "lodash-es";
