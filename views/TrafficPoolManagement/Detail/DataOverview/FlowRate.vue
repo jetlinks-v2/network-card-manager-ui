@@ -27,11 +27,11 @@
 </template>
 
 <script setup>
-import LineChart from "@networkCardManager/views/components/LineChart.vue";
+import LineChart from "@network-card-manager-ui/views/components/LineChart.vue";
 import {useI18n} from "vue-i18n";
-import {dashboard} from "@networkCardManager/api/trafficPoolManagement";
-import {TRAFFIC_POOL_INFO_KEY} from "@networkCardManager/views/TrafficPoolManagement/Detail/utils";
-import TimeSelect from "@networkCardManager/views/components/TimeSelect.vue";
+import {dashboard} from "@network-card-manager-ui/api/trafficPoolManagement";
+import {TRAFFIC_POOL_INFO_KEY} from "@network-card-manager-ui/views/TrafficPoolManagement/Detail/utils";
+import TimeSelect from "@network-card-manager-ui/views/components/TimeSelect.vue";
 import {getTimes, quickBtnList} from "./data";
 
 const {t: $t} = useI18n();

@@ -1,5 +1,5 @@
 <template>
-  <a-modal visible :title="$t('CardManagement.index.427944-52')" :confirm-loading="loading" @cancel="emits('close')" @ok="handleSave">
+  <a-modal open :title="$t('CardManagement.index.427944-52')" :confirm-loading="loading" @cancel="emits('close')" @ok="handleSave">
     <a-form layout="vertical" ref="formRef" :model="formData">
       <a-form-item
           :label="$t('Detail.index.707691-2')"
@@ -35,7 +35,7 @@
 
 <script setup>
 import {useI18n} from "vue-i18n";
-import {update} from "@networkCardManager/api/trafficPoolManagement";
+import {update} from "@network-card-manager-ui/api/trafficPoolManagement";
 import {onlyMessage} from "@jetlinks-web/utils";
 
 const props = defineProps({

@@ -63,9 +63,9 @@
 
 <script setup>
 import BatchSearch from './components/BatchSearch.vue';
-import {query} from '@networkCardManager/api/cardManagement';
+import {query} from '@network-card-manager-ui/api/cardManagement';
 import {useI18n} from "vue-i18n";
-import {OperatorMap, OperatorColor} from "@networkCardManager/views/data";
+import {OperatorMap, OperatorColor} from "@network-card-manager-ui/views/data";
 import {useMenuStore} from "@/store";
 
 const emits = defineEmits(['change'])
@@ -136,6 +136,7 @@ const onSave = (arr) => {
       padding: 12px 16px;
       border-radius: 4px;
       border: 1px solid #D9D9D9;
+      width: 100%;
 
       ._header {
         display: flex;

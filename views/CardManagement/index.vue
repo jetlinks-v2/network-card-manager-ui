@@ -113,7 +113,7 @@
               <div class="content-bottom">
                 <div>
                   <div class="progress-text">
-                    <template v-if="slotProps.comboType.value === 'pool'">
+                    <template v-if="slotProps.comboType?.value === 'pool'">
                       <div>
                         {{ slotProps.usedFlow ? slotProps.usedFlow.toFixed(2) : '0.00' }}
                         M/<span
@@ -140,7 +140,7 @@
                       </div>
                     </template>
                   </div>
-                  <template v-if="slotProps.comboType.value === 'pool'">
+                  <template v-if="slotProps.comboType?.value === 'pool'">
                     <a-progress
                         :strokeColor="'#ADC6FF'"
                         :percent="

@@ -1,6 +1,9 @@
-const routerModules = import.meta.glob('./views/**/index.vue')
 import i18n from "@/locales";
+import registerSetting from './register'
+import { name } from './package.json'
+import { moduleRegistry } from '@/utils/module-registry'
 
+const routerModules = import.meta.glob('./views/**/index.vue')
 const MODULE_CODE = 'iot-card'
 const getAsyncRoutesMap = () => {
   const modules = {}
@@ -59,7 +62,12 @@ const getExtraRoutesMap = () => {
   }
 }
 
+const register = () => {
+  moduleRegistry.register(name, registerSetting)
+}
+
 export default {
   getAsyncRoutesMap,
-  getExtraRoutesMap
+  getExtraRoutesMap,
+  register
 }

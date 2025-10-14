@@ -1,5 +1,5 @@
 <template>
-  <a-drawer visible @close="emits('close')" :width="1000" :title="$t('Detail.index.427958-29')">
+  <a-drawer open @close="emits('close')" :width="1000" :title="$t('Detail.index.427958-29')">
     <pro-search
         :columns="columns"
         target="iot-card-management-sync-record-search"
@@ -64,7 +64,7 @@
 </template>
 
 <script setup>
-import {querySyncLog} from "@networkCardManager/api/cardManagement";
+import {querySyncLog} from "@network-card-manager-ui/api/cardManagement";
 import {useI18n} from "vue-i18n";
 import dayjs from "dayjs";
 
@@ -87,7 +87,6 @@ const columns = computed(() => {
       key: 'poolResidualFlow',
       ellipsis: true,
       scopedSlots: true,
-      width: 120,
       search: {
         type: 'number',
       }
@@ -103,6 +102,14 @@ const columns = computed(() => {
       }
     },
   ] : [
+    {
+      title: $t('CardManagement.Sync.427942-3'),
+      dataIndex: 'exceeded',
+      key: 'exceeded',
+      ellipsis: true,
+      scopedSlots: true,
+      width: 120,
+    },
     {
       title: $t('CardManagement.index.427944-14'),
       dataIndex: 'residualFlow',
@@ -167,14 +174,6 @@ const columns = computed(() => {
       search: {
         type: 'number',
       }
-    },
-    {
-      title: $t('CardManagement.Sync.427942-3'),
-      dataIndex: 'exceeded',
-      key: 'exceeded',
-      ellipsis: true,
-      scopedSlots: true,
-      width: 120,
     },
     ...arr,
     {

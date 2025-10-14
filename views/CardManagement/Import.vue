@@ -2,7 +2,7 @@
   <!-- {{ $t('CardManagement.Import.427945-0') }} -->
   <a-modal
     :maskClosable="false"
-    :visible="true"
+    :open="true"
     :title="$t('CardManagement.Import.427945-0')"
     :okText="$t('CardManagement.Import.427945-1')"
     :cancelText="$t('CardManagement.Import.427945-2')"

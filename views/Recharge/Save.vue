@@ -2,7 +2,7 @@
   <a-modal
     :maskClosable="false"
     width="600px"
-    :visible="true"
+    :open="true"
     :title="$t('Recharge.Save.444802-0')"
     :okText="$t('Recharge.Save.444802-1')"
     :cancelText="$t('Recharge.Save.444802-2')"

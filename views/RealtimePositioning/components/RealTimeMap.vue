@@ -75,8 +75,8 @@
 </template>
 
 <script setup>
-import markerImg from '@networkCardManager/assets/realtime-positioning/marker.png'
-import InfoImg from '@networkCardManager/assets/realtime-positioning/info.png'
+import markerImg from '@network-card-manager-ui/assets/realtime-positioning/marker.png'
+import InfoImg from '@network-card-manager-ui/assets/realtime-positioning/info.png'
 import HistoryList from "./HistoryList.vue";
 import {useI18n} from "vue-i18n";
 import dayjs from 'dayjs'

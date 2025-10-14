@@ -27,7 +27,7 @@
 import RealTimeMap from './components/RealTimeMap.vue';
 import {useI18n} from "vue-i18n";
 import {Modal} from "ant-design-vue";
-import {queryBatchPosition, _export} from "@networkCardManager/api/realtimePositioning";
+import {queryBatchPosition, _export} from "@network-card-manager-ui/api/realtimePositioning";
 import ErrorModal from "./components/ErrorModal.vue";
 import {onlyMessage, downloadFileByUrl} from '@jetlinks-web/utils';
 import dayjs from 'dayjs'

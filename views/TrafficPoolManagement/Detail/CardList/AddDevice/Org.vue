@@ -28,7 +28,7 @@
 import {getTreeData_api} from "@/api/system/department";
 import {useI18n} from "vue-i18n";
 import {onlyMessage} from "@jetlinks-web/utils";
-import {queryDeviceNoPagingPost} from "@networkCardManager/api/trafficPoolManagement";
+import {queryDeviceNoPagingPost} from "@network-card-manager-ui/api/trafficPoolManagement";
 
 const props = defineProps({
   defaultParams: {

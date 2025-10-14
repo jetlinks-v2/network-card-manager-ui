@@ -1,5 +1,5 @@
 <template>
-  <a-modal visible :title="$t('CardManagement.Sync.427942-0')" :confirm-loading="loading" @ok="onOk" @cancel="emit('close')">
+  <a-modal open :title="$t('CardManagement.Sync.427942-0')" :confirm-loading="loading" @ok="onOk" @cancel="emit('close')">
     <p>{{ $t('CardManagement.Sync.427942-1', [data.cardTotal || 0]) }}</p>
 <!--    <template #footer>-->
 <!--      <a-button type="primary" :loading="loading" @click="onOk">{{ $t('CardManagement.Sync.427942-2') }}</a-button>-->
@@ -9,7 +9,7 @@
 
 <script setup>
 import {useI18n} from "vue-i18n";
-import {syncTrafficPool} from "@networkCardManager/api/trafficPoolManagement";
+import {syncTrafficPool} from "@network-card-manager-ui/api/trafficPoolManagement";
 import {onlyMessage} from "@jetlinks-web/utils";
 
 const props = defineProps({

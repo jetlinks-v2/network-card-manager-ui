@@ -31,10 +31,10 @@
 <script setup>
 import Echarts from "@/components/Dashboard/components/Charts.vue";
 import {useI18n} from "vue-i18n";
-import {queryAlarmCount} from "@networkCardManager/api/trafficPoolManagement";
+import {queryAlarmCount} from "@network-card-manager-ui/api/trafficPoolManagement";
 import {quickBtnList} from "./data";
 import {TRAFFIC_POOL_INFO_KEY} from "../utils";
-import TimeSelect from "@networkCardManager/views/components/TimeSelect.vue";
+import TimeSelect from "@network-card-manager-ui/views/components/TimeSelect.vue";
 import {useMenuStore} from "@/store";
 
 const {t: $t} = useI18n();

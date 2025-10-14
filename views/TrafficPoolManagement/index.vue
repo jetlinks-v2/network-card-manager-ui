@@ -76,13 +76,13 @@
 
 <script setup>
 import {useI18n} from "vue-i18n";
-import {query} from "@networkCardManager/api/trafficPoolManagement";
+import {query} from "@network-card-manager-ui/api/trafficPoolManagement";
 import dayjs from "dayjs";
 import {useMenuStore} from "@/store";
-import Onelink from '@networkCardManager/assets/traffic-pool/onelink.png'
-import Telecom from '@networkCardManager/assets/traffic-pool/telecom.png'
-import Unicom from '@networkCardManager/assets/traffic-pool/unicom.png'
-import {OperatorList} from "@networkCardManager/views/data";
+import Onelink from '@network-card-manager-ui/assets/traffic-pool/onelink.png'
+import Telecom from '@network-card-manager-ui/assets/traffic-pool/telecom.png'
+import Unicom from '@network-card-manager-ui/assets/traffic-pool/unicom.png'
+import {OperatorList} from "@network-card-manager-ui/views/data";
 import Progress from "./components/Progress.vue";
 
 const {t: $t} = useI18n();
