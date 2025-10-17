@@ -69,7 +69,10 @@ const columns = [
     scopedSlots: true,
     width: 180,
     search: {
-      type: 'date'
+      type: 'date',
+      componentProps: {
+        showTime: true
+      }
     }
   },
   {
