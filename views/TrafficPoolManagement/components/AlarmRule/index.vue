@@ -60,7 +60,10 @@ const onSave = async () => {
   if(resp){
     loading.value = true;
     const res = await update(props.data.id, {
-      alarmConfig: resp,
+      alarmConfig: {
+        ...resp,
+        alarmLevel: 3
+      },
       alarmEnable: _dt.value.enabled,
     }).finally(() => {
       loading.value = false;
