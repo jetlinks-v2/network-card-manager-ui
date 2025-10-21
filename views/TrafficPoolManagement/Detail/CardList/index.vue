@@ -35,7 +35,7 @@
           <a-dropdown
               :trigger="['contextmenu']"
               :open="menuVisible"
-              @visible-change="handleVisible"
+              @open-change="handleVisible"
           >
             <template #overlay>
               <a-menu @click="handleMenuClick">
