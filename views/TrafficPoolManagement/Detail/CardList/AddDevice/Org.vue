@@ -6,7 +6,7 @@
       type="simple"
       style="padding: 0; margin: 16px 0"
   />
-  <div style="min-height: 0; flex: 1">
+  <div style="min-height: 0;">
     <j-pro-table
         mode="TABLE"
         type="TREE"
@@ -14,6 +14,7 @@
         :request="getTreeData_api"
         :bodyStyle="{padding: 0}"
         :params="params"
+        :height="250"
         :alertShow="false"
         :rowSelection="{
           type: 'radio',
