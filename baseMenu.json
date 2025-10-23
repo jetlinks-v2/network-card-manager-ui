@@ -368,6 +368,12 @@
                 "actions": [
                   "query"
                 ]
+              },
+              {
+                "permission": "network-card",
+                "actions": [
+                  "query"
+                ]
               }
             ]
           }
