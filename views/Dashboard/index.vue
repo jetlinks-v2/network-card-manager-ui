@@ -468,13 +468,18 @@ const getTopRang = async (data: any) => {
       "to": endTime,
     }
   }
-  if(topType.value === 'pool'){
+
+  const isPool = topType.value === 'pool'
+  let idKey = 'cardId'
+
+  if(isPool){
     params.params.groupBy = 'poolId'
+    idKey = 'poolId'
   }
   const resp: any = await dashboard(params)
   if(resp.success){
     const arr = resp.result
-        .map(i => ({...i.data.value, value: i.data.value.sum}))
+        .map(i => ({...i.data.value, cardId: i.data.value[idKey],  value: i.data.value.sum}))
         .sort((a: any, b: any) => b.value - a.value);
     topTotal.value = arr.length ? arr[0].value : 0;
     topList.value = arr;
