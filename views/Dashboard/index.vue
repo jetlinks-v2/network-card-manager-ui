@@ -131,7 +131,11 @@
                   <div class="number" :class="`number-item-${index + 1}`">
                     {{ index + 1 }}
                   </div>
-                  <div class="cardNum">{{ item.cardId }}</div>
+                  <div class="cardNum">
+                    <j-ellipsis>
+                      {{ item.cardId }}
+                    </j-ellipsis>
+                  </div>
                   <div class="progress">
                     <a-progress
                         :strokeColor="'#ADC6FF'"
@@ -163,7 +167,7 @@ import TimeSelect from '../components/TimeSelect.vue'
 import {Empty} from 'ant-design-vue'
 import {useI18n} from 'vue-i18n';
 import trafficImg from '@network-card-manager-ui/assets/dashboard/traffic-pool.png'
-import {dashboard} from "@network-card-manager-ui/api/cardManagement";
+import { dashboard, queryCardList } from '@network-card-manager-ui/api/cardManagement'
 import {queryAlarmCount} from "@network-card-manager-ui/api/trafficPoolManagement";
 import {map} from 'lodash-es'
 import {useMenuStore} from "@/store";
@@ -479,8 +483,21 @@ const getTopRang = async (data: any) => {
   const resp: any = await dashboard(params)
   if(resp.success){
     const arr = resp.result
-        .map(i => ({...i.data.value, cardId: i.data.value[idKey],  value: i.data.value.sum}))
-        .sort((a: any, b: any) => b.value - a.value);
+      .map(i => ({...i.data.value, cardNum: i.data.value.id, cardId: i.data.value[idKey],  value: i.data.value.sum}))
+      .sort((a: any, b: any) => b.value - a.value);
+
+    if (isPool && arr.length) {
+      await queryCardList(arr.map(item => item.cardId)).then(listResp=> {
+        if (listResp.success) {
+          const _map = new Map(listResp.result.map(item => [item.id, item.alias || item.name]));
+          arr.forEach((item) => {
+            item.cardId = _map.get(item.cardId);
+          })
+        }
+      })
+    }
+
+
     topTotal.value = arr.length ? arr[0].value : 0;
     topList.value = arr;
   }

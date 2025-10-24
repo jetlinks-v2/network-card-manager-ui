@@ -179,3 +179,12 @@ export const querySyncLog = (data: any) => request.post(`/network/card/flow/sync
 export const dashboard = (data:Record<string,any[]>)=> request.post('/dashboard/_multi',data);
 export const queryLocationById = (cardId: string)=> request.get(`/network/card/location/record/${cardId}/_query`);
 export const queryPlatformByIccid = (iccid: string)=> request.get(`/network/card/iccid/${iccid}/_platform`);
+
+export const queryCardList = (ids: string[]) => request.post('/network/card/pool/_query/no-paging', {
+  paging: false,
+  terms: [{
+    column: 'id',
+    termType: 'in',
+    value: ids
+  }]
+})
