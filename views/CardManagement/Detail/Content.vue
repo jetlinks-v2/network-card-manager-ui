@@ -203,7 +203,7 @@
             </template>
           </a-descriptions-item>
           <a-descriptions-item :label="$t('Detail.index.427958-28')">{{
-              marks[0]?.longitude &&marks[0]?.latitude ? `${marks[0]?.longitude},${marks[0]?.latitude}` : '--'
+              marks[0]?.longitude &&marks[0]?.latitude ? `${marks[0]?.location}` : '--'
             }}
           </a-descriptions-item>
           <a-descriptions-item :label="$t('Detail.index.427958-15')">{{
