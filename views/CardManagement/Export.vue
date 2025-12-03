@@ -28,8 +28,8 @@
 
 <script setup lang="ts">
 import { paramsEncodeQuery } from "@jetlinks-web-core/utils/encodeQuery";
-import { LocalStore } from "@jetlinks-web/utils";
-import { TOKEN_KEY } from "@jetlinks-web/constants";
+import { getToken } from '@jetlinks-web/utils'
+import { TOKEN_KEY_URL } from '@jetlinks-web/constants'
 import { useI18n } from "vue-i18n";
 
 const { t: $t } = useI18n();
@@ -55,7 +55,7 @@ const handleOk = () => {
       urlParams.append(key, _params[key]);
     }
   });
-  const url = `${origin}/api/network/card/download.${type.value}/_query?:X_Access_Token=${LocalStore.get(TOKEN_KEY)}&${urlParams}`;
+  const url = `${origin}/api/network/card/download.${type.value}/_query?${TOKEN_KEY_URL}=${getToken()}&${urlParams}`;
   window.open(url);
   loading.value = false;
   emit("close");
