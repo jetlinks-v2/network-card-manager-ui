@@ -54,9 +54,9 @@ import {
   downloadFileByUrl
 } from '@jetlinks-web/utils'
 import { exportCard } from '../../api/cardManagement'
-import { TOKEN_KEY, TOKEN_KEY_URL, BASE_API } from '@jetlinks-web/constants'
+import { TOKEN_KEY_URL } from '@jetlinks-web/constants'
 import { useI18n } from 'vue-i18n';
-import { getUploadHeaders } from '@jetlinks-web-core/utils'
+import { getBaseApi, getUploadHeaders } from '@jetlinks-web-core/utils'
 
 const { t: $t } = useI18n();
 type Emits = {
@@ -140,7 +140,7 @@ const handleImport = async (file: any) => {
   importStatus.value = 'importing'
   let event: EventSource
   event = new EventSource(
-    `${BASE_API}/network/card/${
+    `${getBaseApi()}/network/card/${
       props.product
     }/_import?${TOKEN_KEY_URL}=${getToken()}&fileUrl=${file.result.accessUrl}`,
     { withCredentials: true }
