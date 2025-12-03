@@ -260,7 +260,7 @@ import {TRAFFIC_POOL_INFO_KEY} from "@network-card-manager-ui/views/TrafficPoolM
 import {resumption, unbind} from "@network-card-manager-ui/api/cardManagement";
 import {onlyMessage} from "@jetlinks-web/utils";
 import {batchBindDevice, queryOperateState, batchUnbind} from "@network-card-manager-ui/api/trafficPoolManagement";
-import {useMenuStore} from "@/store";
+import {useMenuStore} from "@jetlinks-web-core/store";
 import dayjs from "dayjs";
 import {debounce} from "lodash-es";
 

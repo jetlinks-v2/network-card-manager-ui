@@ -130,7 +130,7 @@
 <script setup lang="ts">
 import { onlyMessage } from '@jetlinks-web/utils'
 import { queryList, update, del } from '../../api/platform'
-import { useMenuStore } from '@/store'
+import { useMenuStore } from '@jetlinks-web-core/store'
 import { iotCard } from '../../assets'
 import { useI18n } from 'vue-i18n';
 import { platformTypeList } from "../data";

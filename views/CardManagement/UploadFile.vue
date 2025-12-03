@@ -3,10 +3,8 @@
     <a-upload
       v-model:fileList="modelValue.upload"
       name="file"
-      :action="FileStaticPath"
-      :headers="{
-        [TOKEN_KEY]: LocalStore.get(TOKEN_KEY)
-      }"
+      :action="FileStaticPath()"
+      :headers="getUploadHeaders()"
       :maxCount="1"
       :showUploadList="false"
       @change="uploadChange"
@@ -49,9 +47,8 @@
 </template>
 
 <script lang="ts" setup>
-import { FileStaticPath } from '@/api/comm'
+import { FileStaticPath } from '@jetlinks-web-core/api/comm'
 import {
-  LocalStore,
   onlyMessage,
   getToken,
   downloadFileByUrl
@@ -59,6 +56,7 @@ import {
 import { exportCard } from '../../api/cardManagement'
 import { TOKEN_KEY, TOKEN_KEY_URL, BASE_API } from '@jetlinks-web/constants'
 import { useI18n } from 'vue-i18n';
+import { getUploadHeaders } from '@jetlinks-web-core/utils'
 
 const { t: $t } = useI18n();
 type Emits = {

@@ -80,7 +80,7 @@ import InfoImg from '@network-card-manager-ui/assets/realtime-positioning/info.p
 import HistoryList from "./HistoryList.vue";
 import {useI18n} from "vue-i18n";
 import dayjs from 'dayjs'
-import {useMenuStore} from "@/store";
+import {useMenuStore} from "@jetlinks-web-core/store";
 
 const props = defineProps({
   marks: {

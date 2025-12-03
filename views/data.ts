@@ -1,5 +1,5 @@
 import { iotCard } from '../assets/index'
-import i18n from '@/locales/index'
+import i18n from '@jetlinks-web-core/locales/index'
 const $t = i18n.global.t
 
 // 平台类型

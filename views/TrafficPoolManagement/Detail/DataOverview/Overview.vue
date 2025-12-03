@@ -38,7 +38,7 @@
 </template>
 
 <script setup>
-import Echarts from "@/components/Dashboard/components/Charts.vue";
+import Echarts from "@jetlinks-web-core/components/Dashboard/components/Charts.vue";
 import {colors} from "./data";
 import {useI18n} from "vue-i18n";
 import {TRAFFIC_POOL_INFO_KEY} from "../utils";

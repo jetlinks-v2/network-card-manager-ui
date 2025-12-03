@@ -87,7 +87,7 @@
 import {useI18n} from "vue-i18n";
 import {queryPositionRecord} from "@network-card-manager-ui/api/realtimePositioning";
 import dayjs from 'dayjs'
-import {useMenuStore} from "@/store";
+import {useMenuStore} from "@jetlinks-web-core/store";
 
 const props = defineProps({
   data: {

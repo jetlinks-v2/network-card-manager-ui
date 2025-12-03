@@ -170,7 +170,7 @@ import trafficImg from '@network-card-manager-ui/assets/dashboard/traffic-pool.p
 import { dashboard, queryCardList } from '@network-card-manager-ui/api/cardManagement'
 import {queryAlarmCount} from "@network-card-manager-ui/api/trafficPoolManagement";
 import {map} from 'lodash-es'
-import {useMenuStore} from "@/store";
+import {useMenuStore} from "@jetlinks-web-core/store";
 
 const {t: $t} = useI18n();
 const dayTotal = ref(0)

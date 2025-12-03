@@ -26,7 +26,7 @@
 </template>
 
 <script setup>
-import {getTreeData_api} from "@/api/system/department";
+import {getTreeData_api} from "@jetlinks-web-core/api/system/department";
 import {useI18n} from "vue-i18n";
 import {onlyMessage} from "@jetlinks-web/utils";
 import {queryDeviceNoPagingPost} from "@network-card-manager-ui/api/trafficPoolManagement";

@@ -355,7 +355,7 @@ import LineChart from "../../components/LineChart.vue";
 import TimeSelect from "../../components/TimeSelect.vue";
 import {OperatorList, platformTypeList} from "../../data";
 import {useI18n} from "vue-i18n";
-import {useMenuStore} from "@/store";
+import {useMenuStore} from "@jetlinks-web-core/store";
 import RealTimeMap from "../../RealtimePositioning/components/RealTimeMap.vue"
 import SyncRecord from './SyncRecord/index.vue'
 import {map} from "lodash-es";

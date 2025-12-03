@@ -66,7 +66,7 @@ import BatchSearch from './components/BatchSearch.vue';
 import {query} from '@network-card-manager-ui/api/cardManagement';
 import {useI18n} from "vue-i18n";
 import {OperatorMap, OperatorColor} from "@network-card-manager-ui/views/data";
-import {useMenuStore} from "@/store";
+import {useMenuStore} from "@jetlinks-web-core/store";
 
 const emits = defineEmits(['change'])
 

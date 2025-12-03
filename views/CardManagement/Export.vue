@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { paramsEncodeQuery } from "@/utils/encodeQuery";
+import { paramsEncodeQuery } from "@jetlinks-web-core/utils/encodeQuery";
 import { LocalStore } from "@jetlinks-web/utils";
 import { TOKEN_KEY } from "@jetlinks-web/constants";
 import { useI18n } from "vue-i18n";
