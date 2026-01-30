@@ -69,5 +69,6 @@ const register = () => {
 export default {
   getAsyncRoutesMap,
   getExtraRoutesMap,
-  register
+  register,
+  priority: -100
 }
