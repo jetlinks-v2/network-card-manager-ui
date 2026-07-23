@@ -40,6 +40,10 @@ const props = defineProps({
     type: Object,
     default: undefined,
   },
+  params: {
+    type: Object,
+    default: undefined,
+  },
 });
 
 const type = ref<string>("xlsx");
@@ -47,7 +51,7 @@ const loading = ref<boolean>(false);
 
 const handleOk = () => {
   loading.value = true;
-  const _params = paramsEncodeQuery(props.data);
+  const _params = paramsEncodeQuery(props.data?.length ? props.data: (props.params || {}));
   const urlParams = new URLSearchParams();
 
   Object.keys(_params).forEach((key) => {

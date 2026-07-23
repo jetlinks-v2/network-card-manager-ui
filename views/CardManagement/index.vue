@@ -299,8 +299,9 @@
     <!-- {{ $t('CardManagement.index.427944-68') }} -->
     <Export
         v-if="exportVisible"
-        @close="exportVisible = false"
         :data="_selectedRowKeys"
+        :params="params"
+        @close="exportVisible = false"
     />
     <!-- {{ $t('CardManagement.index.427944-4') }} -->
     <BindDevice
