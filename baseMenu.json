@@ -12,7 +12,7 @@
     },
     "id": "jetlinks-resource",
     "url": "/resources",
-    "icon": "ApiOutlined",
+    "icon": "icon-ziyuanzhongxin",
     "sortIndex": 10,
     "permissions": [],
     "buttons": [],
@@ -33,7 +33,7 @@
         "level": 2,
         "owner": "iot",
         "url": "/resources/sim",
-        "icon": "icon-wulianka",
+        "icon": "icon-wulianwangka",
         "permissions": [],
         "children": [
           {
@@ -52,7 +52,7 @@
             },
             "code": "iot-card/CardManagement",
             "url": "/resources/sim/cards",
-            "icon": "icon-wuliankaguanli",
+            "icon": "icon-yuandian",
             "status": 1,
             "showPage": [
               "network-card"
@@ -337,7 +337,7 @@
             },
             "code": "iot-card/TrafficPoolManagement",
             "url": "/resources/sim/pools",
-            "icon": "icon-shebei",
+            "icon": "icon-yuandian",
             "showPage": [
               "network-card-pool"
             ],
@@ -442,7 +442,7 @@
             },
             "code": "iot-card/RealtimePositioning",
             "url": "/resources/sim/location",
-            "icon": "icon-wulianwang",
+            "icon": "icon-yuandian",
             "showPage": [
               "network-card-pool"
             ],
@@ -486,7 +486,7 @@
             ],
             "code": "iot-card/Recharge",
             "url": "/resources/sim/recharge",
-            "icon": "icon-chongzhiguanli",
+            "icon": "icon-yuandian",
             "status": 1,
             "permissions": [
               {
@@ -565,7 +565,7 @@
             },
             "code": "iot-card/Platform",
             "url": "/resources/sim/integrations",
-            "icon": "icon-pingtaiduijie",
+            "icon": "icon-yuandian",
             "status": 1,
             "showPage": [
               "platform"
@@ -688,7 +688,7 @@
             },
             "code": "iot-card/Record",
             "url": "/resources/sim/logs",
-            "icon": "icon-tongzhijilu",
+            "icon": "icon-yuandian",
             "status": 1,
             "showPage": [
               "network-card"
