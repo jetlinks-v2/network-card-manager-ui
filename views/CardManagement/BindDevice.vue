@@ -40,7 +40,7 @@
           {{
             slotProps.registryTime
               ? dayjs(slotProps.registryTime).format('YYYY-MM-DD HH:mm:ss')
-              : '--'
+              : $t('comm.table.empty-2')
           }}
         </template>
         <template #state="slotProps">

@@ -132,14 +132,14 @@
               </template>
               <template #usedFlow="slotProps">
                 <div>
-                  {{ slotProps.usedFlow ? slotProps.usedFlow.toFixed(2) + ' M' : '--' }}
+                  {{ slotProps.usedFlow ? slotProps.usedFlow.toFixed(2) + ' M' : $t('comm.table.empty-2') }}
                 </div>
               </template>
               <template #activationDate="slotProps">
-                {{ slotProps.activationDate ? dayjs(slotProps.activationDate).format('YYYY-MM-DD HH:mm:ss') : '--' }}
+                {{ slotProps.activationDate ? dayjs(slotProps.activationDate).format('YYYY-MM-DD HH:mm:ss') : $t('comm.table.empty-2') }}
               </template>
               <template #updateTime="slotProps">
-                {{ slotProps.updateTime ? dayjs(slotProps.updateTime).format('YYYY-MM-DD HH:mm:ss') : '--' }}
+                {{ slotProps.updateTime ? dayjs(slotProps.updateTime).format('YYYY-MM-DD HH:mm:ss') : $t('comm.table.empty-2') }}
               </template>
               <template #cardStateType="slotProps">
                 <j-badge-status
@@ -163,10 +163,10 @@
                       deactivate: 'error'
                     }"
                 />
-                <span v-else>--</span>
+                <span v-else>{{ $t('comm.table.empty-2') }}</span>
               </template>
               <template #syncCardStatus="slotProps">
-                <span>{{ slotProps.syncCardStatus?.text || '--' }}</span>
+                <span>{{ slotProps.syncCardStatus?.text || $t('comm.table.empty-2') }}</span>
               </template>
               <template #bindDevice="record">
                 <div
@@ -184,7 +184,7 @@
                         :status="statusMap.get(dataObj[record.id]?.state?.value)"
                     />
                     <j-ellipsis>{{
-                        `${dataObj[record.id].deviceName || "--"}(${dataObj[record.id]?.deviceId || "--"})`
+                        `${dataObj[record.id].deviceName || $t('comm.table.empty')}(${dataObj[record.id]?.deviceId || $t('comm.table.empty')})`
                       }}
                     </j-ellipsis>
                   </div>
@@ -203,7 +203,7 @@
                     <a-badge
                         :status="statusMap.get(record?.deviceStatus?.value)"
                     />
-                    <j-ellipsis>{{ `${record.deviceName || "--"}(${record.deviceId || "--"})` }}</j-ellipsis>
+                    <j-ellipsis>{{ `${record.deviceName || $t('comm.table.empty')}(${record.deviceId || $t('comm.table.empty')})` }}</j-ellipsis>
                   </div>
                   <j-permission-button
                       type="link"

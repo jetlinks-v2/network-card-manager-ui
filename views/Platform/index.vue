@@ -68,7 +68,7 @@
                 </a-col>
                 <a-col :span="12">
                   <div class="card-item-content-text">{{ $t('Platform.index.838700-2') }}</div>
-                  <j-ellipsis>{{ slotProps.explain || '--' }}</j-ellipsis>
+                  <j-ellipsis>{{ slotProps.explain || $t('comm.table.empty') }}</j-ellipsis>
                 </a-col>
               </a-row>
             </template>

@@ -29,7 +29,7 @@
             <div class="_header">
               <div class="_header-left">
                 <div class="title" @click="onClick(item)">{{ item.id }}</div>
-                <a-tag :color="OperatorColor[item.operatorName]">{{ OperatorMap[item.operatorName] || '--' }}</a-tag>
+                <a-tag :color="OperatorColor[item.operatorName]">{{ OperatorMap[item.operatorName] || $t('comm.table.empty') }}</a-tag>
               </div>
               <a-spin size="small" :spinning="!!loadings[item.iccId]">
                 <div style="width: 30px">
@@ -46,11 +46,11 @@
             <div class="items-content">
               <div class="item">
                 <span>ICCD</span>
-                <j-ellipsis>{{ item.iccId || '--' }}</j-ellipsis>
+                <j-ellipsis>{{ item.iccId || $t('comm.table.empty') }}</j-ellipsis>
               </div>
               <div class="item">
                 <span>{{ $t('Detail.index.427958-3') }}</span>
-                <j-ellipsis>{{ item.deviceName || '--' }}</j-ellipsis>
+                <j-ellipsis>{{ item.deviceName || $t('comm.table.empty') }}</j-ellipsis>
               </div>
             </div>
           </div>

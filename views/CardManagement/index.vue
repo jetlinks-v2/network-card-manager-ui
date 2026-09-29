@@ -91,11 +91,11 @@
                       deactivate: 'error'
                     }"
                   />
-                  <span v-else>--</span>
+                  <span v-else>{{ $t('comm.table.empty-2') }}</span>
                 </a-col>
                 <a-col :span="6">
                   <div class="card-item-content-text">{{ $t('CardManagement.index.427944-3') }}</div>
-                  <div>{{ slotProps?.comboType?.text || '--' }}
+                  <div>{{ slotProps?.comboType?.text || $t('comm.table.empty-2') }}
                     <a-tooltip :title="$t('CardManagement.index.427944-81')">
                       <AIcon
                           type="QuestionCircleOutlined"
@@ -106,7 +106,7 @@
                 </a-col>
                 <a-col :span="6">
                   <div class="card-item-content-text">{{ $t('CardManagement.index.427944-4') }}</div>
-                  <j-ellipsis>{{ slotProps.deviceName || '--' }}</j-ellipsis>
+                  <j-ellipsis>{{ slotProps.deviceName || $t('comm.table.empty') }}</j-ellipsis>
                 </a-col>
               </a-row>
               <a-divider style="margin: 12px 0"/>
@@ -183,18 +183,18 @@
           </CardBox>
         </template>
         <template #deviceId="slotProps">
-          {{ slotProps.deviceName || '--' }}
+          {{ slotProps.deviceName || $t('comm.table.empty') }}
         </template>
         <template #totalFlow="slotProps">
           <div>
             {{
-              slotProps.totalFlow ? slotProps.totalFlow.toFixed(2) + ' M' : '--'
+              slotProps.totalFlow ? slotProps.totalFlow.toFixed(2) + ' M' : $t('comm.table.empty-2')
             }}
           </div>
         </template>
         <template #usedFlow="slotProps">
           <div>
-            {{ slotProps.usedFlow ? slotProps.usedFlow.toFixed(2) + ' M' : '--' }}
+            {{ slotProps.usedFlow ? slotProps.usedFlow.toFixed(2) + ' M' : $t('comm.table.empty-2') }}
           </div>
         </template>
         <template #residualFlow="slotProps">
@@ -202,15 +202,15 @@
             {{
               slotProps.residualFlow
                   ? slotProps.residualFlow.toFixed(2) + ' M'
-                  : '--'
+                  : $t('comm.table.empty-2')
             }}
           </div>
         </template>
         <template #operatorName="slotProps">
-          {{ slotProps.platformType?.text || "--" }}
+          {{ slotProps.platformType?.text || $t('comm.table.empty') }}
         </template>
         <template #comboType="slotProps">
-          {{ slotProps?.comboType?.text || '--' }}
+          {{ slotProps?.comboType?.text || $t('comm.table.empty-2') }}
         </template>
         <template #cardStateType="slotProps">
           <j-badge-status
@@ -224,7 +224,7 @@
           />
         </template>
         <template #syncCardStatus="slotProps">
-          <span>{{ slotProps.syncCardStatus?.text || '--' }}</span>
+          <span>{{ slotProps.syncCardStatus?.text || $t('comm.table.empty-2') }}</span>
         </template>
         <template #cardState="slotProps">
           <j-badge-status
@@ -237,13 +237,13 @@
               deactivate: 'error'
             }"
           />
-          <span v-else>--</span>
+          <span v-else>{{ $t('comm.table.empty-2') }}</span>
         </template>
         <template #activationDate="slotProps">
           {{
             slotProps.activationDate
                 ? dayjs(slotProps.activationDate).format('YYYY-MM-DD HH:mm:ss')
-                : '--'
+                : $t('comm.table.empty-2')
           }}
         </template>
         <template #flowError="slotProps">

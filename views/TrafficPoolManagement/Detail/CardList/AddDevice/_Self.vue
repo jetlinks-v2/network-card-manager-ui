@@ -35,7 +35,7 @@
         />
       </template>
       <template #createTime="slotProps">
-        <span>{{ slotProps.createTime ? dayjs(slotProps.createTime).format('YYYY-MM-DD HH:mm:ss') : '--' }}</span>
+        <span>{{ slotProps.createTime ? dayjs(slotProps.createTime).format('YYYY-MM-DD HH:mm:ss') : $t('comm.table.empty-2') }}</span>
       </template>
       <template #card="slotProps">
         <CardBox
