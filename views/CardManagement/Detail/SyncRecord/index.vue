@@ -1,14 +1,8 @@
 <template>
   <a-drawer open @close="emits('close')" :width="1000" :title="$t('Detail.index.427958-29')">
-    <pro-search
-        :columns="columns"
-        target="iot-card-management-sync-record-search"
-        @search="handleSearch"
-        style="padding: 0"
-        type="simple"
-    />
     <FullPage>
       <j-pro-table
+          class="pro-table__no-padding"
           v-if="data.id"
           :columns="columns"
           :request="querySyncLog"
@@ -17,8 +11,10 @@
         }"
           :params="params"
           mode="TABLE"
-          style="padding: 0"
       >
+        <template #headerLeftRender>
+          <ConditionFilter :columns="columns" @search="handleSearch" />
+        </template>
 <!--        <template #headerCell="{ column }">-->
 <!--          <template v-if="column.key === 'usedFlow'">-->
 <!--            {{$t('Detail.index.427958-11')}}-->

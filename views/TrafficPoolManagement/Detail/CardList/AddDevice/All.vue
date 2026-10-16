@@ -1,12 +1,7 @@
 <template>
-  <pro-search
-      :columns="columns"
-      target="traffic-pool-manage-search-select-device-all"
-      @search="handleSearch"
-      style="padding: 0"
-  />
   <div style="flex: 1; min-height: 0">
     <j-pro-table
+        class="pro-table__no-padding"
         ref="tableRef"
         mode="TABLE"
         :columns="columns"
@@ -15,6 +10,9 @@
         :params="_params"
         :bodyStyle="{padding: 0}"
     >
+      <template #headerLeftRender>
+        <ConditionFilter :columns="columns" @search="handleSearch" />
+      </template>
       <template #productId="slotProps">
         <span>{{ slotProps.productName }}</span>
       </template>
@@ -35,7 +33,7 @@
 </template>
 
 <script setup>
-import {queryDevice} from '@network-card-manager-ui/api/trafficPoolManagement';
+import {queryDevice, queryProductNoPagingPost} from '@network-card-manager-ui/api/trafficPoolManagement';
 import {useI18n} from 'vue-i18n';
 import dayjs from "dayjs";
 import {onlyMessage} from "@jetlinks-web/utils";
@@ -91,7 +89,7 @@ const columns = [
       rename: 'productId',
       options: () =>
           new Promise((resolve) => {
-            queryNoPagingPost({paging: false}).then((resp) => {
+            queryProductNoPagingPost({paging: false}).then((resp) => {
               resolve(
                   resp.result.map((item) => ({
                     label: item.name,

@@ -1,13 +1,9 @@
 <!-- 操作记录 -->
 <template>
   <j-page-container>
-    <pro-search
-      :columns="columns"
-      target="record-search"
-      @search="handleSearch"
-    />
     <FullPage>
       <j-pro-table
+        class="pro-table__no-padding"
         ref="RecordRef"
         :columns="columns"
         :request="queryList"
@@ -17,6 +13,9 @@
         :params="params"
         :mode="'TABLE'"
       >
+        <template #headerLeftRender>
+          <ConditionFilter :columns="columns" @search="handleSearch" />
+        </template>
         <template #type="slotProps">
           {{ slotProps.type?.text }}
         </template>

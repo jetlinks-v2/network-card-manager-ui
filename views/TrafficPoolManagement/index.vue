@@ -1,12 +1,8 @@
 <template>
   <j-page-container>
-    <pro-search
-        :columns="columns"
-        target="traffic-pool-management"
-        @search="handleSearch"
-    />
     <FullPage>
       <j-pro-table
+          class="pro-table__no-padding"
           ref="platformRef"
           :columns="columns"
           :request="query"
@@ -17,6 +13,9 @@
           mode="CARD"
           :gridColumns="[2]"
       >
+        <template #headerLeftRender>
+          <ConditionFilter :columns="columns" @search="handleSearch" />
+        </template>
         <template #card="slotProps">
           <CardBox
               :value="slotProps"

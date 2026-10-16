@@ -23,14 +23,9 @@
           </template>
         </div>
       </div>
-      <pro-search
-          :columns="columns"
-          type="simple"
-          @search="handleSearch"
-          style="padding: 0"
-      />
       <div class="table-content">
         <j-pro-table
+            class="pro-table__no-padding"
             v-if="data.cardId"
             :columns="columns"
             :request="queryPositionRecord"
@@ -47,8 +42,11 @@
             :params="params"
             mode="CARD"
             :gridColumns="[1]"
-            style="padding: 0; margin: 0"
+            style="margin: 0"
         >
+          <template #headerLeftRender>
+            <ConditionFilter :columns="columns" @search="handleSearch" />
+          </template>
           <template #card="item">
             <div class="_items-box">
               <div class="_items">

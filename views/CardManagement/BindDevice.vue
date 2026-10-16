@@ -12,14 +12,8 @@
     :confirmLoading="btnLoading"
   >
     <div style="margin-top: 10px">
-      <pro-search
-        :columns="columns"
-        target="iot-card-bind-device"
-        @search="handleSearch"
-        type="simple"
-        style="margin: 0; padding: 0"
-      />
       <j-pro-table
+        class="pro-table__no-padding"
         ref="bindDeviceRef"
         :alertShow="false"
         :columns="columns"
@@ -34,8 +28,11 @@
           onSelect: onSelectChange
         }"
         :params="params"
-        style="margin: 0; padding: 0"
+        style="margin: 0"
       >
+        <template #headerLeftRender>
+          <ConditionFilter :columns="columns" @search="handleSearch" />
+        </template>
         <template #registryTime="slotProps">
           {{
             slotProps.registryTime

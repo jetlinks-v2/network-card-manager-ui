@@ -2,8 +2,14 @@
   <j-page-container>
     <FullPage :fixed="false">
       <a-card>
-        <a-row :gutter="24">
-          <a-col :span="14">
+        <EqualHeightColumns
+            left-width="7fr"
+            right-width="5fr"
+            :gap="24"
+            height="auto"
+            :collapsible="false"
+        >
+          <template #left>
             <TitleComponent :data="$t('Detail.index.838702-0')" />
             <a-form
               :layout="'vertical'"
@@ -123,11 +129,11 @@
                 </a-button>
               </a-form-item>
             </a-form>
-          </a-col>
-          <a-col :span="10">
+          </template>
+          <template #right>
             <Doc :type="form.operatorName" />
-          </a-col>
-        </a-row>
+          </template>
+        </EqualHeightColumns>
       </a-card>
     </FullPage>
   </j-page-container>
