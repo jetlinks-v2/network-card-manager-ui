@@ -1,14 +1,17 @@
 <template>
   <j-page-container>
     <FullPage>
-      <div class="realtime-position-container">
-        <div class="realtime-position-container-left">
+      <EqualHeightColumns
+          :left-width="400"
+          :gap="24"
+      >
+        <template #left>
           <LeftList @change="onChange"/>
-        </div>
-        <div class="realtime-position-container-right">
+        </template>
+        <template #right>
           <RightGeo :cardIds="cardIds"/>
-        </div>
-      </div>
+        </template>
+      </EqualHeightColumns>
     </FullPage>
   </j-page-container>
 </template>
@@ -31,21 +34,5 @@ const onChange = (_item) => {
 </script>
 
 <style lang="less" scoped>
-.realtime-position-container {
-  height: 100%;
-  display: flex;
-  gap: 24px;
-  padding: 24px;
 
-  &-left {
-    height: 100%;
-    width: 400px;
-  }
-
-  &-right {
-    height: 100%;
-    min-width: 0;
-    flex: 1
-  }
-}
 </style>

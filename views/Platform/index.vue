@@ -1,13 +1,9 @@
 <!-- 平台对接 -->
 <template>
   <j-page-container>
-    <pro-search
-      :columns="columns"
-      target="platform-search"
-      @search="handleSearch"
-    />
     <FullPage>
       <j-pro-table
+        class="pro-table__no-padding"
         ref="platformRef"
         :columns="columns"
         :request="queryList"
@@ -19,7 +15,12 @@
         :gridColumns="[3, 3, 3]"
       >
         <template #headerLeftRender>
-          <a-space>
+          <a-flex align="center" :gap="8" wrap="wrap">
+            <ConditionFilter
+                :columns="columns"
+                style="flex: 1; min-width: 15rem"
+                @search="handleSearch"
+            />
             <!-- <j-button type="primary" @click="handleAdd">
                           <AIcon type="PlusOutlined" />{{ $t('Platform.index.838700-0') }}
                           </j-button> -->
@@ -30,7 +31,7 @@
             >
               <AIcon type="PlusOutlined" />{{ $t('Platform.index.838700-0') }}
             </j-permission-button>
-          </a-space>
+          </a-flex>
         </template>
         <template #card="slotProps">
           <CardBox

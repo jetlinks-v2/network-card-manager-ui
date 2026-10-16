@@ -1,13 +1,7 @@
 <template>
-  <pro-search
-      :columns="columns"
-      target="data-subscription-select-device"
-      @search="handleSearch"
-      style="padding: 0"
-      type="simple"
-  />
   <div style="flex: 1; min-height: 0">
     <j-pro-table
+        class="pro-table__no-padding"
         ref="tableRef"
         modeValue="TABLE"
         :columns="columns"
@@ -25,6 +19,9 @@
         }"
         :gridColumns="[3,3,3]"
     >
+      <template #headerLeftRender>
+        <ConditionFilter :columns="columns" @search="handleSearch" />
+      </template>
       <template #productId="slotProps">
         <span>{{ slotProps.productName }}</span>
       </template>

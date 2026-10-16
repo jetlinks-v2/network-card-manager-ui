@@ -1,14 +1,8 @@
 <template>
   <a-drawer :title="$t('Detail.index.427958-29')" open :width="1100" @close="emits('close')">
-    <pro-search
-        :columns="columns"
-        target="iot-card-management-sync-record-search"
-        @search="handleSearch"
-        style="padding: 0"
-        type="simple"
-    />
     <FullPage>
       <j-pro-table
+          class="pro-table__no-padding"
           v-if="data.id"
           :columns="columns"
           :request="querySyncLog"
@@ -17,8 +11,10 @@
         }"
           :params="params"
           mode="TABLE"
-          style="padding: 0"
       >
+        <template #headerLeftRender>
+          <ConditionFilter :columns="columns" @search="handleSearch" />
+        </template>
         <template #responseTime="slotProps">
           {{slotProps.responseTime ? dayjs(slotProps.responseTime).format('YYYY-MM-DD HH:mm:ss') : $t('comm.table.empty-2')}}
         </template>

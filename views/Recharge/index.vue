@@ -1,13 +1,9 @@
 <!-- 充值管理 -->
 <template>
   <j-page-container>
-    <pro-search
-      :columns="columns"
-      target="recharge-search"
-      @search="handleSearch"
-    />
     <FullPage>
       <j-pro-table
+        class="pro-table__no-padding"
         ref="rechargeRef"
         :columns="columns"
         :request="queryRechargeList"
@@ -18,7 +14,12 @@
         :params="params"
       >
         <template #headerLeftRender>
-          <a-space>
+          <a-flex align="center" :gap="8" wrap="wrap">
+            <ConditionFilter
+                :columns="columns"
+                style="flex: 1; min-width: 15rem"
+                @search="handleSearch"
+            />
             <j-permission-button
               @click="visible = true"
               :hasPermission="'iot-card/Recharge:pay'"
@@ -32,7 +33,7 @@
               </span>
               {{ $t('Recharge.index.444801-1') }}
             </div>
-          </a-space>
+          </a-flex>
         </template>
         <template #paymentType="slotProps">
           {{paymentMethod.find(item => item.value === slotProps.paymentType)?.text || slotProps.paymentType}}

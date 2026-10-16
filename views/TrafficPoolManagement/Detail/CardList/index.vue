@@ -1,241 +1,249 @@
 <template>
   <div style="display: flex; flex-direction: column; height: 100%;" v-if="info.id">
-    <div class="flex _between">
-      <div class="flex">
-        <div>{{ $t('TrafficPoolManagement.Detail.index.390590-6') }}</div>
-        <j-permission-button
-            v-if="!batchVisible"
-            type="link"
-            :hasPermission="'iot-card/TrafficPoolManagement:update'"
-            @click="handleBatchDevice"
-        >
-          <AIcon type="NodeIndexOutlined"/>
-          {{ $t('TrafficPoolManagement.Detail.index.390590-21') }}
-        </j-permission-button>
-      </div>
-      <j-permission-button
-          v-if="batchVisible"
-          type="primary"
-          :hasPermission="'iot-card/TrafficPoolManagement:update'"
-          @click="handleSave"
-      >
-        {{ $t('Detail.index.707691-25') }}
-      </j-permission-button>
-    </div>
-    <div class="box">
-      <div class="left">
-        <pro-search
-            :columns="columns"
-            target="traffic-pool-management-card-list"
-            @search="handleSearch"
-            type="simple"
-            style="padding: 16px 0; margin-bottom: 0"
-        />
-        <div style="min-height: 100px;flex: 1">
-          <a-dropdown
-              :trigger="['contextmenu']"
-              :open="menuVisible"
-              @open-change="handleVisible"
-          >
-            <template #overlay>
-              <a-menu @click="handleMenuClick">
-                <template v-if="_selectedRowKeys.length > 0">
-                  <a-menu-item key="batch-stop">
-                    <a-button type="text">
-                      <AIcon type="StopOutlined"/>
-                      {{ $t('CardManagement.index.427944-70') }}
-                    </a-button>
-                  </a-menu-item>
-                  <a-menu-item key="batch-reopen">
-                    <a-button type="text">
-                      <AIcon type="NodeIndexOutlined"/>
-                      {{ $t('CardManagement.index.427944-72') }}
-                    </a-button>
-                  </a-menu-item>
-                  <a-menu-item key="batch-unbind">
-                    <a-button type="text">
-                      <AIcon type="DisconnectOutlined"/>
-                      {{ $t('TrafficPoolManagement.Detail.index.390590-29') }}
-                    </a-button>
-                  </a-menu-item>
-                  <a-menu-item key="batch-delete">
-                    <a-button type="text" danger>
-                      <AIcon type="DeleteOutlined"/>
-                      {{ $t('CardManagement.index.427944-74') }}
-                    </a-button>
-                  </a-menu-item>
-                </template>
-                <template v-else-if="rowValue.id">
-                  <a-menu-item key="reopen" v-if="rowValue.cardStateType?.value === 'deactivate'">
-                    <a-button type="text">
-                      <AIcon type="StopOutlined"/>
-                      {{ $t('Record.index.705509-6') }}
-                    </a-button>
-                  </a-menu-item>
-                  <a-menu-item key="stop" v-else>
-                    <a-button type="text">
-                      <AIcon type="StopOutlined"/>
-                      {{ $t('CardManagement.index.427944-27') }}
-                    </a-button>
-                  </a-menu-item>
-                  <a-menu-item key="bind" v-if="!rowValue.deviceId">
-                    <a-button type="text">
-                      <AIcon type="NodeIndexOutlined"/>
-                      {{ $t('CardManagement.index.427944-4') }}
-                    </a-button>
-                  </a-menu-item>
-                  <a-menu-item key="unbind" v-else>
-                    <a-button type="text">
-                      <AIcon type="NodeIndexOutlined"/>
-                      {{ $t('CardManagement.index.427944-53') }}
-                    </a-button>
-                  </a-menu-item>
-                  <a-menu-item key="delete">
-                    <a-button type="text" danger>
-                      <AIcon type="DeleteOutlined"/>
-                      {{ $t('CardManagement.index.427944-62') }}
-                    </a-button>
-                  </a-menu-item>
-                </template>
-              </a-menu>
-            </template>
-            <j-pro-table
-                :request="queryDetailList"
-                ref="tableRef"
-                :params="params"
-                :columns="columns"
-                mode="TABLE"
-                style="padding: 0"
-                :customRow="
-                  (record) => ({
-                      onContextmenu: (e) =>
-                          handleRow(e, record),
-                  })
-              "
-                :defaultParams="{
-                    sorts: [{ name: 'createTime', order: 'desc' }],
-                    terms: [
-                        {
-                            column: 'poolId',
-                            value: info?.id || '',
-                            termType: 'eq',
-                        },
-                    ],
-                }"
-                :rowSelection="{
-                    selectedRowKeys: _selectedRowKeys,
-                    onChange: onSelectChange,
-                }"
+    <EqualHeightColumns
+        class="box"
+        left-width="1fr"
+        :right-width="batchVisible ? '400px' : '0px'"
+        :gap="batchVisible ? 24 : 0"
+        :collapsible="false"
+    >
+      <template #left>
+        <div class="left">
+          <div style="min-height: 0; flex: 1">
+            <a-dropdown
+                :trigger="['contextmenu']"
+                :open="menuVisible"
+                @open-change="handleVisible"
             >
-              <template #id="slotProps">
-                <a @click="handleClick(slotProps)">{{ slotProps.id }}</a>
+              <template #overlay>
+                <a-menu @click="handleMenuClick">
+                  <template v-if="_selectedRowKeys.length > 0">
+                    <a-menu-item key="batch-stop">
+                      <a-button type="text">
+                        <AIcon type="StopOutlined"/>
+                        {{ $t('CardManagement.index.427944-70') }}
+                      </a-button>
+                    </a-menu-item>
+                    <a-menu-item key="batch-reopen">
+                      <a-button type="text">
+                        <AIcon type="NodeIndexOutlined"/>
+                        {{ $t('CardManagement.index.427944-72') }}
+                      </a-button>
+                    </a-menu-item>
+                    <a-menu-item key="batch-unbind">
+                      <a-button type="text">
+                        <AIcon type="DisconnectOutlined"/>
+                        {{ $t('TrafficPoolManagement.Detail.index.390590-29') }}
+                      </a-button>
+                    </a-menu-item>
+                    <a-menu-item key="batch-delete">
+                      <a-button type="text" danger>
+                        <AIcon type="DeleteOutlined"/>
+                        {{ $t('CardManagement.index.427944-74') }}
+                      </a-button>
+                    </a-menu-item>
+                  </template>
+                  <template v-else-if="rowValue.id">
+                    <a-menu-item key="reopen" v-if="rowValue.cardStateType?.value === 'deactivate'">
+                      <a-button type="text">
+                        <AIcon type="StopOutlined"/>
+                        {{ $t('Record.index.705509-6') }}
+                      </a-button>
+                    </a-menu-item>
+                    <a-menu-item key="stop" v-else>
+                      <a-button type="text">
+                        <AIcon type="StopOutlined"/>
+                        {{ $t('CardManagement.index.427944-27') }}
+                      </a-button>
+                    </a-menu-item>
+                    <a-menu-item key="bind" v-if="!rowValue.deviceId">
+                      <a-button type="text">
+                        <AIcon type="NodeIndexOutlined"/>
+                        {{ $t('CardManagement.index.427944-4') }}
+                      </a-button>
+                    </a-menu-item>
+                    <a-menu-item key="unbind" v-else>
+                      <a-button type="text">
+                        <AIcon type="NodeIndexOutlined"/>
+                        {{ $t('CardManagement.index.427944-53') }}
+                      </a-button>
+                    </a-menu-item>
+                    <a-menu-item key="delete">
+                      <a-button type="text" danger>
+                        <AIcon type="DeleteOutlined"/>
+                        {{ $t('CardManagement.index.427944-62') }}
+                      </a-button>
+                    </a-menu-item>
+                  </template>
+                </a-menu>
               </template>
-              <template #usedFlow="slotProps">
-                <div>
-                  {{ slotProps.usedFlow ? slotProps.usedFlow.toFixed(2) + ' M' : $t('comm.table.empty-2') }}
-                </div>
-              </template>
-              <template #activationDate="slotProps">
-                {{ slotProps.activationDate ? dayjs(slotProps.activationDate).format('YYYY-MM-DD HH:mm:ss') : $t('comm.table.empty-2') }}
-              </template>
-              <template #updateTime="slotProps">
-                {{ slotProps.updateTime ? dayjs(slotProps.updateTime).format('YYYY-MM-DD HH:mm:ss') : $t('comm.table.empty-2') }}
-              </template>
-              <template #cardStateType="slotProps">
-                <j-badge-status
-                    :status="slotProps.cardStateType?.value"
-                    :text="slotProps.cardStateType?.text"
-                    :statusNames="{
-                    using: 'processing',
-                    toBeActivated: 'default',
-                    deactivate: 'error'
+              <j-pro-table
+                  class="pro-table__no-padding"
+                  :request="queryDetailList"
+                  ref="tableRef"
+                  :params="params"
+                  :columns="columns"
+                  mode="TABLE"
+                  :customRow="
+                    (record) => ({
+                        onContextmenu: (e) =>
+                            handleRow(e, record),
+                    })
+                "
+                  :defaultParams="{
+                      sorts: [{ name: 'createTime', order: 'desc' }],
+                      terms: [
+                          {
+                              column: 'poolId',
+                              value: info?.id || '',
+                              termType: 'eq',
+                          },
+                      ],
                   }"
-                />
-              </template>
-              <template #cardState="slotProps">
-                <j-badge-status
-                    v-if="slotProps.cardState?.value"
-                    :status="slotProps.cardState?.value"
-                    :text="slotProps.cardState?.text"
-                    :statusNames="{
+                  :rowSelection="{
+                      selectedRowKeys: _selectedRowKeys,
+                      onChange: onSelectChange,
+                  }"
+              >
+                <template #headerLeftRender>
+                  <a-flex align="center" :gap="8" wrap="wrap">
+                    <span>{{ $t('TrafficPoolManagement.Detail.index.390590-6') }}</span>
+                    <ConditionFilter
+                        :columns="columns"
+                        style="flex: 1; min-width: 15rem"
+                        @search="handleSearch"
+                    />
+                    <j-permission-button
+                        v-if="!batchVisible"
+                        type="link"
+                        :hasPermission="'iot-card/TrafficPoolManagement:update'"
+                        @click="handleBatchDevice"
+                    >
+                      <AIcon type="NodeIndexOutlined"/>
+                      {{ $t('TrafficPoolManagement.Detail.index.390590-21') }}
+                    </j-permission-button>
+                    <j-permission-button
+                        v-if="batchVisible"
+                        type="primary"
+                        :hasPermission="'iot-card/TrafficPoolManagement:update'"
+                        @click="handleSave"
+                    >
+                      {{ $t('Detail.index.707691-25') }}
+                    </j-permission-button>
+                  </a-flex>
+                </template>
+                <template #id="slotProps">
+                  <a @click="handleClick(slotProps)">{{ slotProps.id }}</a>
+                </template>
+                <template #usedFlow="slotProps">
+                  <div>
+                    {{ slotProps.usedFlow ? slotProps.usedFlow.toFixed(2) + ' M' : $t('comm.table.empty-2') }}
+                  </div>
+                </template>
+                <template #activationDate="slotProps">
+                  {{ slotProps.activationDate ? dayjs(slotProps.activationDate).format('YYYY-MM-DD HH:mm:ss') : $t('comm.table.empty-2') }}
+                </template>
+                <template #updateTime="slotProps">
+                  {{ slotProps.updateTime ? dayjs(slotProps.updateTime).format('YYYY-MM-DD HH:mm:ss') : $t('comm.table.empty-2') }}
+                </template>
+                <template #cardStateType="slotProps">
+                  <j-badge-status
+                      :status="slotProps.cardStateType?.value"
+                      :text="slotProps.cardStateType?.text"
+                      :statusNames="{
                       using: 'processing',
                       toBeActivated: 'default',
                       deactivate: 'error'
                     }"
-                />
-                <span v-else>{{ $t('comm.table.empty-2') }}</span>
-              </template>
-              <template #syncCardStatus="slotProps">
-                <span>{{ slotProps.syncCardStatus?.text || $t('comm.table.empty-2') }}</span>
-              </template>
-              <template #bindDevice="record">
-                <div
-                    class="bind-device unbind"
-                    v-if="batchVisible && !dataObj[record.id]?.deviceId && !record.deviceId"
-                    :class="record.index === activeOverIndex ? 'active' : ''"
-                    @drop="(e) => onDrop(e, record)"
-                    @dragover="(e) => dragover(e, record.index)"
-                    @dragleave="dragleave"
-                >{{ $t('TrafficPoolManagement.Detail.index.390590-44') }}
-                </div>
-                <div class="bind-device bind" v-else-if="dataObj[record.id]?.deviceId">
-                  <div class="bind-left">
-                    <a-badge
-                        :status="statusMap.get(dataObj[record.id]?.state?.value)"
-                    />
-                    <j-ellipsis>{{
-                        `${dataObj[record.id].deviceName || $t('comm.table.empty')}(${dataObj[record.id]?.deviceId || $t('comm.table.empty')})`
-                      }}
-                    </j-ellipsis>
-                  </div>
-                  <a-button type="link" @click="onRemove(record)">
-                    <AIcon type="CloseOutlined"/>
-                  </a-button>
-                </div>
-                <div
-                    class="bind-device unbind"
-                    v-else-if="!record.deviceId"
-                    @click="onClick(record)"
-                >{{ $t('TrafficPoolManagement.Detail.index.390590-23') }}
-                </div>
-                <div class="bind-device bind" v-else>
-                  <div class="bind-left">
-                    <a-badge
-                        :status="statusMap.get(record?.deviceStatus?.value)"
-                    />
-                    <j-ellipsis>{{ `${record.deviceName || $t('comm.table.empty')}(${record.deviceId || $t('comm.table.empty')})` }}</j-ellipsis>
-                  </div>
-                  <j-permission-button
-                      type="link"
-                      :tooltip="{
-                        title: $t('CardManagement.index.427944-53'),
+                  />
+                </template>
+                <template #cardState="slotProps">
+                  <j-badge-status
+                      v-if="slotProps.cardState?.value"
+                      :status="slotProps.cardState?.value"
+                      :text="slotProps.cardState?.text"
+                      :statusNames="{
+                        using: 'processing',
+                        toBeActivated: 'default',
+                        deactivate: 'error'
                       }"
-                      :popConfirm="{
-                        title: $t('CardManagement.index.427944-54'),
-                        okText: $t('CardManagement.index.427944-55'),
-                        cancelText: $t('CardManagement.index.427944-56'),
-                        onConfirm: () => {
-                          onUnbind(record)
-                        }
-                      }"
-                  >
-                    <AIcon type="DisconnectOutlined"/>
-                  </j-permission-button>
-                </div>
-              </template>
-            </j-pro-table>
-          </a-dropdown>
+                  />
+                  <span v-else>{{ $t('comm.table.empty-2') }}</span>
+                </template>
+                <template #syncCardStatus="slotProps">
+                  <span>{{ slotProps.syncCardStatus?.text || $t('comm.table.empty-2') }}</span>
+                </template>
+                <template #bindDevice="record">
+                  <div
+                      class="bind-device unbind"
+                      v-if="batchVisible && !dataObj[record.id]?.deviceId && !record.deviceId"
+                      :class="record.index === activeOverIndex ? 'active' : ''"
+                      @drop="(e) => onDrop(e, record)"
+                      @dragover="(e) => dragover(e, record.index)"
+                      @dragleave="dragleave"
+                  >{{ $t('TrafficPoolManagement.Detail.index.390590-44') }}
+                  </div>
+                  <div class="bind-device bind" v-else-if="dataObj[record.id]?.deviceId">
+                    <div class="bind-left">
+                      <a-badge
+                          :status="statusMap.get(dataObj[record.id]?.state?.value)"
+                      />
+                      <j-ellipsis>{{
+                          `${dataObj[record.id].deviceName || $t('comm.table.empty')}(${dataObj[record.id]?.deviceId || $t('comm.table.empty')})`
+                        }}
+                      </j-ellipsis>
+                    </div>
+                    <a-button type="link" @click="onRemove(record)">
+                      <AIcon type="CloseOutlined"/>
+                    </a-button>
+                  </div>
+                  <div
+                      class="bind-device unbind"
+                      v-else-if="!record.deviceId"
+                      @click="onClick(record)"
+                  >{{ $t('TrafficPoolManagement.Detail.index.390590-23') }}
+                  </div>
+                  <div class="bind-device bind" v-else>
+                    <div class="bind-left">
+                      <a-badge
+                          :status="statusMap.get(record?.deviceStatus?.value)"
+                      />
+                      <j-ellipsis>{{ `${record.deviceName || $t('comm.table.empty')}(${record.deviceId || $t('comm.table.empty')})` }}</j-ellipsis>
+                    </div>
+                    <j-permission-button
+                        type="link"
+                        :tooltip="{
+                          title: $t('CardManagement.index.427944-53'),
+                        }"
+                        :popConfirm="{
+                          title: $t('CardManagement.index.427944-54'),
+                          okText: $t('CardManagement.index.427944-55'),
+                          cancelText: $t('CardManagement.index.427944-56'),
+                          onConfirm: () => {
+                            onUnbind(record)
+                          }
+                        }"
+                    >
+                      <AIcon type="DisconnectOutlined"/>
+                    </j-permission-button>
+                  </div>
+                </template>
+              </j-pro-table>
+            </a-dropdown>
+          </div>
+          <a-space>
+            <a-badge :text="$t('CardManagement.BindDevice.427957-8')" status="success"/>
+            <a-badge :text="$t('CardManagement.BindDevice.427957-7')" status="error"/>
+            <a-badge :text="$t('CardManagement.BindDevice.427957-6')" status="warning"/>
+          </a-space>
         </div>
-        <a-space>
-          <a-badge :text="$t('CardManagement.BindDevice.427957-8')" status="success"/>
-          <a-badge :text="$t('CardManagement.BindDevice.427957-7')" status="error"/>
-          <a-badge :text="$t('CardManagement.BindDevice.427957-6')" status="warning"/>
-        </a-space>
-      </div>
-      <div v-if="batchVisible" class="right">
-        <UnbindDevice :data="_bindData"/>
-      </div>
-    </div>
+      </template>
+      <template #right>
+        <div v-if="batchVisible" class="right">
+          <UnbindDevice :data="_bindData"/>
+        </div>
+      </template>
+    </EqualHeightColumns>
   </div>
   <BindDevice
       v-if="bind.visible"
@@ -660,22 +668,13 @@ defineExpose({
 </script>
 
 <style lang="less" scoped>
-.flex {
-  display: flex;
-  align-items: center;
-}
-
-._between {
-  justify-content: space-between;
-}
-
 .box {
-  display: flex;
-  min-height: 100px;
+  min-height: 0;
   flex: 1;
 
   .left {
-    flex: 1;
+    height: 100%;
+    min-height: 0;
     min-width: 0;
     display: flex;
     flex-direction: column;
@@ -683,9 +682,8 @@ defineExpose({
   }
 
   .right {
-    margin: 16px 0 0 24px;
-    width: 400px;
     height: 100%;
+    overflow-y: auto;
   }
 }
 

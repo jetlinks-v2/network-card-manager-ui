@@ -1,16 +1,26 @@
 <template>
   <a-modal :confirm-loading="loading" open :title="$t('TrafficPoolManagement.Detail.index.390590-2')" :width="800" @cancel="emits('close')" @ok="onSave">
-    <div class="alarm-rule-box">
-      <div class="tabs">
-        <div v-for="item in tabList" :key="item.key" class="tabs-item">
-          <a-switch v-model:checked="item.enabled"/>
-          {{ item.label }}
+    <EqualHeightColumns
+        class="alarm-rule-box"
+        :height="300"
+        :left-width="200"
+        :gap="24"
+        :collapsible="false"
+    >
+      <template #left>
+        <div class="tabs">
+          <div v-for="item in tabList" :key="item.key" class="tabs-item">
+            <a-switch v-model:checked="item.enabled"/>
+            {{ item.label }}
+          </div>
         </div>
-      </div>
-      <div class="right">
-        <component :data="data" ref="componentsRef" :is="components[activeKey]" :disabled="!_dt.enabled"/>
-      </div>
-    </div>
+      </template>
+      <template #right>
+        <div class="right">
+          <component :data="data" ref="componentsRef" :is="components[activeKey]" :disabled="!_dt.enabled"/>
+        </div>
+      </template>
+    </EqualHeightColumns>
   </a-modal>
 </template>
 
@@ -78,14 +88,10 @@ const onSave = async () => {
 
 <style lang="less" scoped>
 .alarm-rule-box {
-  display: flex;
-  gap: 24px;
-  height: 300px;
-
   .tabs {
-    width: 200px;
-    border-right: 1px solid #f0f0f0;
+    height: 100%;
     padding-right: 24px;
+    overflow-y: auto;
 
     &-item {
       display: flex;
@@ -97,8 +103,8 @@ const onSave = async () => {
   }
 
   .right {
-    flex: 1;
-    min-width: 0;
+    height: 100%;
+    overflow-y: auto;
   }
 }
 </style>

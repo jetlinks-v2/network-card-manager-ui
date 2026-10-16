@@ -1,13 +1,9 @@
 <!-- 物联卡管理 -->
 <template>
   <j-page-container>
-    <pro-search
-        :columns="columns"
-        target="iot-card-management-search"
-        @search="handleSearch"
-    />
     <FullPage>
       <j-pro-table
+          class="pro-table__no-padding"
           :scroll="{ x: '2500px' }"
           ref="cardManageRef"
           :columns="columns"
@@ -30,7 +26,12 @@
           :gridColumns="[2]"
       >
         <template #headerLeftRender>
-          <a-space>
+          <a-flex align="center" :gap="8" wrap="wrap">
+            <ConditionFilter
+                :columns="columns"
+                style="flex: 1; min-width: 15rem"
+                @search="handleSearch"
+            />
             <j-permission-button
                 @click="handleAdd"
                 :hasPermission="'iot-card/CardManagement:add'"
@@ -44,7 +45,7 @@
                 :actions="batchActions"
                 @change="onCheckChange"
             />
-          </a-space>
+          </a-flex>
         </template>
         <template #card="slotProps">
           <CardBox

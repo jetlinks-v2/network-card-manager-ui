@@ -1,19 +1,8 @@
 <template>
   <div class="left">
-    <div class="header">
-      <a-input-search
-          :placeholder="$t('RealtimePositioning.index.390590-0')"
-          v-model:value="searchValue"
-          @search="onSearch"
-          allow-clear
-      />
-      <a-button @click="visible = true" type="primary">
-        <AIcon type="SwitcherOutlined"/>
-        {{ $t('RealtimePositioning.index.390590-1') }}
-      </a-button>
-    </div>
     <div class="left-list">
       <j-pro-table
+          class="pro-table__no-padding"
           :columns="[]"
           :request="query"
           :defaultParams="{
@@ -22,8 +11,22 @@
           :params="params"
           mode="CARD"
           :gridColumns="[1]"
-          style="padding: 0; margin: 0"
+          style="margin: 0"
       >
+        <template #headerLeftRender>
+          <div class="header">
+            <a-input-search
+                :placeholder="$t('RealtimePositioning.index.390590-0')"
+                v-model:value="searchValue"
+                @search="onSearch"
+                allow-clear
+            />
+            <a-button @click="visible = true" type="primary">
+              <AIcon type="SwitcherOutlined"/>
+              {{ $t('RealtimePositioning.index.390590-1') }}
+            </a-button>
+          </div>
+        </template>
         <template #card="item">
           <div :key="item.id" class="items">
             <div class="_header">

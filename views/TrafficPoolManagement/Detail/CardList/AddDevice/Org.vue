@@ -1,13 +1,8 @@
 <template>
   <a-alert :message="$t('Save.SelectDevices.386303-18', [deviceCount])"/>
-  <pro-search
-      :columns="columns"
-      @search="handleSearch"
-      type="simple"
-      style="padding: 0; margin: 16px 0"
-  />
   <div style="min-height: 0;">
     <j-pro-table
+        class="pro-table__no-padding"
         mode="TABLE"
         type="TREE"
         :columns="columns"
@@ -21,7 +16,11 @@
           selectedRowKeys: _selectedRowKeys,
           onChange: onChange,
       }"
-    />
+    >
+      <template #headerLeftRender>
+        <ConditionFilter :columns="columns" @search="handleSearch" />
+      </template>
+    </j-pro-table>
   </div>
 </template>
 
