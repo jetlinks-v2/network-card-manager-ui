@@ -97,7 +97,7 @@
               />
             </FullPage>
             <div class="empty-body" v-else>
-              <a-empty :image="Empty.PRESENTED_IMAGE_SIMPLE"/>
+              <CloudEmpty/>
             </div>
           </div>
         </a-col>
@@ -150,7 +150,7 @@
               </div>
             </FullPage>
             <div class="empty-body" v-else>
-              <a-empty :image="Empty.PRESENTED_IMAGE_SIMPLE"/>
+              <CloudEmpty/>
             </div>
           </div>
         </a-col>
@@ -164,7 +164,6 @@ import Guide from '../components/Guide.vue'
 import LineChart from '../components/LineChart.vue'
 import dayjs from 'dayjs'
 import TimeSelect from '../components/TimeSelect.vue'
-import {Empty} from 'ant-design-vue'
 import {useI18n} from 'vue-i18n';
 import trafficImg from '@network-card-manager-ui/assets/dashboard/traffic-pool.png'
 import { dashboard, queryCardList } from '@network-card-manager-ui/api/cardManagement'
