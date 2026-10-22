@@ -1,6 +1,17 @@
 <!-- 物联卡管理 -->
 <template>
-  <j-page-container>
+
+  <DefineEmptyCreate>
+    <j-permission-button
+        @click="handleAdd"
+        :hasPermission="'iot-card/CardManagement:add'"
+        type="primary"
+    >
+      <AIcon type="PlusOutlined"/>
+      {{ $t('CardManagement.index.427944-0') }}
+    </j-permission-button>
+  </DefineEmptyCreate>
+  <j-page-container v-bind="$attrs">
     <FullPage>
       <j-pro-table
           class="pro-table__no-padding"
@@ -25,6 +36,11 @@
           modeValue="CARD"
           :gridColumns="[2]"
       >
+        <template #emptyText>
+          <CloudEmpty :search="params?.terms" :search-name="$t('Home.index.662663-4')">
+            <EmptyCreateButton />
+          </CloudEmpty>
+        </template>
         <template #headerLeftRender>
           <a-flex align="center" :gap="8" wrap="wrap">
             <ConditionFilter
@@ -32,14 +48,7 @@
                 style="flex: 1; min-width: 15rem"
                 @search="handleSearch"
             />
-            <j-permission-button
-                @click="handleAdd"
-                :hasPermission="'iot-card/CardManagement:add'"
-                type="primary"
-            >
-              <AIcon type="PlusOutlined"/>
-              {{ $t('CardManagement.index.427944-0') }}
-            </j-permission-button>
+            <EmptyCreateButton />
             <BatchDropdown
                 v-model:isCheck="isCheck"
                 :actions="batchActions"
@@ -324,6 +333,8 @@
 </template>
 
 <script setup lang="ts">
+import { createReusableTemplate } from '@vueuse/core'
+
 import dayjs from 'dayjs'
 import {
   queryPlatformNoPage,
@@ -1060,6 +1071,8 @@ onMounted(() => {
     handleAdd()
   }
 })
+
+const [DefineEmptyCreate, EmptyCreateButton] = createReusableTemplate()
 </script>
 
 <style scoped lang="less">

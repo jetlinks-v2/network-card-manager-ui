@@ -1,6 +1,16 @@
 <!-- 平台对接 -->
 <template>
-  <j-page-container>
+
+  <DefineEmptyCreate>
+    <j-permission-button
+      @click="handleAdd"
+      :hasPermission="'iot-card/Platform:add'"
+      type="primary"
+    >
+      <AIcon type="PlusOutlined" />{{ $t('Platform.index.838700-0') }}
+    </j-permission-button>
+  </DefineEmptyCreate>
+  <j-page-container v-bind="$attrs">
     <FullPage>
       <j-pro-table
         class="pro-table__no-padding"
@@ -14,6 +24,11 @@
         modeValue="CARD"
         :gridColumns="[3, 3, 3]"
       >
+        <template #emptyText>
+          <CloudEmpty :search="params?.terms" :search-name="$t('EmptyCreate.names.platforms')">
+            <EmptyCreateButton />
+          </CloudEmpty>
+        </template>
         <template #headerLeftRender>
           <a-flex align="center" :gap="8" wrap="wrap">
             <ConditionFilter
@@ -24,13 +39,7 @@
             <!-- <j-button type="primary" @click="handleAdd">
                           <AIcon type="PlusOutlined" />{{ $t('Platform.index.838700-0') }}
                           </j-button> -->
-            <j-permission-button
-              @click="handleAdd"
-              :hasPermission="'iot-card/Platform:add'"
-              type="primary"
-            >
-              <AIcon type="PlusOutlined" />{{ $t('Platform.index.838700-0') }}
-            </j-permission-button>
+            <EmptyCreateButton />
           </a-flex>
         </template>
         <template #card="slotProps">
@@ -129,6 +138,8 @@
 </template>
 
 <script setup lang="ts">
+import { createReusableTemplate } from '@vueuse/core'
+
 import { onlyMessage } from '@jetlinks-web/utils'
 import { queryList, update, del } from '../../api/platform'
 import { useMenuStore } from '@jetlinks-web-core/store'
@@ -297,6 +308,8 @@ const handleAdd = () => {
     params: { id: ':id' }
   })
 }
+
+const [DefineEmptyCreate, EmptyCreateButton] = createReusableTemplate()
 </script>
 
 <style scoped lang="less"></style>

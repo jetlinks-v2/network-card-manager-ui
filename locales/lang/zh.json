@@ -854,5 +854,6 @@
 	"RealtimePositioning.index.390590-11": "失败记录",
 	"RealtimePositioning.index.390590-12": "卡片定位失败",
 	"RealtimePositioning.index.390590-13": "部分卡片定位失败",
-	"RealtimePositioning.index.390590-14": "卡片定位失败，请稍后再试"
+	"RealtimePositioning.index.390590-14": "卡片定位失败，请稍后再试",
+	"EmptyCreate.names.platforms": "平台"
 }
