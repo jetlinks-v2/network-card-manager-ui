@@ -854,5 +854,6 @@
 	"RealtimePositioning.index.390590-11": "Failed Record",
 	"RealtimePositioning.index.390590-12": "Card Location Failed",
 	"RealtimePositioning.index.390590-13": "Partial Card Location Failed",
-	"RealtimePositioning.index.390590-14": "Card Location Failed, Please Try Again Later"
+	"RealtimePositioning.index.390590-14": "Card Location Failed, Please Try Again Later",
+	"EmptyCreate.names.platforms": "platforms"
 }
