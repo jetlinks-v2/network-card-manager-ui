@@ -346,7 +346,11 @@
               "value": "support"
             },
             "supportDataAccess": true,
-            "assetType": "networkCard"
+            "assetType": "networkCard",
+            "assetTypes": [
+              "networkCard",
+              "networkCardPlatform"
+            ]
           },
           {
             "sortIndex": 20,
