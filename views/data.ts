@@ -7,18 +7,21 @@ export const platformTypeList = [
   {
     label: $t('views.data.812529-0'),
     value: 'onelink',
+    tagColor: 'geekblue',
     imgUrl: iotCard.onelink,
     imgSize: ['78px', '20px']
   },
   {
     label: $t('views.data.812529-1'),
     value: 'ctwing',
+    tagColor: 'blue',
     imgUrl: iotCard.ctwingCmp,
     imgSize: ['52px', '25px']
   },
   {
     label: $t('views.data.812529-2'),
     value: 'unicom',
+    tagColor: 'volcano',
     imgUrl: iotCard.unicom,
     imgSize: ['56px', '41px']
   }

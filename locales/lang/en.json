@@ -855,5 +855,18 @@
 	"RealtimePositioning.index.390590-12": "Card Location Failed",
 	"RealtimePositioning.index.390590-13": "Partial Card Location Failed",
 	"RealtimePositioning.index.390590-14": "Card Location Failed, Please Try Again Later",
-	"EmptyCreate.names.platforms": "platforms"
+	"EmptyCreate.names.platforms": "platforms",
+	"SimList.all": "All",
+	"SimList.name": "Name",
+	"SimList.addPlatform": "Add platform connection",
+	"SimList.addCard": "Add SIM card",
+	"SimList.cardSearch": "Search name / card number / ICCID",
+	"SimList.platformSearch": "Search name / platform type / description",
+	"SimList.flowUsage": "Data usage",
+	"SimList.remaining": "Remaining",
+	"SimList.used": "Used",
+	"SimList.loadFailed": "Unable to load the list. Please retry.",
+	"SimList.retry": "Retry",
+	"SimList.confirmDisable": "Disable this platform connection?",
+	"SimList.confirmEnable": "Enable this platform connection?"
 }

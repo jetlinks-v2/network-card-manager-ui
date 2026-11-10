@@ -855,5 +855,18 @@
 	"RealtimePositioning.index.390590-12": "卡片定位失败",
 	"RealtimePositioning.index.390590-13": "部分卡片定位失败",
 	"RealtimePositioning.index.390590-14": "卡片定位失败，请稍后再试",
-	"EmptyCreate.names.platforms": "平台"
+	"EmptyCreate.names.platforms": "平台",
+	"SimList.all": "全部",
+	"SimList.name": "名称",
+	"SimList.addPlatform": "新增平台接入",
+	"SimList.addCard": "新增物联卡",
+	"SimList.cardSearch": "搜索名称 / 卡号 / ICCID",
+	"SimList.platformSearch": "搜索名称 / 平台类型 / 说明",
+	"SimList.flowUsage": "流量使用情况",
+	"SimList.remaining": "剩余",
+	"SimList.used": "已用",
+	"SimList.loadFailed": "列表加载失败，请重试",
+	"SimList.retry": "重试",
+	"SimList.confirmDisable": "确认禁用此平台接入？",
+	"SimList.confirmEnable": "确认启用此平台接入？"
 }
