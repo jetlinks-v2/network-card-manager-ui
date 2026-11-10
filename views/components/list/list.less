@@ -1,0 +1,9 @@
+.sim-list {
+  .sim-list__identity { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; max-width: 100%; }
+  .sim-list__secondary { display: block; color: var(--ink-3); font-weight: normal; }
+  .sim-list__name { padding: 0; max-width: 100%; height: auto; text-align: left; font-weight: 600; }
+  .sim-list__state { padding: var(--space-1) var(--space-3); border-radius: var(--r-pill); font-size: inherit; }
+  :deep(.jtable-body-header) { flex-wrap: wrap; gap: var(--space-3); }
+  :deep(.jtable-body-header-left) { flex: 1; min-width: 18rem; }
+  :deep(.jtable-body-header-right) { flex-shrink: 0; }
+}
