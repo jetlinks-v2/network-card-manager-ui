@@ -2,6 +2,13 @@
 
 运行时前端模块，菜单定义见 `baseMenu.json`，页面入口位于 `views/`。
 
+## 平台接入详情返回入口
+
+- 局部调整（S）：在 `views/Platform/Detail/index.vue` 左上角复用设备详情的 `PageChrome`、左箭头和文字按钮，返回平台接入列表。通过现有菜单 Store 的 `jumpPage('iot-card/Platform')` 解析真实菜单地址，并保留当前查询参数；不依赖浏览历史。
+- 范围仅为本模块详情页与中英日语言资源；保留已有表单、保存、权限及路由定义。详情页共 279 行，未新增组件或业务抽象。
+- 验证：`node ../ui/scripts/check-ui-style.mjs --files modules/network-card-manager-ui/views/Platform/Detail/index.vue` 与 `git diff --check` 通过；`node node_modules/vue-tsc/bin/vue-tsc.js --noEmit -p modules/network-card-manager-ui/tsconfig.json` 改前、改后均为 234 项既有诊断，忽略行号后完全一致，无新增错误。Node 22.18.0 下模块生产构建通过（在 `runtime-ui/jetlinks-web-core` 执行 `node --max-old-space-size=8192 ../node_modules/vite/bin/vite.js build --outDir /tmp/platform-back-module-build -- --module-name network-card-manager-ui`），仍有既有 CSS 与大包告警；无独立 lint 脚本，未执行全量应用构建。
+- 浏览器：在已登录的 `localhost:9200` 验证现有平台详情与新增页面均显示面板外返回按钮，点击均回到 `/resources/sim/integrations` 列表；未提交表单或更改业务数据。作者 Review：PASS，改动符合局部复用范围，未改变公共组件或后端契约。
+
 ## 物联卡与平台接入列表新版布局
 
 ### 目标与范围

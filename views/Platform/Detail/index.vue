@@ -1,4 +1,14 @@
 <template>
+  <PageChrome>
+    <a-button
+      class="platform-detail__back"
+      type="text"
+      @click="menuStore.jumpPage('iot-card/Platform', { query: route.query })"
+    >
+      <template #icon><AIcon type="LeftOutlined" /></template>
+      {{ $t('Platform.detail.backToList') }}
+    </a-button>
+  </PageChrome>
   <j-page-container>
     <FullPage :fixed="false">
       <a-card>
@@ -146,8 +156,10 @@ import Doc from '../doc/index.vue'
 import { platformTypeList } from '../../data'
 import { onlyMessage } from '@jetlinks-web/utils'
 import { useI18n } from 'vue-i18n';
+import { useMenuStore } from '@jetlinks-web-core/store'
 
 const { t: $t } = useI18n();
+const menuStore = useMenuStore()
 const router = useRouter()
 const route = useRoute()
 
@@ -251,3 +263,17 @@ const handleSave = async () => {
 
 getDetail()
 </script>
+
+<style scoped>
+.platform-detail__back.ant-btn {
+  height: auto;
+  padding: 0;
+  color: var(--jet-theme-text-secondary);
+}
+
+.platform-detail__back.ant-btn:hover,
+.platform-detail__back.ant-btn:focus {
+  color: var(--jet-theme-primary);
+  background: transparent;
+}
+</style>
