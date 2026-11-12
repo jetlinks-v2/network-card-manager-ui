@@ -11,8 +11,10 @@
   </div>
 </template>
 
-<script setup name="CardDetail">
+<script setup>
 import Content from './Content.vue'
+
+defineOptions({ name: 'CardDetail' })
 
 const props = defineProps({
   type: {

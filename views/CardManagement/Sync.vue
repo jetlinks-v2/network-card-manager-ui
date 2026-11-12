@@ -15,10 +15,12 @@
   </a-modal>
 </template>
 
-<script setup name="SyncModal">
+<script setup>
 import {queryCount, sync} from '../../api/cardManagement'
 import { useI18n } from 'vue-i18n';
 import {onlyMessage} from "@jetlinks-web/utils";
+
+defineOptions({ name: 'SyncModal' })
 
 const { t: $t } = useI18n();
 const emit = defineEmits(['close'])
