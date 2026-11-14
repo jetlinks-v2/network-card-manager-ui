@@ -338,7 +338,7 @@
   />
 </template>
 
-<script setup lang="ts" name="CardDetail">
+<script setup lang="ts">
 import dayjs from "dayjs";
 import type {CardManagement} from "../typing";
 import {
@@ -360,6 +360,8 @@ import RealTimeMap from "../../RealtimePositioning/components/RealTimeMap.vue"
 import SyncRecord from './SyncRecord/index.vue'
 import {map} from "lodash-es";
 import {onlyMessage} from "@jetlinks-web/utils";
+
+defineOptions({ name: 'CardDetail' })
 
 const {t: $t} = useI18n();
 const props = defineProps({

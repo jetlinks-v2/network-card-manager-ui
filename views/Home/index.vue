@@ -82,7 +82,7 @@
   </j-page-container>
 </template>
 
-<script setup lang="ts" name="IotCardHome">
+<script setup lang="ts">
 import {onlyMessage} from '@jetlinks-web/utils'
 import Guide from '../components/Guide.vue'
 import dayjs from 'dayjs'
@@ -92,6 +92,8 @@ import {useAuthStore, useMenuStore} from '@jetlinks-web-core/store'
 import {iotCard, home} from '../../assets'
 import {useI18n} from 'vue-i18n';
 import {dashboard} from "@network-card-manager-ui/api/cardManagement";
+
+defineOptions({ name: 'IotCardHome' })
 
 const {t: $t} = useI18n();
 const {proxy} = <any>getCurrentInstance()
