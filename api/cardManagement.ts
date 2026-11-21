@@ -1,3 +1,4 @@
+import type { CardDetail, CardPosition, CardResponse, DashboardQuery } from './cardDetail.types'
 import { request } from '@jetlinks-web/core'
 
 /**
@@ -147,7 +148,7 @@ export const edit = (data: any) => request.put(`/network/card/${data.id}`, data)
  * @param id
  */
 export const queryDetail = (id: any) => request.get(`/network/card/${id}`)
-export const queryDetailById = (id: any) => request.get(`/network/card/detail/${id}`)
+export const queryDetailById = (id: string): Promise<CardResponse<CardDetail>> => request.get(`/network/card/detail/${id}`)
 
 /**
  * 查询物联卡充值缴费日志
@@ -165,7 +166,7 @@ export const recharge = (data: any) =>
 export const queryCount = (data: any) =>
   request.post(`/network/card/_count`, data)
 
-export const queryDeactivate = (id: string) =>
+export const queryDeactivate = (id: string): Promise<CardResponse<{ message?: string }>> =>
   request.get(`/network/card/${id}/stop/reason`)
 
 /**
@@ -176,8 +177,8 @@ export const getPayType = () => request.get(`/dictionary/network-card-payment-ty
 // 同步记录查询
 export const querySyncLog = (data: any) => request.post(`/network/card/flow/sync/_log`, data)
 
-export const dashboard = (data:Record<string,any[]>)=> request.post('/dashboard/_multi',data);
-export const queryLocationById = (cardId: string)=> request.get(`/network/card/location/record/${cardId}/_query`);
+export const dashboard = <T = unknown>(data: DashboardQuery | DashboardQuery[]): Promise<CardResponse<T>> => request.post('/dashboard/_multi', data)
+export const queryLocationById = (cardId: string): Promise<CardResponse<CardPosition>> => request.get(`/network/card/location/record/${cardId}/_query`)
 export const queryPlatformByIccid = (iccid: string)=> request.get(`/network/card/iccid/${iccid}/_platform`);
 
 export const queryCardList = (ids: string[]) => request.post('/network/card/pool/_query/no-paging', {

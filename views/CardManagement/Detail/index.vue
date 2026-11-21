@@ -1,28 +1,25 @@
-<!-- 物联卡查看 -->
 <template>
-  <j-page-container v-if="type === 'card'">
-    <!-- 新增 -->
-    <FullPage :fixed="false" style="background: transparent">
-      <Content :type="type"/>
-    </FullPage>
-  </j-page-container>
-  <div v-else>
-    <Content :type="type"/>
-  </div>
+  <!-- The route may reuse this component for another card; its complete request/UI scope must not be reused. -->
+  <CardDetailPage
+    v-if="type === 'card' && cardId"
+    :key="cardId"
+    :id="cardId"
+  />
+  <j-empty v-else-if="type === 'card'" />
+  <Content
+    v-else
+    :type="type"
+  />
 </template>
 
-<script setup>
-import Content from './Content.vue'
+<script setup lang="ts">
+import { computed, defineAsyncComponent } from 'vue'
+import { useRoute } from 'vue-router'
+import CardDetailPage from './CardDetailPage.vue'
 
 defineOptions({ name: 'CardDetail' })
-
-const props = defineProps({
-  type: {
-    type: String,
-    default: "card",
-  },
-});
+withDefaults(defineProps<{ type?: string }>(), { type: 'card' })
+const Content = defineAsyncComponent(() => import('./Content.vue'))
+const route = useRoute()
+const cardId = computed(() => (typeof route.params.id === 'string' ? route.params.id : ''))
 </script>
-<style scoped lang="less">
-
-</style>

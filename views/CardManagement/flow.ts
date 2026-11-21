@@ -27,8 +27,8 @@ export function flowProgressColor(remainingPercent: number | undefined): string 
   return remainingPercent === undefined ? undefined : remainingPercent <= 20 ? 'var(--danger)' : 'var(--success)'
 }
 
-export function formatCardFlow(value: number | undefined): string {
-  if (value === undefined) return '—'
+export function formatCardFlow(value: number | undefined, emptyText = '—'): string {
+  if (value === undefined) return emptyText
   const divisor = value >= 1024 ? 1024 : 1
   return `${(value / divisor).toLocaleString(undefined, { maximumFractionDigits: 2 })} ${divisor === 1 ? 'MB' : 'GB'}`
 }

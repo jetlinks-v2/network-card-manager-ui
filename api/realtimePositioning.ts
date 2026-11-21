@@ -1,7 +1,8 @@
+import type { CardPosition, CardResponse } from './cardDetail.types'
 import {request} from '@jetlinks-web/core'
 
 // 获取卡定位
-export const getPositionById = (cardId: string) => request.get(`/network/card/${cardId}/_location`)
+export const getPositionById = (cardId: string): Promise<CardResponse<CardPosition>> => request.get(`/network/card/${cardId}/_location`)
 // 批量获取卡定位
 export const queryBatchPosition = (data: any) => request.post(`/network/card/_location/batch`, data)
 

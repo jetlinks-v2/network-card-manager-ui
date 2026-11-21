@@ -2,6 +2,19 @@
 
 运行时前端模块，菜单定义见 `baseMenu.json`，页面入口位于 `views/`。
 
+## 独立物联卡详情
+
+运行时路由 `/resources/sim/cards/detail/:id` 由 `views/CardManagement/Detail/index.vue` 按卡号挂载独立页面，切卡时重置请求和页签。设备详情的物联卡扩展和旧嵌入内容保持不变；未改后端、菜单、路由地址和权限。
+
+- `CardDetailPage.vue` 复用设备详情的 `PageChrome`、`PageBack`、`DetailHeader`、`SlantedTabs`。名称为空时显示卡号；返回按原菜单定位列表，不依赖浏览历史。编辑继续使用 `iot-card/CardManagement:update` 和原表单，保存成功后重读详情。
+- `CardOverview.vue` 分两栏展示接入信息、使用信息与套餐流量、卡片状态；窄屏单列。单卡进度为本卡已用 / 本卡总量；流量池独立显示池总量、池剩余与本卡已用，不混算比例。档案和关联字段缺失显示「未配置」，上报字段缺失显示「未上报」，真实零值正常展示。保留绑定设备、所属池、同步记录和失败原因入口。
+- `CardStatistics.vue` / `CardLocation.vue` 首次进入才查询。周期汇总和趋势复用原 `/dashboard/_multi` 契约，时间筛选只刷新趋势；切回页签不重复首次加载。定位页打开即显示底图，读历史、无坐标或查询失败时不卸载地图；无结果仅显示文字提示，有有效坐标才标点。底图沿用系统地图配置，联通跳过历史查询。只有显式点击「运营商定位」才调用可能计费的 `/_location`；历史重试不调用该接口。
+- 验证：模块根目录 `node --test tests/*.test.mjs` 17/17 通过（含底图在加载、无坐标及失败时保留的模板回归）；样式门禁（6 个 Vue 文件）及 `git diff --check` 通过。运行时前端使用 Node 22 执行 `node node_modules/vue-tsc/bin/vue-tsc.js --noEmit -p modules/network-card-manager-ui/tsconfig.json --pretty false`，整体仍未通过：诊断从改前 211 项降至 204 项，无新增。模块无独立 lint 脚本；在 `runtime-ui/jetlinks-web-core` 执行 `node --max-old-space-size=8192 ../node_modules/vite/bin/vite.js build --outDir /tmp/sim-module-build -- --module-name network-card-manager-ui` 构建通过，保留既有 CSS / 分包告警。
+- 浏览器验证使用真实页面组件，模拟接口、菜单跳转和权限。覆盖桌面/390px、编辑保存回显、同步记录抽屉、单卡/池卡与失败原因、统计和定位按需请求、切卡与返回。给定 9000 地址在无登录态会话跳转登录页；发布后仍需在已登录环境核验真实账号权限、第三方地图和真实卡数据。补验：在浏览器中以 SDK 替身和模拟接口确认无点时地图已挂载，返回有效坐标后同一地图新增标记，切回页签不重复主动定位；修正后样式门禁和模块构建通过，类型诊断仍为 204 项。未对真实卡写入或调用运营商定位。
+
+- 概览版式与提示：外层 `ContentPanel` 统一留白，概览不再加 padding；`sim-detail-body` 与概览沿 flex 列拉伸，桌面分隔线抵达面板内边距，窄屏切回单列。摘要的 ID、运营商、套餐类型使用 `DetailMetaItem` 合并提示，图标和值使用同一条「字段名：值」提示。列表继续使用原有占位符。
+- 本轮浏览器验证（真实组件、模拟接口）：1280×940 下概览自身 padding 为 0，左侧和竖线底端分别距面板边缘 16px，对应面板自身留白；390px 窄屏无竖线、无横向溢出，长说明可滚动到卡片状态。三项摘要均验证了图标和值的悬停；概览及统计中缺失与 `0 MB`、明确的「未同步」区分正确。模块测试 17/17、三文件样式检查与生产构建通过；模块类型检查仍有 204 项既有诊断，无新增。
+
 ## 平台接入详情返回入口
 
 - 局部调整（S）：在 `views/Platform/Detail/index.vue` 左上角复用设备详情的 `PageChrome`、左箭头和文字按钮，返回平台接入列表。通过现有菜单 Store 的 `jumpPage('iot-card/Platform')` 解析真实菜单地址，并保留当前查询参数；不依赖浏览历史。

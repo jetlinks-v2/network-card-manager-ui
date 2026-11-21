@@ -46,6 +46,8 @@ test('flow display distinguishes real zero, missing values and a zero denominato
   assert.deepEqual(cardFlowSummary({ usedFlow: 0, totalFlow: 0, residualFlow: 0 }), { used: 0, total: 0, residual: 0, remainingPercent: undefined })
   assert.equal(formatCardFlow(0), '0 MB')
   assert.equal(formatCardFlow(undefined), '—')
+  assert.equal(formatCardFlow(undefined, '未上报'), '未上报')
+  assert.equal(formatCardFlow(0, '未上报'), '0 MB')
   assert.equal(cardFlowSummary({ residualFlow: NaN, totalFlow: 1024 }).remainingPercent, undefined)
   assert.equal(cardFlowSummary({ usedFlow: 100, totalFlow: 1024 }).remainingPercent, undefined)
   assert.equal(cardFlowSummary({ residualFlow: 2048, totalFlow: 1024 }).remainingPercent, 100)
