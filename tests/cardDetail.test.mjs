@@ -104,7 +104,7 @@ test('overview requests only its card; an unmounted/older request cannot replace
   assert.deepEqual(
     jumps.map(([menu, options]) => [menu, options]),
     [
-      ['device/Instance/Detail', { params: { id: 'sensor' } }],
+      ['iot-user-device-list/Detail', { params: { id: 'sensor' } }],
       ['iot-card/TrafficPoolManagement/Detail', { params: { id: 'pool' } }],
       ['iot-card/CardManagement', { query: { src: 'list' } }]
     ]

@@ -40,7 +40,7 @@ export function useCardDetail(id: string) {
     const device = kind === 'device'
     const target = device ? card.data.value?.deviceId : card.data.value?.poolId
     if (target)
-      menu.jumpPage(device ? 'device/Instance/Detail' : 'iot-card/TrafficPoolManagement/Detail', {
+      menu.jumpPage(device ? 'iot-user-device-list/Detail' : 'iot-card/TrafficPoolManagement/Detail', {
         params: { id: target }
       })
   }

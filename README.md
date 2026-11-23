@@ -8,6 +8,7 @@
 
 - `CardDetailPage.vue` 复用设备详情的 `PageChrome`、`PageBack`、`DetailHeader`、`SlantedTabs`。名称为空时显示卡号；返回按原菜单定位列表，不依赖浏览历史。编辑继续使用 `iot-card/CardManagement:update` 和原表单，保存成功后重读详情。
 - `CardOverview.vue` 分两栏展示接入信息、使用信息与套餐流量、卡片状态；窄屏单列。单卡进度为本卡已用 / 本卡总量；流量池独立显示池总量、池剩余与本卡已用，不混算比例。档案和关联字段缺失显示「未配置」，上报字段缺失显示「未上报」，真实零值正常展示。保留绑定设备、所属池、同步记录和失败原因入口。
+- 概览的「绑定设备」由 `views/CardManagement/Detail/useCardDetail.ts` 按菜单 `iot-user-device-list/Detail` 跳转到 `/resources/devices/list/Detail/:id`；`:id` 取绑定设备的 `deviceId`，不是卡号。模块回归测试（17/17）和生产构建通过；类型检查与改前同为 204 项诊断，模块无独立 lint 脚本。真实账号的设备详情访问权限仍需在已登录页面点击验证。
 - `CardStatistics.vue` / `CardLocation.vue` 首次进入才查询。周期汇总和趋势复用原 `/dashboard/_multi` 契约，时间筛选只刷新趋势；切回页签不重复首次加载。定位页打开即显示底图，读历史、无坐标或查询失败时不卸载地图；无结果仅显示文字提示，有有效坐标才标点。底图沿用系统地图配置，联通跳过历史查询。只有显式点击「运营商定位」才调用可能计费的 `/_location`；历史重试不调用该接口。
 - 验证：模块根目录 `node --test tests/*.test.mjs` 17/17 通过（含底图在加载、无坐标及失败时保留的模板回归）；样式门禁（6 个 Vue 文件）及 `git diff --check` 通过。运行时前端使用 Node 22 执行 `node node_modules/vue-tsc/bin/vue-tsc.js --noEmit -p modules/network-card-manager-ui/tsconfig.json --pretty false`，整体仍未通过：诊断从改前 211 项降至 204 项，无新增。模块无独立 lint 脚本；在 `runtime-ui/jetlinks-web-core` 执行 `node --max-old-space-size=8192 ../node_modules/vite/bin/vite.js build --outDir /tmp/sim-module-build -- --module-name network-card-manager-ui` 构建通过，保留既有 CSS / 分包告警。
 - 浏览器验证使用真实页面组件，模拟接口、菜单跳转和权限。覆盖桌面/390px、编辑保存回显、同步记录抽屉、单卡/池卡与失败原因、统计和定位按需请求、切卡与返回。给定 9000 地址在无登录态会话跳转登录页；发布后仍需在已登录环境核验真实账号权限、第三方地图和真实卡数据。补验：在浏览器中以 SDK 替身和模拟接口确认无点时地图已挂载，返回有效坐标后同一地图新增标记，切回页签不重复主动定位；修正后样式门禁和模块构建通过，类型诊断仍为 204 项。未对真实卡写入或调用运营商定位。
