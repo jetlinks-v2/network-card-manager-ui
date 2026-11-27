@@ -456,6 +456,31 @@
                     ]
                   }
                 ]
+              },
+              {
+                "id": "delete",
+                "name": "删除",
+                "i18nMessages": {
+                  "zh_CN": "删除",
+                  "en_US": "Delete",
+                  "en": "Delete",
+                  "ja": "削除",
+                  "ja_JP": "削除"
+                },
+                "permissions": [
+                  {
+                    "permission": "IotCard-management",
+                    "actions": [
+                      "delete"
+                    ]
+                  },
+                  {
+                    "permission": "network-card",
+                    "actions": [
+                      "delete"
+                    ]
+                  }
+                ]
               }
             ],
             "accessSupport": {
